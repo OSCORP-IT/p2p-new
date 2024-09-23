@@ -10,7 +10,7 @@ export default {
         textColor3: "#777986",
         textGradient1: "#649697",
         textGradient2: "#08312F",
-        accent: "#FF6321",
+        accent: "#ff6b00",
         primaryBackground: "#F2FAFA",
         bgGradient1: "#DEECE8",
         bgGradient2: "#B3D4D8",
