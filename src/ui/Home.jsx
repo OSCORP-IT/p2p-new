@@ -1,27 +1,32 @@
-import AccentButton from "../components/AccentButton";
-import Heading1 from "../components/Heading1";
-import Heading2 from "../components/Heading2";
-import InfoButton from "../components/InfoButton";
-import PrimaryButton from "../components/PrimaryButton";
-import SmallText from "../components/SmallText";
 import SubHeading from "../components/SubHeading";
-import Text from "../components/Text";
+import PrimaryButton from "../components/PrimaryButton";
 import Title from "../components/Title";
-
+import Hero from "../assets/MainHero.png";
+import ChartLineUp from "../icon/ChartLineUp";
 function Home() {
   return (
-    <div className="m-auto w-[600px]">
-      <Title>Home</Title>
-      <Heading1>Personal Loans</Heading1>
-      <Heading2>Personal Loans</Heading2>
-      <SubHeading>Sub-Heading</SubHeading>
-      <Text>Text </Text>
-      <SmallText>Small Text</SmallText>
-      <PrimaryButton>Get Started With Your Preferred Loan</PrimaryButton>
-      <br />
-      <AccentButton>Get Fund Now</AccentButton>
-      <br />
-      <InfoButton>Read More</InfoButton>
+    <div className="w-full relative">
+      <div className="absolute -top-20 -left-16 -z-50 blur-[150px] bg-secondary/60 rounded-full w-[380px] h-[380px]  overflow-hidden"></div>
+      <div className="absolute -bottom-10 -right-6 -z-50 blur-[150px] bg-secondary/60 rounded-full w-[300px] h-[300px]  overflow-hidden"></div>
+      <div className="w-5/6 m-auto flex items-start pt-8 h-[450px]">
+        <div className="w-2/5">
+          <Title>FINTECH today with online loans & more</Title>
+          <SubHeading font={"normal"}>
+            Smart, simple tools for borrowing, saving & earning
+          </SubHeading>
+          <div className="py-4">
+            <PrimaryButton>Get Started With Your Preferred Loan</PrimaryButton>
+          </div>
+        </div>
+        <div className="w-3/5">
+          <div className="flex justify-end">
+            <img src={Hero} alt="hero image" className="h-full object-cover" />
+          </div>
+        </div>
+      </div>
+      <div className="w-5/6 m-auto">
+        <ChartLineUp />
+      </div>
     </div>
   );
 }

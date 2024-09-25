@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0D5152",
-        secondary: "#03A6A6",
+        primary: "#062829",
+        secondary: "#4A7C7D",
         titleColor: "#22252b",
         textColor3: "#777986",
         textGradient1: "#649697",
@@ -21,6 +21,9 @@ export default {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+      },
+      boxShadow: {
+        allSide: "0 0 10px 5px rgba(0, 0, 0, 0.5)", // Example custom shadow
       },
     },
   },
