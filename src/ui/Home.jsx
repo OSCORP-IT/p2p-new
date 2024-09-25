@@ -2,7 +2,6 @@ import SubHeading from "../components/SubHeading";
 import PrimaryButton from "../components/PrimaryButton";
 import Title from "../components/Title";
 import Hero from "../assets/MainHero.png";
-import ChartLineUp from "../icon/ChartLineUp";
 function Home() {
   return (
     <div className="w-full relative">
@@ -24,9 +23,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="w-5/6 m-auto">
-        <ChartLineUp />
-      </div>
+      <div className="w-5/6 m-auto"></div>
     </div>
   );
 }
