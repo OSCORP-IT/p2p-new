@@ -10,7 +10,9 @@ function Hero() {
       <div className="absolute -bottom-10 right-0 -z-50 blur-[150px] bg-secondary/60 rounded-full w-[300px] h-[300px]  overflow-hidden"></div>
       <div className="px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto flex items-start pt-8 tab:h-[450px]">
         <div className="hidden sm:block sm:w-1/2 tab:w-2/5">
-          <Title>FINTECH today with online loans & more</Title>
+          <Title align={"text-center"}>
+            FINTECH today with online loans & more
+          </Title>
           <SubHeading font={"normal"}>
             Smart, simple tools for borrowing, saving & earning
           </SubHeading>
@@ -29,7 +31,9 @@ function Hero() {
         </div>
       </div>
       <div className="w-11/12 m-auto sm:hidden">
-        <Title align={"center"}>FINTECH today with online loans & more</Title>
+        <Title align={"text-center"} padding="pt-2">
+          FINTECH today with online loans & more
+        </Title>
         <SubHeading font={"normal"} align={"center"}>
           Smart, simple tools for borrowing, saving & earning
         </SubHeading>
