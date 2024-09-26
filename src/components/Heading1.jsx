@@ -3,7 +3,7 @@ function Heading1({ children, color }) {
     <h1
       className={`${
         color ? `text-${color}` : "text-primary"
-      } text-2xl sm:text-[32px] md:text-[40px] font-semibold`}
+      } text-2xl sm:text-[32px] tab:text-[40px] font-semibold`}
     >
       {children}
     </h1>

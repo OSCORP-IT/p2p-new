@@ -25,6 +25,10 @@ export default {
       boxShadow: {
         allSide: "0 0 10px 5px rgba(0, 0, 0, 0.5)", // Example custom shadow
       },
+      screens: {
+        tab: "770px",
+        laptop: "1285px",
+      },
     },
   },
   plugins: [],
