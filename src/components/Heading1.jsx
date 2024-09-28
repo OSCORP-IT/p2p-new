@@ -1,8 +1,10 @@
-function Heading1({ children, color }) {
+function Heading1({ children, color, align, padding }) {
   return (
     <h1
-      className={`${
-        color ? `text-${color}` : "text-primary"
+      className={`${color ? `text-${color}` : "text-primary"} ${
+        align ? `${align}` : "text-left"
+      } ${
+        padding ? `${padding}` : "py-1"
       } text-2xl sm:text-[32px] tab:text-[40px] font-semibold`}
     >
       {children}
