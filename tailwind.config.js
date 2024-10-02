@@ -29,6 +29,9 @@ export default {
         tab: "770px",
         laptop: "1285px",
       },
+      backgroundImage: {
+        "custom-gradient": "linear-gradient(180deg, #E7EEEE 0%, #FFF 68.9%)",
+      },
     },
   },
   plugins: [],
