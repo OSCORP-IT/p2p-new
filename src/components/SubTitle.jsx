@@ -5,7 +5,7 @@ function SubTitle({ children, color, padding, align }) {
         align ? `${align}` : "text-left"
       } ${
         padding ? `${padding}` : "py-1"
-      } text-22px sm:text-[26px] tab:text-[32px] font-semibold`}
+      } text-[22px] sm:text-[26px] tab:text-[32px] font-semibold`}
     >
       {children}
     </h1>
