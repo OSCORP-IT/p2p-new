@@ -95,7 +95,7 @@ const Testimonial = () => {
           {/* Testimonial Cards */}
           <div className="flex justify-center items-center w-[90%]">
             {/* Left Card */}
-            <div className="w-1/3">
+            <div className="w-1/3 hidden sm:block">
               <div className="bg-white text-gray-700 p-6 rounded-lg shadow-md transition-all duration-700">
                 <div className="w-max m-auto pb-3">
                   <Quote />
@@ -118,7 +118,7 @@ const Testimonial = () => {
             </div>
 
             {/* Center Card */}
-            <div className="-mt-12 w-1/3">
+            <div className="sm:-mt-12 w-full sm:w-1/3">
               <div className="bg-primary text-white p-6 rounded-lg shadow-md transition-all duration-700">
                 <div className="w-max m-auto pb-3">
                   <Quote />
@@ -141,7 +141,7 @@ const Testimonial = () => {
             </div>
 
             {/* Right Card */}
-            <div className=" w-1/3">
+            <div className="hidden sm:block w-1/3">
               <div className="bg-white text-gray-700 p-6 rounded-lg shadow-md transition-all duration-700">
                 <div className="w-max m-auto pb-3">
                   <Quote />
