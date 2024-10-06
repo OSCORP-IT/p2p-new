@@ -1,3 +1,4 @@
+import BlogContainer from "./BlogContainer";
 import Hero from "./Hero";
 import LoanImageBoxes from "./LoanImageBoxes";
 import SmartFinance from "./SmartFinance";
@@ -12,6 +13,7 @@ function Home() {
       <LoanImageBoxes />
       <SmartFinance />
       <Testimonial />
+      <BlogContainer />
     </>
   );
 }

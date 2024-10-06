@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Heading1 from "../../components/Heading1";
 import Text from "../../components/Text";
 import SubHeading from "../../components/SubHeading";
 import SmallText from "../../components/SmallText";
 import Quote from "../../icon/Quote";
 import SectionLayout from "../SectionLayout";
+import Title from "../../components/Title";
 
 const testimonials = [
   {
@@ -79,9 +79,9 @@ const Testimonial = () => {
   return (
     <SectionLayout bg={"bg-gray-100"}>
       <div className="py-10 ">
-        <Heading1 padding={"py-4 "} align={"text-center"}>
+        <Title padding={"py-4 "} align={"text-center"}>
           Trusted Across Industries
-        </Heading1>
+        </Title>
 
         <div className="flex justify-center items-center py-10 w-full gap-1">
           {/* Previous Button */}
@@ -121,7 +121,7 @@ const Testimonial = () => {
             <div className="sm:-mt-12 w-full sm:w-1/3">
               <div className="bg-primary text-white p-6 rounded-lg shadow-md transition-all duration-700">
                 <div className="w-max m-auto pb-3">
-                  <Quote />
+                  <Quote color={"#4a7c7d"} />
                 </div>
                 <Text align={"text-center"} padding={"pb-3"} color={"white"}>
                   {center.message}
