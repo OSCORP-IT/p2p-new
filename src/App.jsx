@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Applayout from "./ui/Applayout";
 import Home from "./ui/Home/Home";
 import Investment from "./pages/investment/Investment";
+import InvestmentIslamic from "./pages/investment-islamic/InvestmentIslamic";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: "/investment",
         element: <Investment />,
+      },
+      {
+        path: "/investment/islamic",
+        element: <InvestmentIslamic />,
       },
     ],
   },

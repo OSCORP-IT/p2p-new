@@ -7,6 +7,7 @@ function Applayout() {
       <div className="bg-white h-[75px] shadow-md shadow-gray-300 pl-4 flex gap-2 underline cursor-pointer">
         <p onClick={() => nav("/")}>Home</p>
         <p onClick={() => nav("/investment")}>Investment</p>
+        <p onClick={() => nav("/investment/islamic")}>Investment Islamic</p>
       </div>
       <div className="h-min-screen">
         <Outlet />
