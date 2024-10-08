@@ -1,9 +1,9 @@
-import Title from "../../components/Title";
-import SectionLayout from "../SectionLayout";
-import Blog1 from "../../assets/blog1.png";
-import Blog2 from "../../assets/blog2.png";
-import Blog3 from "../../assets/blog3.png";
+import Blog1 from "../assets/blog1.png";
+import Blog2 from "../assets/blog2.png";
+import Blog3 from "../assets/blog3.png";
+import Title from "../components/Title";
 import BlogBox from "./BlogBox";
+import SectionLayout from "./SectionLayout";
 
 function BlogContainer() {
   return (

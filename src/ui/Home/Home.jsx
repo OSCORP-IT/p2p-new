@@ -1,4 +1,4 @@
-import BlogContainer from "./BlogContainer";
+import BlogContainer from "../BlogContainer";
 import ContactFAQ from "./ContactFAQ";
 import Hero from "./Hero";
 import LoanImageBoxes from "./LoanImageBoxes";

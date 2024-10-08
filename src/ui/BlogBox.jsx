@@ -1,6 +1,6 @@
-import SubHeading from "../../components/SubHeading";
-import Text from "../../components/Text";
 import { LuChevronRightSquare } from "react-icons/lu";
+import SubHeading from "../components/SubHeading";
+import Text from "../components/Text";
 
 function BlogBox({ img, heading }) {
   return (

@@ -1,22 +1,19 @@
-import Title from "../../components/Title";
-import SectionLayout from "../../ui/SectionLayout";
+import BlogContainer from "../../ui/BlogContainer";
 import InvestmentHero from "./InvestmentHero";
+import InvestProfiles from "./InvestProfiles";
 import PeerToPeer from "./PeerToPeer";
+import SeamlessInvesting from "./SeamlessInvesting";
 import WhyInvest from "./WhyInvest";
 
 function Investment() {
   return (
     <>
       <InvestmentHero />
-      <PeerToP eer />
+      <PeerToPeer />
       <WhyInvest />
-      <SectionLayout>
-        <div className="w-11/12 tab:w-3/5 laptop:w-1/2 m-auto">
-          <Title align={"text-center"}>
-            Auto Invest Profiles Based On Your Risk Appetite
-          </Title>
-        </div>
-      </SectionLayout>
+      <InvestProfiles />
+      <SeamlessInvesting />
+      <BlogContainer />
     </>
   );
 }
