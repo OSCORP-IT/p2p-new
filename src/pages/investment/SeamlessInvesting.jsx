@@ -24,7 +24,7 @@ function SeamlessInvesting() {
               <CheckSquare />
             </div>
             <div>
-              <SubTitle padding={"py-0 sm:py-1"} color={"primary"}>
+              <SubTitle padding={"py-0 sm:py-1"} color={"text-primary"}>
                 Top up money
               </SubTitle>
               <SubHeading font={"normal"}>
@@ -37,7 +37,7 @@ function SeamlessInvesting() {
               <CheckSquare />
             </div>
             <div>
-              <SubTitle padding={"py-0 sm:py-1"} color={"primary"}>
+              <SubTitle padding={"py-0 sm:py-1"} color={"text-primary"}>
                 Select Auto Invest profile
               </SubTitle>
               <SubHeading font={"normal"}>
@@ -51,7 +51,7 @@ function SeamlessInvesting() {
               <CheckSquare />
             </div>
             <div>
-              <SubTitle padding={"py-0 sm:py-1"} color={"primary"}>
+              <SubTitle padding={"py-0 sm:py-1"} color={"text-primary"}>
                 Enjoy your returns
               </SubTitle>
               <SubHeading font={"normal"}>

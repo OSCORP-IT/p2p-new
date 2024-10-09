@@ -1,10 +1,12 @@
-import HeroBg from "../../assets/InvestIslamicHero.png";
+import CapBayP2P from "./CapBayP2P";
+import InvestmentIslamicHero from "./InvestmentIslamicHero";
+
 function InvestmentIslamic() {
   return (
-    <div
-      className="bg-cover w-full h-[400px]"
-      style={{ backgroundImage: `url(${HeroBg})` }}
-    ></div>
+    <>
+      <InvestmentIslamicHero />
+      <CapBayP2P />
+    </>
   );
 }
 

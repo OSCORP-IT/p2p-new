@@ -21,7 +21,7 @@ function InvestProfiles() {
         </div>
         <div className="w-full sm:w-1/2 flex flex-col gap-4 justify-between h-full flex-1">
           <div className="bg-primary/10 rounded-md p-2.5 tab:px-6 tab:py-4">
-            <SubTitle padding={"py-0 tab:py-1"} color={"primary"}>
+            <SubTitle padding={"py-0 tab:py-1"} color={"text-primary"}>
               Conservative
             </SubTitle>
             <SubHeading font={"normal"}>
@@ -30,7 +30,7 @@ function InvestProfiles() {
             </SubHeading>
           </div>
           <div className="bg-primary/10 rounded-md p-2.5 tab:px-6 tab:py-4">
-            <SubTitle padding={"py-0 tab:py-1"} color={"primary"}>
+            <SubTitle padding={"py-0 tab:py-1"} color={"text-primary"}>
               Moderate
             </SubTitle>
             <SubHeading font={"normal"}>
@@ -38,7 +38,7 @@ function InvestProfiles() {
             </SubHeading>
           </div>
           <div className="bg-primary/10 rounded-md p-2.5 tab:px-6 tab:py-4">
-            <SubTitle padding={"py-0 tab:py-1"} color={"primary"}>
+            <SubTitle padding={"py-0 tab:py-1"} color={"text-primary"}>
               Aggressive
             </SubTitle>
             <SubHeading font={"normal"}>

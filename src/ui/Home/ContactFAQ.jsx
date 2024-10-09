@@ -13,7 +13,7 @@ function ContactFAQ() {
         <div className="w-full tab:w-1/2 ">
           <Title align={"text-center tab:text-left"}>Questions?</Title>
           <div className="w-5/6 m-auto tab:m-0 pb-4 tab:pb-0">
-            <Heading1 align={"text-center tab:text-left"} color={"black"}>
+            <Heading1 align={"text-center tab:text-left"} color={"text-black"}>
               We&apos;re here to help
             </Heading1>
             <Text padding={"py-4"} align={"text-center tab:text-left"}>

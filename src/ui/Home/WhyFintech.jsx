@@ -26,7 +26,11 @@ function WhyFintech() {
                 <Webhook />
               </div>
             </div>
-            <Heading2 align={"text-center"} color={"white"} padding={"pt-2"}>
+            <Heading2
+              align={"text-center"}
+              color={"text-white"}
+              padding={"pt-2"}
+            >
               Technology-Driven
             </Heading2>
             <Text align={"text-center"} color={"white"} padding={"py-2"}>
@@ -41,7 +45,11 @@ function WhyFintech() {
                 <CircleThreePlus />
               </div>
             </div>
-            <Heading2 align={"text-center"} color={"white"} padding={"pt-2"}>
+            <Heading2
+              align={"text-center"}
+              color={"text-white"}
+              padding={"pt-2"}
+            >
               Trade-Related Assets
             </Heading2>
             <Text align={"text-center"} color={"white"} padding={"py-2"}>
@@ -55,7 +63,11 @@ function WhyFintech() {
                 <Elements />
               </div>
             </div>
-            <Heading2 align={"text-center"} color={"white"} padding={"pt-2"}>
+            <Heading2
+              align={"text-center"}
+              color={"text-white"}
+              padding={"pt-2"}
+            >
               Multi-Funder
             </Heading2>
             <Text align={"text-center"} color={"white"} padding={"py-2"}>
