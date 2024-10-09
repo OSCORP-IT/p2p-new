@@ -22,7 +22,7 @@ function InvestmentIslamicHero() {
           </SubTitle>
         </div>
         <div className="w-3/4 sm:w-5/6 tab:w-3/5 py-5">
-          <Title color={"white"}>
+          <Title color={"text-white"}>
             Invest Responsibly, Aligning Beliefs with Smart Investment
           </Title>
           <div className="flex gap-2 items-center">

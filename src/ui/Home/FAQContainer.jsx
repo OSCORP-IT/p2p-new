@@ -51,7 +51,11 @@ const FAQContainer = ({ bg, color }) => {
                 ? `${
                     bg
                       ? bg
-                      : "bg-primary "`${color ? `text-${color}` : "text-white"}`
+                      : `${
+                          color
+                            ? `text-${color} bg-primary`
+                            : "text-white bg-primary"
+                        }`
                   }`
                 : "bg-white"
             }

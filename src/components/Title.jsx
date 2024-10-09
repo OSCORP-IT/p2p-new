@@ -2,7 +2,7 @@ function Title({ children, color, align, padding }) {
   console.log(align);
   return (
     <h1
-      className={`${color ? `text-${color}` : "text-titleColor"} ${
+      className={`${color ? `${color}` : "text-titleColor"} ${
         align ? `${align}` : "text-left"
       } ${
         padding ? `${padding}` : "py-1"

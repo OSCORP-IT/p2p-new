@@ -12,7 +12,7 @@ function WhyFintech() {
           Why FINTECH
         </Text>
         <div className="w-11/12 tab:w-3/5 laptop:w-1/2 m-auto">
-          <Title color={"white"} align={"text-center"}>
+          <Title color={"text-white"} align={"text-center"}>
             The only FINTECH platform you’ll ever need in country
           </Title>
           <Text color={"white"} align={"text-center"} padding={"py-2"}>

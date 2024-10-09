@@ -1,11 +1,11 @@
-function SubTitle({ children, color, padding, align }) {
+function SubTitle({ children, color, padding, align, font }) {
   return (
     <h1
       className={`${color ? `${color}` : "text-title"} ${
         align ? `${align}` : "text-left"
-      } ${
-        padding ? `${padding}` : "py-1"
-      } text-[22px] sm:text-[26px] tab:text-[32px] font-semibold`}
+      } ${padding ? `${padding}` : "py-1"} ${
+        font ? `font-${font}` : "font-semibold"
+      } text-[22px] sm:text-[26px] tab:text-[30px] laptop:text-[32px] `}
     >
       {children}
     </h1>
