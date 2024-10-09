@@ -29,7 +29,7 @@ const faqItems = [
   },
 ];
 
-const FAQContainer = () => {
+const FAQContainer = ({ bg, color }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleToggle = (index) => {
@@ -47,13 +47,19 @@ const FAQContainer = () => {
           {/* Question Section */}
           <div
             className={`flex rounded-t px-4 justify-between items-center py-2 cursor-pointer ${
-              activeIndex === index ? "bg-primary text-white" : "bg-white"
+              activeIndex === index
+                ? `${
+                    bg
+                      ? bg
+                      : "bg-primary "`${color ? `text-${color}` : "text-white"}`
+                  }`
+                : "bg-white"
             }
               `}
             onClick={() => handleToggle(index)}
           >
             {activeIndex === index ? (
-              <Text color={"white"}>{item.question}</Text>
+              <Text color={`${color ? color : "white"}`}>{item.question}</Text>
             ) : (
               <Text>{item.question}</Text>
             )}
@@ -64,7 +70,9 @@ const FAQContainer = () => {
 
           {/* Answer Section */}
           <div
-            className={`overflow-hidden px-4 rounded-b bg-primary/10 transition-[max-height] duration-500 ease-in-out ${
+            className={`overflow-hidden px-4 rounded-b ${
+              bg ? bg : "bg-primary/10"
+            } transition-[max-height] duration-500 ease-in-out ${
               activeIndex === index ? "max-h-40 py-2" : "max-h-0"
             }`}
           >

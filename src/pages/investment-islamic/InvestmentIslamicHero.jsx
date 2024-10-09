@@ -1,6 +1,5 @@
 import { TbHeadset } from "react-icons/tb";
 import HeroBg from "../../assets/InvestIslamicHero.png";
-import Heading1 from "../../components/Heading1";
 import Heading2 from "../../components/Heading2";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
@@ -8,6 +7,7 @@ import SmallText from "../../components/SmallText";
 import Title from "../../components/Title";
 import Sheild from "../../icon/Sheild";
 import SectionLayout from "../../ui/SectionLayout";
+import SubTitle from "../../components/SubTitle";
 function InvestmentIslamicHero() {
   return (
     <div
@@ -17,9 +17,9 @@ function InvestmentIslamicHero() {
       <SectionLayout bg={"transparent"}>
         <div className="w-3/5">
           <Heading2 color={"text-white"}>FINTECH P2P Islamic</Heading2>
-          <Heading1 color={"text-[#4abc40]"}>
+          <SubTitle color={"text-[#4abc40]"}>
             Shariah Option Available Now!
-          </Heading1>
+          </SubTitle>
         </div>
         <div className="w-3/4 sm:w-5/6 tab:w-3/5 py-5">
           <Title color={"white"}>
