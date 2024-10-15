@@ -1,11 +1,12 @@
-import Heading1 from "../../components/Heading1";
-import SubHeading from "../../components/SubHeading";
 import SectionLayout from "../../ui/SectionLayout";
 import AssureHero from "./AssureHero";
 import HowToInvest from "./HowToInvest";
 import KeyHighlights from "./KeyHighlights";
 import ReserveFund from "./ReserveFund";
 import WhatIsAssure from "./WhatIsAssure";
+import Graph from "../../assets/numbers.png";
+import SubTitle from "../../components/SubTitle";
+import SubHeading from "../../components/SubHeading";
 
 function InvestmentAssure() {
   return (
@@ -15,27 +16,29 @@ function InvestmentAssure() {
       <KeyHighlights />
       <ReserveFund />
       <HowToInvest />
-      <SectionLayout bg={"bg-accent/10"}>
-        <Heading1 align={"text-center"} padding={"py-2 sm:py-4"}>
-          The Reserve Fund is maintained at a Coverage Ratio that sufficiently
-          covers Expected Losses
-        </Heading1>
-        <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-between py-4">
-          <div className="w-full sm:w-1/2 sm:border-r border-accent py-4 sm:py-0">
-            <h1 className="text-[32px] sm:text-5xl tab:text-6xl text-accent font-bold w-max m-auto sm:py-2">
-              08%
-            </h1>
-            <SubHeading align={"w-max m-auto"}>
-              Minimum Coverage Ratio
-            </SubHeading>
+      <SectionLayout>
+        <div className="w-full flex flex-wrap tab:flex-nowrap items-center gap-4">
+          <div className="w-full tab:w-1/2 py-8">
+            <img src={Graph} alt="bar chart" className=" object-cover" />
           </div>
-          <div className="w-[100px] h-[1px] bg-accent sm:hidden m-auto mt-4"></div>
-          <div className="w-full sm:w-1/2 py-4 sm:py-0">
-            <h1 className="text-[32px] sm:text-5xl tab:text-6xl text-accent font-bold w-max m-auto py-2">
-              &gt;10%
-            </h1>
-            <SubHeading align={"w-max m-auto"}>
-              Current Coverage Ratio
+          <div className="w-full tab:w-1/2 px-2 sm:px-4 tab:px-0">
+            <SubTitle padding={"py-2"}>
+              What will happen if the default amount exceeds the reserve fund?
+            </SubTitle>
+            <SubHeading font={"font-normal"}>
+              In the unlikely event that there are a large number of defaults
+              within a short period of time and the reserve fund is depleted,
+              rest assured, CapBay will exercise the necessary recovery measures
+              to return the principal and interest to the investors. The
+              issuance of the new notes under CapBay Assure will be suspended
+              until the coverage ratio is sufficient again.
+            </SubHeading>
+            <SubHeading font={"font-normal"} padding={"py-2"}>
+              Total repayments made by the Reserve Fund: RM 0 (No defaults)
+            </SubHeading>
+            <SubHeading font={"font-normal"} padding={"py-3"}>
+              For more details on CapBay Assure, check out our Frequently Asked
+              Questions (FAQs) here
             </SubHeading>
           </div>
         </div>
