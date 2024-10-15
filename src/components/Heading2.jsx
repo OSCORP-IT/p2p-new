@@ -5,7 +5,7 @@ function Heading2({ children, color, align, padding }) {
         align ? `${align}` : "text-left"
       } ${
         padding ? `${padding}` : "py-1"
-      } text-lg sm:text-xl tab:text-2xl font-semibold`}
+      } text-lg sm:text-xl tab:text-[22px] laptop:text-2xl font-semibold`}
     >
       {children}
     </h2>

@@ -6,7 +6,7 @@ function Title({ children, color, align, padding }) {
         align ? `${align}` : "text-left"
       } ${
         padding ? `${padding}` : "py-1"
-      } text-[28px] sm:text-[35px] tab:text-4xl laptop:text-5xl font-semibold leading-tight tab:leading-normal`}
+      } text-[28px] sm:text-[35px] tab:text-[42px] laptop:text-5xl font-semibold leading-tight tab:leading-normal`}
     >
       {children}
     </h1>

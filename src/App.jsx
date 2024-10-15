@@ -4,6 +4,7 @@ import Home from "./ui/Home/Home";
 import Investment from "./pages/investment/Investment";
 import InvestmentIslamic from "./pages/investment-islamic/InvestmentIslamic";
 import InvestmentAssure from "./pages/investment-assure/InvestmentAssure";
+import InvestmentPlus from "./pages/investment-plus/InvestmentPlus";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/investment/assure",
         element: <InvestmentAssure />,
+      },
+      {
+        path: "/investment/plus",
+        element: <InvestmentPlus />,
       },
     ],
   },
