@@ -46,7 +46,7 @@ const FAQContainer = ({ bg, color }) => {
         <div key={index}>
           {/* Question Section */}
           <div
-            className={`flex rounded-t px-4 justify-between items-center py-2 cursor-pointer ${
+            className={`flex rounded-t border-b border-gray-300 px-4 justify-between items-center py-2 cursor-pointer ${
               activeIndex === index
                 ? `${
                     bg

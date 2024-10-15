@@ -4,12 +4,13 @@ function Applayout() {
   const nav = useNavigate();
   return (
     <div className="font-poppins">
-      <div className="bg-white h-[75px] shadow-md shadow-gray-300 pl-4 flex gap-2 text-sm sm:text-base underline cursor-pointer">
+      <div className="bg-white h-[75px] shadow-md shadow-gray-300 pl-4 flex flex-wrap gap-2 text-sm sm:text-base underline cursor-pointer">
         <p onClick={() => nav("/")}>Home</p>
         <p onClick={() => nav("/investment")}>Investment</p>
         <p onClick={() => nav("/investment/islamic")}>Investment Islamic</p>
         <p onClick={() => nav("/investment/assure")}>Investment Assure</p>
         <p onClick={() => nav("/investment/plus")}>Investment Plus</p>
+        <p onClick={() => nav("/investment/referral")}>Investment Referral</p>
       </div>
       <div className="h-min-screen">
         <Outlet />
