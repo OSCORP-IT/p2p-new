@@ -18,7 +18,7 @@ function LoanImageBoxes() {
         </Title>
       </div>
       <div className="px-10 pt-4">
-        <div className="pt-6 flex items-start justify-between">
+        <div className="py-6 flex items-start justify-between">
           <div className="w-full sm:w-1/2 flex flex-col items-start justify-start">
             <Heading2
               padding={"capitalize"}
@@ -63,7 +63,7 @@ function LoanImageBoxes() {
             />
           </div>
         </div>
-        <div className="pt-6 mt-4 tab:mt-8 flex items-start justify-between">
+        <div className="py-6 mt-4 tab:mt-8 flex items-start justify-between">
           <div className="hidden sm:block w-1/2 bg-white shadow-allSide shadow-dropShadow rounded-md tab:px-2 tab:pt-2">
             <img
               src={CreditCard}
@@ -110,7 +110,7 @@ function LoanImageBoxes() {
             </div>
           </div>
         </div>
-        <div className="pt-6 mt-4 tab:mt-8 flex items-start justify-between">
+        <div className="py-6 mt-4 tab:mt-8 flex items-start justify-between">
           <div className="w-full sm:w-1/2 flex flex-col items-start justify-start">
             <Heading2
               padding={"capitalize"}
@@ -155,7 +155,7 @@ function LoanImageBoxes() {
             />
           </div>
         </div>
-        <div className="pt-6 mt-4 tab:mt-8 flex items-start justify-between">
+        <div className="py-6 mt-4 tab:mt-8 flex items-start justify-between">
           <div className="hidden sm:block w-1/2 bg-white shadow-allSide shadow-dropShadow rounded-md tab:px-2 tab:pt-2">
             <img
               src={Invest}

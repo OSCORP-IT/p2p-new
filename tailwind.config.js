@@ -32,6 +32,9 @@ export default {
       backgroundImage: {
         "custom-gradient": "linear-gradient(180deg, #E7EEEE 0%, #FFF 68.9%)",
       },
+      borderRadius: {
+        md: "10px", // Customize the rounded-md value (default is 0.375rem or 6px)
+      },
     },
   },
   plugins: [],

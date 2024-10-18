@@ -2,7 +2,7 @@ import Text from "../../components/Text";
 import SectionLayout from "../../ui/SectionLayout";
 import ConventionalHero from "./ConventionalHero";
 import Peer from "../../assets/peer.png";
-
+import IconBoxes from "./IconBoxes";
 function GetFundConventional() {
   return (
     <>
@@ -30,6 +30,7 @@ function GetFundConventional() {
           </div>
         </div>
       </SectionLayout>
+      <IconBoxes />
     </>
   );
 }
