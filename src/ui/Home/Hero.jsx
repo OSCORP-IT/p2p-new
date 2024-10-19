@@ -37,7 +37,7 @@ function Hero() {
         <SubHeading font={"normal"} align={"center"}>
           Smart, simple tools for borrowing, saving & earning
         </SubHeading>
-        <div className="py-4 w-max m-auto">
+        <div className="py-4 flex sm:block justify-center sm:w-max m-auto">
           <PrimaryButton>Get Started With Your Preferred Loan</PrimaryButton>
         </div>
       </div>
