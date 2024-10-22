@@ -7,6 +7,7 @@ import InvestmentAssure from "./pages/investment-assure/InvestmentAssure";
 import InvestmentPlus from "./pages/investment-plus/InvestmentPlus";
 import InvestmentReferral from "./pages/investment-referral/InvestmentReferral";
 import GetFundConventional from "./pages/getfund-conventional/GetFundConventional";
+import GetfFundCollateral from "./pages/getfund-collateral/GetfFundCollateral";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/get-fund/conventional",
         element: <GetFundConventional />,
+      },
+      {
+        path: "/get-fund/collateral",
+        element: <GetfFundCollateral />,
       },
     ],
   },

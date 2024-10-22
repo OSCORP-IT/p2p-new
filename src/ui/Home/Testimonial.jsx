@@ -12,7 +12,7 @@ const testimonials = [
     name: "Abidur Rahman1",
     country: "Bangladesh",
     message:
-      "Lorem ipsum dolor sit amet consectetur. Tincidunt sem consectetur lorem tempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
+      "Loremsectetur lorem tempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg",
   },
   {
@@ -20,7 +20,7 @@ const testimonials = [
     name: "Abidur Rahman2",
     country: "Bangladesh",
     message:
-      "Lorem ipsum dolor sit amet consectetur. Tincidunt sem consectetur lorem tempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
+      "Lorem ipsum dolor sit amet consectetur. Tiniat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
     avatar: "https://randomuser.me/api/portraits/women/2.jpg",
   },
   {
@@ -36,7 +36,7 @@ const testimonials = [
     name: "Abidur Rahman5",
     country: "Bangladesh",
     message:
-      "Lorem ipsum dolor sit amet consectetur. Tincidunt sem consectetur lorem tempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
+      "Lorem ipsumempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
     avatar: "https://randomuser.me/api/portraits/men/4.jpg",
   },
   {
@@ -44,7 +44,7 @@ const testimonials = [
     name: "Abidur Rahman4",
     country: "Bangladesh",
     message:
-      "Lorem ipsum dolor sit amet consectetur. Tincidunt sem consectetur lorem tempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
+      "Tincidunt sem consectetur lorem tempor feugiat suscipit porttitor. Ullamcorper sit amet nam semper pretium.",
     avatar: "https://randomuser.me/api/portraits/men/5.jpg",
   },
 ];
@@ -78,25 +78,25 @@ const Testimonial = () => {
 
   return (
     <SectionLayout bg={"bg-gray-100"}>
-      <div className="py-10 ">
-        <Title padding={"py-4 "} align={"text-center"}>
+      <div className="pt-2 sm:pb-4 ">
+        <Title padding={"py-2 sm:py-6"} align={"text-center"}>
           Trusted Across Industries
         </Title>
 
-        <div className="flex justify-center items-center py-10 w-full gap-1">
+        <div className="flex justify-center items-center py-6 sm:pt-10 sm:pb-6 w-full gap-1">
           {/* Previous Button */}
           <button
             onClick={handlePrev}
-            className="bg-transparent text-primary p-3 rounded-full hover:bg-accent/10 w-[5%]"
+            className="bg-transparent text-primary sm:text-xl font-bold p-3 rounded-full hover:bg-accent/10 w-[5%] m-auto"
           >
             {`<`}
           </button>
 
           {/* Testimonial Cards */}
-          <div className="flex justify-center items-center w-[90%]">
+          <div className="flex justify-center items-center w-full">
             {/* Left Card */}
-            <div className="w-1/3 hidden sm:block">
-              <div className="bg-white text-gray-700 p-6 rounded-lg shadow-md transition-all duration-700">
+            <div className="w-1/3 hidden sm:block -mr-4">
+              <div className="h-[300px] sm:h-[400px] tab:h-[250px] bg-white text-gray-700 px-10 py-8 rounded-lg shadow-allSide shadow-gray-300 transition-all duration-700">
                 <div className="w-max m-auto pb-3">
                   <Quote />
                 </div>
@@ -118,8 +118,8 @@ const Testimonial = () => {
             </div>
 
             {/* Center Card */}
-            <div className="sm:-mt-12 w-full sm:w-1/3">
-              <div className="bg-primary text-white p-6 rounded-lg shadow-md transition-all duration-700">
+            <div className="z-10 sm:-mt-16 w-[95%] sm:w-[40%]">
+              <div className=" h-[300px] sm:h-[400px] tab:h-[250px] bg-primary text-white px-10 py-8 rounded-lg shadow-md transition-all duration-700">
                 <div className="w-max m-auto pb-3">
                   <Quote color={"#4a7c7d"} />
                 </div>
@@ -141,8 +141,8 @@ const Testimonial = () => {
             </div>
 
             {/* Right Card */}
-            <div className="hidden sm:block w-1/3">
-              <div className="bg-white text-gray-700 p-6 rounded-lg shadow-md transition-all duration-700">
+            <div className="hidden sm:block w-1/3 -ml-4">
+              <div className="h-[300px] sm:h-[400px] tab:h-[250px] bg-white text-gray-700 px-10 py-8 rounded-lg shadow-allSide shadow-gray-300 transition-all duration-700">
                 <div className="w-max m-auto pb-3">
                   <Quote />
                 </div>
@@ -167,7 +167,7 @@ const Testimonial = () => {
           {/* Next Button */}
           <button
             onClick={handleNext}
-            className="bg-transparent  w-[5%] text-primary p-3 rounded-full hover:bg-accent/10"
+            className="bg-transparent  w-[5%] m-auto text-primary sm:text-xl font-bold p-3 rounded-full hover:bg-accent/10"
           >
             {`>`}
           </button>

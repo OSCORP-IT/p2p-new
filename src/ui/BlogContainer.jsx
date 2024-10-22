@@ -11,7 +11,7 @@ function BlogContainer() {
       <div className="w-11/12 tab:w-3/5 laptop:w-1/2 m-auto py-2">
         <Title align={"text-center"}>Articles and Media Coverage</Title>
       </div>
-      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-6 sm:gap-4 py-4 px-4 sm: h-auto sm:h-[400px] tab:h-[350px]">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-6 sm:gap-4 py-4 px-4 sm: h-auto sm:h-[450px] tab:h-[400px]">
         <BlogBox
           img={Blog1}
           heading={
