@@ -8,6 +8,7 @@ import InvestmentPlus from "./pages/investment-plus/InvestmentPlus";
 import InvestmentReferral from "./pages/investment-referral/InvestmentReferral";
 import GetFundConventional from "./pages/getfund-conventional/GetFundConventional";
 import GetfFundCollateral from "./pages/getfund-collateral/GetfFundCollateral";
+import GetFundIslamic from "./pages/getfund-islamic/GetFundIslamic";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/get-fund/collateral",
         element: <GetfFundCollateral />,
+      },
+      {
+        path: "/get-fund/islamic",
+        element: <GetFundIslamic />,
       },
     ],
   },

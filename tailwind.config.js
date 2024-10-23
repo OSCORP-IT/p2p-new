@@ -18,6 +18,7 @@ export default {
         bgGradient4: "#069292",
         bgGradient5: "#0A1313",
         dropShadow: "#B3D4D8",
+        islamic: "#0da500",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
@@ -27,6 +28,7 @@ export default {
       },
       screens: {
         tab: "770px",
+        smLap: "1025px",
         laptop: "1285px",
       },
       backgroundImage: {

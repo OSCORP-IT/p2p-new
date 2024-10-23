@@ -15,6 +15,7 @@ function Applayout() {
           Get-fund Conventional
         </p>
         <p onClick={() => nav("/get-fund/collateral")}>Get-fund Collateral</p>
+        <p onClick={() => nav("/get-fund/islamic")}>Get-fund Islamic</p>
       </div>
       <div className="h-min-screen">
         <Outlet />

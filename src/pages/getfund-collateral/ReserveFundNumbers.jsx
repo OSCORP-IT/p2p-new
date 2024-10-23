@@ -16,7 +16,7 @@ function ReserveFundNumbers() {
             TK 25,000,000
           </Title>
         </div>
-        <div className="w-[100px] h-[1px] tab::w-[2px] tab::h-[100px] bg-accent m-auto tab::m-0 mt-4"></div>
+        <div className="w-[100px] h-[1px] tab:w-[2px] tab:h-[100px] bg-accent m-auto tab:m-0 mt-4"></div>
         <div className="w-full tab:w-1/3 py-4 tab:py-0 tab:px-4">
           <SubHeading align={"text-center"}>
             Financing charges as low as
