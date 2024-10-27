@@ -14,7 +14,7 @@ function ConsolidationLoanCards() {
         <Heading1
           align={"text-center leading-tight"}
           padding={`pt-4`}
-          color={`titleColor`}
+          color={`text-titleColor`}
         >
           FINTECH specializes in credit card debt consolidation loans
         </Heading1>

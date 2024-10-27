@@ -28,7 +28,7 @@ function PLOverview() {
             Read our Frequently Asked Questions (FAQ) here:
           </SubHeading>
         </div>
-        <FAQContainer />
+        <FAQContainer bg={`bg-primary/10`} color={`black`} />
       </SectionLayout>
       <BlogContainer />
     </>
