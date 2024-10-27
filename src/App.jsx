@@ -10,6 +10,8 @@ import GetFundConventional from "./pages/getfund-conventional/GetFundConventiona
 import GetfFundCollateral from "./pages/getfund-collateral/GetfFundCollateral";
 import GetFundIslamic from "./pages/getfund-islamic/GetFundIslamic";
 import GetFundReferral from "./pages/getfund-referral/GetFundReferral";
+import PLOverview from "./pages/pl-overview/PLOverview";
+import PLDebt from "./pages/pl-debt/PLDebt";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: "/get-fund/referral",
         element: <GetFundReferral />,
+      },
+      {
+        path: "/pl/overview",
+        element: <PLOverview />,
+      },
+      {
+        path: "/pl/debt",
+        element: <PLDebt />,
       },
     ],
   },
