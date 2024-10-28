@@ -13,6 +13,7 @@ import GetFundReferral from "./pages/getfund-referral/GetFundReferral";
 import PLOverview from "./pages/pl-overview/PLOverview";
 import PLDebt from "./pages/pl-debt/PLDebt";
 import PLHomeImprovement from "./pages/pl-homeImprovement/PLHomeImprovement";
+import PLMedicalLoan from "./pages/pl-medical/PLMedicalLoan";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/pl/home-improvement",
         element: <PLHomeImprovement />,
+      },
+      {
+        path: "/pl/medical-loan",
+        element: <PLMedicalLoan />,
       },
     ],
   },

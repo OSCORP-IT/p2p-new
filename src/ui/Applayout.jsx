@@ -20,6 +20,7 @@ function Applayout() {
         <p onClick={() => nav("/pl/overview")}>PL Overview</p>
         <p onClick={() => nav("/pl/debt")}>PL Debt</p>
         <p onClick={() => nav("/pl/home-improvement")}>PL Home-Improve</p>
+        <p onClick={() => nav("/pl/medical-loan")}>PL Medical</p>
       </div>
       <div className="h-min-screen">
         <Outlet />
