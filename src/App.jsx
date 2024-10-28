@@ -14,6 +14,7 @@ import PLOverview from "./pages/pl-overview/PLOverview";
 import PLDebt from "./pages/pl-debt/PLDebt";
 import PLHomeImprovement from "./pages/pl-homeImprovement/PLHomeImprovement";
 import PLMedicalLoan from "./pages/pl-medical/PLMedicalLoan";
+import PLSpecialOccasion from "./pages/pl-special/PLSpecialOccasion";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/pl/medical-loan",
         element: <PLMedicalLoan />,
+      },
+      {
+        path: "/pl/special-occasion",
+        element: <PLSpecialOccasion />,
       },
     ],
   },

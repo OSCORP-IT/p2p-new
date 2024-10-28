@@ -4,7 +4,7 @@ import SectionLayout from "../../ui/SectionLayout";
 function WhyMedicalLoan() {
   return (
     <SectionLayout>
-      <div className="bg-gray-300 p-4 sm:p-6 tab:p-10 rounded-md">
+      <div className="bg-gray-200 p-4 sm:p-6 tab:p-10 rounded-md">
         <Heading1
           align={`text-center`}
           color={`text-titleColor`}
