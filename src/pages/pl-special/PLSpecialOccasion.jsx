@@ -1,3 +1,4 @@
+import EventCards from "./EventCards";
 import PLSpecialHero from "./PLSpecialHero";
 import WhyPLSpecial from "./WhyPLSpecial";
 
@@ -6,6 +7,7 @@ function PLSpecialOccasion() {
     <>
       <PLSpecialHero />
       <WhyPLSpecial />
+      <EventCards />
     </>
   );
 }
