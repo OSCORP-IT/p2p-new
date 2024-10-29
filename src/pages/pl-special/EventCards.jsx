@@ -4,6 +4,8 @@ import Wedding from "../../assets/Wedding.png";
 import Graduation from "../../assets/Graduation.png";
 import Retirement from "../../assets/Retirement.png";
 import Birthday from "../../assets/Birthday.png";
+import Family from "../../assets/Family.png";
+import Anniversary from "../../assets/Anniversary.png";
 import SectionLayout from "../../ui/SectionLayout";
 import FullImageBox from "./FullImageBox";
 function EventCards() {
@@ -41,6 +43,7 @@ function EventCards() {
         text={
           "Acknowledge the graduate’s diligence and achievements. Through Prosper, you can fund a festivity that truly reflects your pride in their success."
         }
+        rowReverese={true}
       >
         <img
           src={Graduation}
@@ -63,6 +66,7 @@ function EventCards() {
       </FullImageBox>
       <FullImageBox
         imageRight={true}
+        rowReverese={true}
         heading={"Birthday celebrations"}
         text={
           "Make landmark birthdays memorable! Financing through Prosper offers competitive rates, so you can confidently fund that milestone event or experience for your dear one."
@@ -74,6 +78,45 @@ function EventCards() {
           className="rounded-md sm:rounded-none sm:rounded-l-[20px] tab:rounded-l-[40px]"
         />
       </FullImageBox>
+      <FullImageBox
+        imageLeft={true}
+        heading={"Family trips"}
+        text={
+          "Craft lifelong memories with family. Prosper’s user-friendly online application means you can fund your ideal family vacation without leaving your living room."
+        }
+      >
+        <img
+          src={Family}
+          alt="family picure"
+          className="rounded-md sm:rounded-none sm:rounded-r-[20px] tab:rounded-r-[40px]"
+        />
+      </FullImageBox>
+      <FullImageBox
+        imageRight={true}
+        rowReverese={true}
+        heading={"Anniversaries"}
+        text={
+          "Every relationship milestone deserves commemoration. Prosper ensures you have the resources for an unforgettable anniversary celebration. And with zero penalties for early repayment, you have the ultimate flexibility!"
+        }
+      >
+        <img
+          src={Anniversary}
+          alt="cake picure"
+          className="rounded-md sm:rounded-none sm:rounded-l-[20px] tab:rounded-l-[40px]"
+        />
+      </FullImageBox>
+      <SectionLayout padding={`pt-8 pb-4`}>
+        <div className="m-auto py-6">
+          <Heading1 color={`text-titleColor`} align={"text-center"}>
+            FINTECH: Flexible, Swift Solutions
+          </Heading1>
+          <Text align={"text-center sm:w-4/6 sm:m-auto"} padding={`py-3`}>
+            Through FINTECH, you receive quick and versatile financing for any
+            celebration, with funds delivered in a lump sum and a manageable
+            monthly payment.
+          </Text>
+        </div>
+      </SectionLayout>
     </>
   );
 }

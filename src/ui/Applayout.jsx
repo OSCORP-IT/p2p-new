@@ -1,10 +1,11 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
 
 function Applayout() {
-  const nav = useNavigate();
+  // const nav = useNavigate();
   return (
     <div className="font-poppins">
-      <div className="bg-white h-[75px] shadow-md shadow-gray-300 pl-4 flex flex-wrap gap-1 text-xs tab:text-base underline cursor-pointer">
+      {/* <div className="bg-white h-[75px] shadow-md shadow-gray-300 pl-4 flex flex-wrap gap-1 text-xs tab:text-base underline cursor-pointer">
         <p onClick={() => nav("/")}>Home</p>
         <p onClick={() => nav("/investment")}>Investment</p>
         <p onClick={() => nav("/investment/islamic")}>Investment Islamic</p>
@@ -22,7 +23,9 @@ function Applayout() {
         <p onClick={() => nav("/pl/home-improvement")}>PL Home-Improve</p>
         <p onClick={() => nav("/pl/medical-loan")}>PL Medical</p>
         <p onClick={() => nav("/pl/special-occasion")}>PL Special</p>
-      </div>
+        <p onClick={() => nav("/pl/dental")}>PL Dental</p>
+      </div> */}
+      <Header />
       <div className="h-min-screen">
         <Outlet />
       </div>

@@ -1,7 +1,7 @@
 import Heading1 from "../../components/Heading1";
 import PrimaryButton from "../../components/PrimaryButton";
 import SmallText from "../../components/SmallText";
-import SubTitle from "../../components/SubTitle";
+import SubHeading from "../../components/SubHeading";
 import SectionLayout from "../../ui/SectionLayout";
 function WhyPLSpecial() {
   return (
@@ -14,13 +14,13 @@ function WhyPLSpecial() {
         >
           Why finance your special occasions through FINTECH?
         </Heading1>
-        <SubTitle font={`font-normal`} align={`text-center`}>
+        <SubHeading font={`font-normal`} align={`text-center`}>
           Making significant milestones creates cherished memories but funding
           them shouldn’t dampen the excitement. Ease your worries by financing
           your dream event through Prosper. From weddings to anniversaries or
           even a family getaway, we offer a way to fund those unforgettable
           moments with competitive rates and defined payment terms.
-        </SubTitle>
+        </SubHeading>
         <div className="w-max m-auto pt-4">
           <PrimaryButton>check your rate</PrimaryButton>
         </div>
