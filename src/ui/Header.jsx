@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const nav = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSubMenu, setActiveSubMenu] = useState(0);
+  const [activeSubMenu, setActiveSubMenu] = useState(null);
 
   // Define main menu items and sub-menu items
   const menuItems = [
@@ -117,17 +117,14 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-2 space-y-2 fixed top-14 right-0 w-full bg-white">
+          <div className="md:hidden mt-2 space-y-2">
             {menuItems.map((menu, index) => (
               <div key={index} className="space-y-1">
+                {/* Toggle only sub-menu open/close on mobile */}
                 <button
                   className="w-full text-left px-4 py-2 bg-gray-100 rounded-md text-sm font-medium"
                   onClick={() => {
                     handleSubMenuToggle(index);
-                    if (menu.subItems.length === 0) {
-                      nav(menu.path);
-                      setIsMobileMenuOpen(false);
-                    }
                   }}
                 >
                   {menu.name}
@@ -142,8 +139,8 @@ const Header = () => {
                         className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 rounded-md"
                         onClick={() => {
                           nav(subItem.path);
-                          setIsMobileMenuOpen(false);
-                          setActiveSubMenu(null);
+                          setIsMobileMenuOpen(false); // Close mobile menu
+                          setActiveSubMenu(null); // Close sub-menu
                         }}
                       >
                         {subItem.name}
