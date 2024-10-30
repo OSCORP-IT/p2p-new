@@ -14,6 +14,11 @@ const Header = () => {
       subItems: [],
     },
     {
+      name: "Portfolio",
+      path: "/portfolio-form",
+      subItems: [],
+    },
+    {
       name: "Investment",
       path: "/investment",
       subItems: [

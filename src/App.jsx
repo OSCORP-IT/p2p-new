@@ -17,6 +17,7 @@ import PLMedicalLoan from "./pages/pl-medical/PLMedicalLoan";
 import PLSpecialOccasion from "./pages/pl-special/PLSpecialOccasion";
 import PLDentalLoan from "./pages/pl-dental/PLDentalLoan";
 import PLBariatric from "./pages/pl-weightloss/PLBariatric";
+import Form from "./pages/portfolio/Form";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
         element: <PLBariatric />,
       },
     ],
+  },
+  {
+    path: "/portfolio-form",
+    element: <Form />,
   },
 ]);
 function App() {
