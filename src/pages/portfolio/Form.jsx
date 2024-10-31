@@ -1,14 +1,14 @@
-import { FaCircle, FaList } from "react-icons/fa6";
+import { FaList } from "react-icons/fa6";
 import Heading1 from "../../components/Heading1";
 import Text from "../../components/Text";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { FaChartLine, FaDotCircle, FaUserEdit } from "react-icons/fa";
+import { FaChartLine, FaUserEdit } from "react-icons/fa";
 import { FcSettings } from "react-icons/fc";
 import Heading2 from "../../components/Heading2";
 import PrimaryButton from "../../components/PrimaryButton";
 import { GrNotification, GrSearchAdvanced } from "react-icons/gr";
 import { BsMessenger } from "react-icons/bs";
-import SmallText from "../../components/SmallText";
+import FormContainer from "./FormContainer";
 
 function Form() {
   return (
@@ -69,53 +69,7 @@ function Form() {
             </div>
           </div>
         </div>
-        <div className=" flex items-center gap-5 px-5">
-          <div className="bg-white rounded-md p-[15px]">
-            <div className="flex items-center gap-2">
-              <div className="p-2 border-2 border-accent bg-accent rounded-full">
-                <FaCircle className="text-[6px] text-white" />
-              </div>
-              <div>
-                <SmallText padding={`p-0`}>Step 01</SmallText>
-                <Text padding={`p-0`} font={`font-semibold`}>
-                  Basic Information
-                </Text>
-              </div>
-            </div>
-            <div className="h-[15px] w-[15px] border-r-2 border-accent"></div>
-            <div className="flex items-center gap-2">
-              <div className="p-2 border-2 border-accent bg-white rounded-full">
-                <FaCircle className="text-[6px] text-accent" />
-              </div>
-              <div>
-                <SmallText color={`accent`} padding={`p-0`}>
-                  Step 02
-                </SmallText>
-                <Text color={`accent`} padding={`p-0`} font={`font-semibold`}>
-                  Professional Information
-                </Text>
-              </div>
-            </div>
-            <div className="h-[15px] w-[15px] border-r-2 border-textColor3/50"></div>
-            <div className="flex items-center gap-2">
-              <div className="p-2 border-2 border-textColor3/50 bg-white rounded-full">
-                <FaCircle className="text-[6px] text-textColor3/50" />
-              </div>
-              <div>
-                <SmallText padding={`p-0`} color={`textColor3/50`}>
-                  Step 03
-                </SmallText>
-                <Text
-                  padding={`p-0`}
-                  font={`font-semibold`}
-                  color={`textColor3/50`}
-                >
-                  Upload Documents
-                </Text>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FormContainer />
       </div>
     </div>
   );
