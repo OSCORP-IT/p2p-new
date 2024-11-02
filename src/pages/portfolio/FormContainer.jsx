@@ -4,6 +4,9 @@ import Text from "../../components/Text";
 import { useEffect, useState } from "react";
 import { showForm, showFormPage } from "../../services/FormAPI";
 import { BiError, BiLoader } from "react-icons/bi";
+import AccentButton from "../../components/AccentButton";
+import InputMaker from "./InputMaker";
+
 const initialState = {
   data: null,
   loading: true,
@@ -14,7 +17,31 @@ function FormContainer() {
   const [formState, setFormState] = useState(initialState);
   const [formPage, setFormPage] = useState(initialState);
   const [currentFormPage, setCurrentFormPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [formResponses, setFormResponses] = useState({});
 
+  useEffect(() => {
+    // Initialize state for the current page if it doesn't exist
+    {
+      formPage.data &&
+        setFormResponses((prevResponses) => ({
+          ...prevResponses,
+          [currentFormPage - 1]:
+            prevResponses[currentFormPage - 1] ||
+            formPage.data.result.form_page.form_fields.reduce((acc, field) => {
+              acc[field.field_name] =
+                field.field_type === "table_group" ||
+                field.field_type === "section_group"
+                  ? field.options.reduce((nestedAcc, option) => {
+                      nestedAcc[option.field_name] = "";
+                      return nestedAcc;
+                    }, {})
+                  : "";
+              return acc;
+            }, {}),
+        }));
+    }
+  }, [currentFormPage, formPage.data]);
   useEffect(() => {
     const fetchFormPages = async () => {
       try {
@@ -24,6 +51,7 @@ function FormContainer() {
           loading: false,
           error: null,
         });
+        setTotalPage(data.result.form.total_pages);
       } catch (error) {
         setFormState({
           data: null,
@@ -35,21 +63,14 @@ function FormContainer() {
     fetchFormPages();
   }, []);
   useEffect(() => {
+    setFormPage({
+      data: null,
+      loading: true,
+      error: null,
+    });
     const fetchPageFields = async () => {
       try {
-        // const formId = formState.data?.result?.form?.id;
-        // if (!formId) {
-        //   console.error("Form ID not found in data:", formState.data);
-        //   return;
-        // }
-        // console.log(
-        //   "Fetching fields for form ID:",
-        //   formId,
-        //   "page:",
-        //   currentFormPage
-        // );
-
-        const data = await showFormPage(1, 1, 1);
+        const data = await showFormPage(1, 1, currentFormPage);
         console.log("Fetched page fields data:", data); // Check the page fields data structure
         setFormPage({
           data,
@@ -65,8 +86,8 @@ function FormContainer() {
       }
     };
     fetchPageFields();
-  }, []);
-  console.log(formPage.data);
+  }, [currentFormPage]);
+  console.log(formResponses);
   return (
     <>
       {formState.loading && (
@@ -127,11 +148,50 @@ function FormContainer() {
             ))}
           </div>
         )}
+        {formPage.loading && (
+          <div className="flex gap-2 items-center">
+            <BiLoader className=" animate-spin" />
+            <Text>Loading</Text>
+          </div>
+        )}
         {formPage.data && (
           <div className="w-[70%] bg-white rounded-md p-[15px]">
-            {formPage.data.result.form_page.form_fields.map((item, index) => (
-              <input type="text" key={`index`} />
+            {formPage.data.result.form_page.form_fields.map((item) => (
+              <div key={item.id} className="w-full">
+                <InputMaker item={item} />
+              </div>
             ))}
+            {currentFormPage < totalPage && (
+              <div className="flex items-center gap-4">
+                {currentFormPage !== 1 && (
+                  <div
+                    className="w-max m-auto pt-8"
+                    onClick={() => setCurrentFormPage(currentFormPage - 1)}
+                  >
+                    <AccentButton leftIcon={true}>Previous Page</AccentButton>
+                  </div>
+                )}
+                <div
+                  className="w-max m-auto pt-8"
+                  onClick={() => setCurrentFormPage(currentFormPage + 1)}
+                >
+                  <AccentButton>Next Page</AccentButton>
+                </div>
+              </div>
+            )}
+            {currentFormPage == 3 && (
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-max m-auto pt-8"
+                  onClick={() => setCurrentFormPage(currentFormPage - 1)}
+                >
+                  <AccentButton leftIcon={true}>Previous Page</AccentButton>
+                </div>
+                <div className="w-max m-auto pt-8">
+                  <AccentButton>Submit</AccentButton>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

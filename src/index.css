@@ -28,3 +28,8 @@
 .animate-slide-in-right {
   animation: slide-in-right 0.7s ease-in-out forwards;
 }
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container input {
+  width: 100% !important;
+}
