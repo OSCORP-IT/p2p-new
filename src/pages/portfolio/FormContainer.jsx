@@ -21,28 +21,6 @@ function FormContainer() {
   const [formResponses, setFormResponses] = useState({});
 
   useEffect(() => {
-    // Initialize state for the current page if it doesn't exist
-    {
-      formPage.data &&
-        setFormResponses((prevResponses) => ({
-          ...prevResponses,
-          [currentFormPage - 1]:
-            prevResponses[currentFormPage - 1] ||
-            formPage.data.result.form_page.form_fields.reduce((acc, field) => {
-              acc[field.field_name] =
-                field.field_type === "table_group" ||
-                field.field_type === "section_group"
-                  ? field.options.reduce((nestedAcc, option) => {
-                      nestedAcc[option.field_name] = "";
-                      return nestedAcc;
-                    }, {})
-                  : "";
-              return acc;
-            }, {}),
-        }));
-    }
-  }, [currentFormPage, formPage.data]);
-  useEffect(() => {
     const fetchFormPages = async () => {
       try {
         const data = await showForm(`1`, `1`);
