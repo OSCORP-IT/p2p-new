@@ -18,6 +18,7 @@ import PLSpecialOccasion from "./pages/pl-special/PLSpecialOccasion";
 import PLDentalLoan from "./pages/pl-dental/PLDentalLoan";
 import PLBariatric from "./pages/pl-weightloss/PLBariatric";
 import Form from "./pages/portfolio/Form";
+import PersonalLoanCalculator from "./pages/resource_personal/PersonalLoanCalculator";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "/pl/bariatric-surgery",
         element: <PLBariatric />,
+      },
+      {
+        path: "/calculator/personal",
+        element: <PersonalLoanCalculator />,
       },
     ],
   },

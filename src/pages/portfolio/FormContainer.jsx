@@ -65,7 +65,6 @@ function FormContainer() {
     };
     fetchPageFields();
   }, [currentFormPage]);
-  console.log(formResponses);
   return (
     <>
       {formState.loading && (
@@ -157,7 +156,7 @@ function FormContainer() {
                 </div>
               </div>
             )}
-            {currentFormPage == 3 && (
+            {currentFormPage == totalPage && (
               <div className="flex items-center gap-4">
                 <div
                   className="w-max m-auto pt-8"

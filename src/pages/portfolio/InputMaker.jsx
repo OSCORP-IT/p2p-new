@@ -3,6 +3,24 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function InputMaker({ item }) {
+  const result = { field_id: item.field_id, answer_text: "" };
+  console.log(item.field_type);
+  if (
+    item.field_type === "table_group" ||
+    item.field_type === "section_group"
+  ) {
+    // Initialize an array of empty objects based on options within the group
+    result.answer_text = [
+      item.options.reduce((acc, option) => {
+        acc[option.field_name] = ""; // Initialize each option field to an empty string
+        return acc;
+      }, {}),
+    ];
+  } else if (item.field_type === "number") {
+    result.answer_text = 0;
+  }
+  console.log(result);
+
   return (
     <>
       {item.field_type !== "section_group" && (
@@ -15,6 +33,8 @@ function InputMaker({ item }) {
         <input
           type="text"
           name={item.field_name}
+          value={result.answer_text}
+          onChange={(e) => (result.answer_text = e.target.value)}
           placeholder={item.placeholder}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
         />
@@ -90,7 +110,7 @@ function InputMaker({ item }) {
       )}
       {item.field_type === "table_group" && (
         <div className="border border-gray-300 p-1 rounded-md">
-          <div className="flex items-center gap-2 text-center text-lg font-medium jus">
+          <div className="flex items-center gap-2 text-center text-lg font-medium">
             {item.options.map((option, index) => (
               <div
                 key={index}
@@ -121,6 +141,17 @@ function InputMaker({ item }) {
                   <div className="rounded-md py-1 w-1/3">
                     <input
                       type="text"
+                      name={option.field_name}
+                      id={option.field_name}
+                      placeholder={option.label}
+                      className="text-base text-center font-normal rounded-lg w-full border border-gray-300 py-1"
+                    />
+                  </div>
+                )}
+                {option.field_type === "number" && (
+                  <div className="rounded-md py-1 w-1/3">
+                    <input
+                      type="number"
                       name={option.field_name}
                       id={option.field_name}
                       placeholder={option.label}

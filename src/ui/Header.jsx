@@ -29,6 +29,11 @@ const Header = () => {
       ],
     },
     {
+      name: "Calculator",
+      path: "/calculator/personal",
+      subItems: [],
+    },
+    {
       name: "Get Fund",
       path: "/get-fund/collateral",
       subItems: [
