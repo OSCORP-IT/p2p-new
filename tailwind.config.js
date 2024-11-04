@@ -19,6 +19,7 @@ export default {
         bgGradient5: "#0A1313",
         dropShadow: "#B3D4D8",
         islamic: "#0da500",
+        textColor2: "#22252b",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

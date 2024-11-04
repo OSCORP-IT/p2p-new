@@ -2,19 +2,19 @@ import SubHeading from "../../components/SubHeading";
 import Title from "../../components/Title";
 import BlogContainer from "../../ui/BlogContainer";
 import FAQContainer from "../../ui/Home/FAQContainer";
+import Testimonial from "../../ui/Home/Testimonial";
 import SectionLayout from "../../ui/SectionLayout";
 import OnlineLoan from "../pl-homeImprovement/OnlineLoan";
-import Cards from "./Cards";
-import LoanCardsSection from "./LoanCardsSection";
-import PersonalLoanCalculatorHero from "./PersonalLoanCalculatorHero";
-import SectionCheckBox from "./SectionCheckBox";
+import LoanCardsSection from "../resource_personal/LoanCardsSection";
+import DebtColidationCalculatorHero from "./DebtColidationCalculatorHero";
+import HowCalculatorWorks from "./HowCalculatorWorks";
 
-function PersonalLoanCalculator() {
+function DebtColidationCalculator() {
   return (
-    <div>
-      <PersonalLoanCalculatorHero />
-      <Cards />
-      <SectionCheckBox />
+    <>
+      <DebtColidationCalculatorHero />
+      <HowCalculatorWorks />
+      <Testimonial />
       <SectionLayout>
         <div className="w-11/12 sm:w-4/5 m-auto py-6">
           <Title align={"text-center"}>Questions? We’re here to help</Title>
@@ -27,8 +27,8 @@ function PersonalLoanCalculator() {
       <OnlineLoan />
       <BlogContainer />
       <LoanCardsSection />
-    </div>
+    </>
   );
 }
 
-export default PersonalLoanCalculator;
+export default DebtColidationCalculator;

@@ -31,7 +31,7 @@ const Header = () => {
     {
       name: "Calculator",
       path: "/calculator/personal",
-      subItems: [],
+      subItems: [{ name: "Debt Cons Calculator", path: "/calculator/debt" }],
     },
     {
       name: "Get Fund",
