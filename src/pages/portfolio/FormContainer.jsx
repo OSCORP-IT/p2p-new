@@ -1,6 +1,7 @@
 import { FaCircle } from "react-icons/fa6";
 import SmallText from "../../components/SmallText";
 import Text from "../../components/Text";
+import Title from "../../components/Title";
 import { useEffect, useState } from "react";
 import { showForm, showFormPage } from "../../services/FormAPI";
 import { BiError, BiLoader } from "react-icons/bi";
@@ -74,9 +75,9 @@ function FormContainer() {
         </div>
       )}
       {formState.error && (
-        <div className="flex gap-2 animate-bounce items-center">
-          <BiError className="text-red-900" />
-          <Text>Error Loading Form</Text>
+        <div className="flex gap-2 animate-pulse items-center m-auto w-max h-max">
+          <BiError className="text-red-900 text-3xl" />
+          <Title>Error Loading Form</Title>
         </div>
       )}
 

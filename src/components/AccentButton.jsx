@@ -1,8 +1,12 @@
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 
-function AccentButton({ children, noIcon, leftIcon }) {
+function AccentButton({ children, noIcon, leftIcon, color }) {
   return (
-    <button className=" capitalize flex gap-2 items-center py-2 px-10 text-accent bg-white border border-accent rounded-md text-sm sm:text-base font-semibold">
+    <button
+      className={`capitalize flex gap-2 items-center py-2 px-10 ${
+        color ? `text-${color} border-${color}` : "text-accent border-accent"
+      } bg-white border  rounded-md text-sm sm:text-base font-semibold`}
+    >
       {!noIcon && leftIcon && <GoArrowLeft className="font-semibold text-lg" />}
       <p>{children}</p>
       {!noIcon && !leftIcon && (

@@ -1,5 +1,4 @@
 function SubHeading({ children, padding, color, font, align }) {
-  console.log(`text-${color}`);
   return (
     <h3
       className={`${color ? `text-${color}` : "text-black"} ${

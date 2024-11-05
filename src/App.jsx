@@ -20,6 +20,7 @@ import PLBariatric from "./pages/pl-weightloss/PLBariatric";
 import Form from "./pages/portfolio/Form";
 import PersonalLoanCalculator from "./pages/resource_personal/PersonalLoanCalculator";
 import DebtColidationCalculator from "./pages/resouce-debt/DebtColidationCalculator";
+import HomeEquityCalculator from "./pages/resourse-homeEquity/HomeEquityCalculator";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "/calculator/debt",
         element: <DebtColidationCalculator />,
+      },
+      {
+        path: "/calculator/home-equity",
+        element: <HomeEquityCalculator />,
       },
     ],
   },

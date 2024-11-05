@@ -1,4 +1,4 @@
-const BASE_URL = `https://admin-p2p.alzakati.com/api`;
+const BASE_URL = `https://admin-p2p.alzakati.com/api/client-panel`;
 
 const myHeaders = new Headers();
 myHeaders.append("Accept", "application/json");
@@ -32,7 +32,7 @@ export async function showFormPage(loanTypes, formId, formPage) {
   };
 
   const response = await fetch(
-    `${BASE_URL}/client-panel/dashboard/loan-types/${loanTypes}/forms/${formId}/form-pages/${formPage}`,
+    `${BASE_URL}/dashboard/applied-loan-portfolios/:${loanTypes}/forms/:${formId}/form-pages/:${formPage}`,
     requestOptions
   );
   if (!response.ok) throw Error("Failed getting menu");
