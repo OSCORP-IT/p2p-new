@@ -63,6 +63,7 @@ const Header = () => {
         { name: "Bariatric Surgery", path: "/pl/bariatric-surgery" },
         { name: "Fertility Treatment", path: "/pl/fertility-treatment" },
         { name: "Plastic Surgery", path: "/pl/plastic-surgery" },
+        { name: "Mental Health", path: "/pl/mental-health" },
       ],
     },
   ];

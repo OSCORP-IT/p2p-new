@@ -23,6 +23,7 @@ import DebtColidationCalculator from "./pages/resouce-debt/DebtColidationCalcula
 import HomeEquityCalculator from "./pages/resourse-homeEquity/HomeEquityCalculator";
 import FertilityTreatment from "./pages/pl-fertility/FertilityTreatment";
 import PlasticSurgery from "./pages/pl-plasricSurgery/PlasticSurgery";
+import MentalHealth from "./pages/pl-mentalHealth/MentalHealth";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
       {
         path: "/pl/plastic-surgery",
         element: <PlasticSurgery />,
+      },
+      {
+        path: "/pl/mental-health",
+        element: <MentalHealth />,
       },
       {
         path: "/pl/fertility-treatment",
