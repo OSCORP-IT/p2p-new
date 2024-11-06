@@ -13,7 +13,7 @@ function BgBox({ bg, heading, text }) {
         } p-4 sm:p-6 tab:p-10 rounded-md mt-4`}
       >
         <Heading1
-          align={`text-center leading-tight`}
+          align={`text-center leading-tight tab:w-10/12 tab:m-auto`}
           color={`text-titleColor`}
           padding={`pb-2 sm:pb-3 tab:pb-4`}
         >

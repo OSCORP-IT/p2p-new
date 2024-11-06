@@ -21,6 +21,8 @@ import Form from "./pages/portfolio/Form";
 import PersonalLoanCalculator from "./pages/resource_personal/PersonalLoanCalculator";
 import DebtColidationCalculator from "./pages/resouce-debt/DebtColidationCalculator";
 import HomeEquityCalculator from "./pages/resourse-homeEquity/HomeEquityCalculator";
+import FertilityTreatment from "./pages/pl-fertility/FertilityTreatment";
+import PlasticSurgery from "./pages/pl-plasricSurgery/PlasticSurgery";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +95,14 @@ const router = createBrowserRouter([
       {
         path: "/pl/bariatric-surgery",
         element: <PLBariatric />,
+      },
+      {
+        path: "/pl/plastic-surgery",
+        element: <PlasticSurgery />,
+      },
+      {
+        path: "/pl/fertility-treatment",
+        element: <FertilityTreatment />,
       },
       {
         path: "/calculator/personal",

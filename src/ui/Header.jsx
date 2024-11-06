@@ -52,10 +52,17 @@ const Header = () => {
       subItems: [
         { name: "Debt", path: "/pl/debt" },
         { name: "Home Improvement", path: "/pl/home-improvement" },
-        { name: "Medical Loan", path: "/pl/medical-loan" },
         { name: "Special Occasion", path: "/pl/special-occasion" },
+      ],
+    },
+    {
+      name: "Medical Loan",
+      path: "/pl/medical-loan",
+      subItems: [
         { name: "Dental", path: "/pl/dental" },
         { name: "Bariatric Surgery", path: "/pl/bariatric-surgery" },
+        { name: "Fertility Treatment", path: "/pl/fertility-treatment" },
+        { name: "Plastic Surgery", path: "/pl/plastic-surgery" },
       ],
     },
   ];

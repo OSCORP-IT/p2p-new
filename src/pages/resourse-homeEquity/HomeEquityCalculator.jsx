@@ -34,7 +34,7 @@ function HomeEquityCalculator() {
           How can we help you prosper?
         </Heading1>
         <Text align={`text-center`}>
-          We've got your back, every step of the way.
+          We&apos;ve got your back, every step of the way.
         </Text>
         <div className="w-full tab:w-5/6 m-auto flex flex-wrap sm:flex-nowrap items-start justify-between py-4">
           <div className="w-full sm:w-[48%] tab:w-[45%] p-10 bg-accent/10 rounded-[20px]">

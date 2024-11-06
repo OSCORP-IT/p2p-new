@@ -1,8 +1,8 @@
-import HeroImg from "../../assets/Dental.png";
+import HeroImg from "../../assets/PlasticSurgery.png";
 import PrimaryButton from "../../components/PrimaryButton";
 import Title from "../../components/Title";
 import Text from "../../components/Text";
-function PLDentalHero() {
+function PlasticSurgeryHero() {
   return (
     <div className="w-full relative overflow-hidden">
       <div className="hidden sm:block absolute -top-10 tab:-top-20 left-0 -z-50 blur-[130px] bg-primary/40 rounded-full w-[250px] tab:w-[450px] h-[180px] tab:h-[300px]"></div>
@@ -13,14 +13,14 @@ function PLDentalHero() {
             padding={`pb-4`}
             font={`font-semibold`}
           >
-            dental loans
+            plastic surgery financing
           </Text>
           <Title padding={"py-0 leading-tight"} color={`text-titleColor`}>
-            Dental financing
+            Cosmetic surgery financing
           </Title>
           <Text padding={`py-2`}>
-            Whether it’s emergency surgery or cosmetic care, financing through
-            FINTECH can alleviate the stress of dental expenses.
+            Financing your plastic surgery can be stressful. But through
+            Prosper, you can ease that financial burden.
           </Text>
           <div className="pt-8 pb-4">
             <PrimaryButton>check your rate</PrimaryButton>
@@ -41,11 +41,11 @@ function PLDentalHero() {
             padding={"py-0 leading-tight"}
             color={`text-titleColor`}
           >
-            Dental financing
+            Cosmetic surgery financing
           </Title>
           <Text align={`text-center`} padding={`py-2`}>
-            Whether it’s emergency surgery or cosmetic care, financing through
-            FINTECH can alleviate the stress of dental expenses.
+            Financing your plastic surgery can be stressful. But through
+            Prosper, you can ease that financial burden.
           </Text>
           <div className="pt-8 pb-4 w-max m-auto">
             <PrimaryButton>check your rate</PrimaryButton>
@@ -56,4 +56,4 @@ function PLDentalHero() {
   );
 }
 
-export default PLDentalHero;
+export default PlasticSurgeryHero;
