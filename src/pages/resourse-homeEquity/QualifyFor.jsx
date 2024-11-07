@@ -2,7 +2,6 @@ import SectionLayout from "../../ui/SectionLayout";
 import bgHomeEq from "../../assets/bgHomeEq.jpeg";
 import Heading1 from "../../components/Heading1";
 import Text from "../../components/Text";
-import PrimaryButton from "../../components/PrimaryButton";
 function QualifyFor() {
   return (
     <SectionLayout>
@@ -17,12 +16,11 @@ function QualifyFor() {
           <Text color={`white`} padding={"pb-4"}>
             With no impact to your credit score.
           </Text>
-          <PrimaryButton
-            noIcon={true}
-            bg={`gradient-to-r from-[#ff6b00] to-[#803600]`}
+          <button
+            className={`capitalize flex gap-2 items-center py-2 px-10 text-white bg-gradient-to-r from-[#ff6b00] to-[#803600] rounded-md text-sm sm:text-15[px] tab:text-base font-semibold`}
           >
             get my rate
-          </PrimaryButton>
+          </button>
         </div>
       </div>
     </SectionLayout>

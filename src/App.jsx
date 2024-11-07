@@ -24,6 +24,7 @@ import HomeEquityCalculator from "./pages/resourse-homeEquity/HomeEquityCalculat
 import FertilityTreatment from "./pages/pl-fertility/FertilityTreatment";
 import PlasticSurgery from "./pages/pl-plasricSurgery/PlasticSurgery";
 import MentalHealth from "./pages/pl-mentalHealth/MentalHealth";
+import CheckYourRate from "./pages/check-your-rate/CheckYourRate";
 
 const router = createBrowserRouter([
   {
@@ -124,8 +125,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/portfolio-form",
-    element: <Form />,
+    path: "/check-rate",
+    element: <CheckYourRate />,
   },
 ]);
 function App() {
