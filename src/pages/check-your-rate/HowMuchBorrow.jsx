@@ -13,8 +13,8 @@ function HowMuchBorrow({ setPage }) {
       <SubTitle align={`text-center`} padding={`pb-2`} font={`font-normal`}>
         How much would you like to borrow?
       </SubTitle>
-      <h1 className="text-[80px] tab:text-[90px] font-normal text-primary leading-tight text-center">
-        <span className="text-textColor3">৳ </span>
+      <h1 className="font-abel text-[80px] tab:text-[90px] font-normal text-primary leading-tight text-center">
+        <span className="text-textColor3 font-poppins">৳ </span>
         {amount}
       </h1>
       <div className="w-full flex items-center gap-4 justify-between pt-2">

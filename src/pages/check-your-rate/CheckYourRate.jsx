@@ -6,6 +6,9 @@ import PhoneNumber from "./PhoneNumber";
 import OtpCheck from "./OtpCheck";
 import PersonalDetail from "./PersonalDetail";
 import HomeAddress from "./HomeAddress";
+import IncomeCheck from "./IncomeCheck";
+import FinancialPicture from "./FinancialPicture";
+import LoanDisburse from "./LoanDisburse";
 
 function CheckYourRate() {
   const [page, setPage] = useState(1);
@@ -26,6 +29,9 @@ function CheckYourRate() {
         {page === 3 && <OtpCheck setPage={setPage} />}
         {page === 4 && <PersonalDetail setPage={setPage} />}
         {page === 5 && <HomeAddress setPage={setPage} />}
+        {page === 6 && <IncomeCheck setPage={setPage} />}
+        {page === 7 && <FinancialPicture setPage={setPage} />}
+        {page === 8 && <LoanDisburse setPage={setPage} />}
       </div>
     </div>
   );

@@ -23,6 +23,8 @@ export default {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        rage: ["Rage Italic", "sans-serif"],
+        abel: ["Abel", "sans-serif"],
       },
       boxShadow: {
         allSide: "0 0 10px 5px rgba(0, 0, 0, 0.5)", // Example custom shadow
