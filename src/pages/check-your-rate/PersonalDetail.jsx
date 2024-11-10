@@ -1,16 +1,10 @@
 import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
-import { useState } from "react";
 import { FaLessThan } from "react-icons/fa6";
-function PersonalDetail({ setPage }) {
-  const [personalDetail, setPersonalDetail] = useState({
-    firstName: "",
-    lastName: "",
-    dob: "",
-    email: "",
-    id: "",
-  });
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+function PersonalDetail({ setPage, data, setData }) {
   return (
     <>
       <SubTitle align={`text-center`} padding={`pb-2`} font={`font-normal`}>
@@ -25,12 +19,15 @@ function PersonalDetail({ setPage }) {
             id="firstName"
             className="p-2 w-full border border-gray-400"
             placeholder="First Name"
-            value={personalDetail.firstName}
+            value={data.personalDetail.firstName}
             onChange={(e) =>
-              setPersonalDetail({
-                ...personalDetail,
-                firstName: e.target.value,
-              })
+              setData((prevState) => ({
+                ...prevState,
+                personalDetail: {
+                  ...prevState.personalDetail,
+                  firstName: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -41,23 +38,35 @@ function PersonalDetail({ setPage }) {
             id="lastName"
             className="p-2 w-full border border-gray-400"
             placeholder="Last Name"
-            value={personalDetail.lastName}
+            value={data.personalDetail.lastName}
             onChange={(e) =>
-              setPersonalDetail({ ...personalDetail, lastName: e.target.value })
+              setData((prevState) => ({
+                ...prevState,
+                personalDetail: {
+                  ...prevState.personalDetail,
+                  lastName: e.target.value,
+                },
+              }))
             }
           />
         </div>
       </div>
       <div className="pb-2 w-full">
-        <input
-          type="text"
+        <DatePicker
+          showIcon
+          dateFormat={"dd/MM/yyyy"}
           name="dob"
-          id="dob"
+          placeholderText="Date of birth (dd/mm/yyyy)"
+          selected={data.personalDetail.dob}
           className="p-2 w-full border border-gray-400"
-          placeholder="Date of birth (dd/mm/yyyy)"
-          value={personalDetail.dob}
-          onChange={(e) =>
-            setPersonalDetail({ ...personalDetail, dob: e.target.value })
+          onChange={(date) =>
+            setData((prevState) => ({
+              ...prevState,
+              personalDetail: {
+                ...prevState.personalDetail,
+                dob: date,
+              },
+            }))
           }
         />
       </div>
@@ -68,9 +77,15 @@ function PersonalDetail({ setPage }) {
           id="email"
           className="p-2 w-full border border-gray-400"
           placeholder="E-mail"
-          value={personalDetail.email}
+          value={data.personalDetail.email}
           onChange={(e) =>
-            setPersonalDetail({ ...personalDetail, email: e.target.value })
+            setData((prevState) => ({
+              ...prevState,
+              personalDetail: {
+                ...prevState.personalDetail,
+                email: e.target.value,
+              },
+            }))
           }
         />
       </div>
@@ -81,16 +96,22 @@ function PersonalDetail({ setPage }) {
           id="id"
           className="p-2 w-full border border-gray-400"
           placeholder="NID/Passport"
-          value={personalDetail.id}
+          value={data.personalDetail.id}
           onChange={(e) =>
-            setPersonalDetail({ ...personalDetail, id: e.target.value })
+            setData((prevState) => ({
+              ...prevState,
+              personalDetail: {
+                ...prevState.personalDetail,
+                id: e.target.value,
+              },
+            }))
           }
         />
       </div>
       <div className="flex gap-2 items-center justify-between pt-4">
         <div
           className="border border-primary p-2 rounded-md"
-          onClick={() => setPage(3)}
+          onClick={() => setPage(2)}
         >
           <FaLessThan className="text-primary" />
         </div>

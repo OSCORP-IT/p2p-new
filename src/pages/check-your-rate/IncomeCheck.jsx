@@ -4,23 +4,20 @@ import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
 import List from "../../icon/List";
 import PrimaryButton from "../../components/PrimaryButton";
-import { useState } from "react";
-
-function IncomeCheck({ setPage }) {
-  const [incomeSource, setIncomeSource] = useState("");
+function IncomeCheck({ data, setData, setPage }) {
   return (
     <>
       <SubTitle align={`text-center`} font={`font-normal`}>
-        Welcome, Mr. X!
+        Welcome, Mr. {data.personalDetail.firstName}!
       </SubTitle>
       <SubHeading align={`text-center`} padding={`pb-3`} font={`font-normal`}>
         What is your source of income?
       </SubHeading>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          incomeSource === "employed" ? "bg-primary/10" : ""
+          data.incomeSource === "employed" ? "bg-primary/10" : ""
         } hover:bg-primary/10 mt-3`}
-        onClick={() => setIncomeSource("employed")}
+        onClick={() => setData({ ...data, incomeSource: "employed" })}
       >
         <div className="w-max m-auto pb-3">
           <List />
@@ -32,9 +29,9 @@ function IncomeCheck({ setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          incomeSource === "self" ? "bg-primary/10" : ""
+          data.incomeSource === "self" ? "bg-primary/10" : ""
         } hover:bg-primary/10 mt-3`}
-        onClick={() => setIncomeSource("self")}
+        onClick={() => setData({ ...data, incomeSource: "self" })}
       >
         <div className="w-max m-auto pb-3">
           <List />
@@ -49,9 +46,9 @@ function IncomeCheck({ setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          incomeSource === "others" ? "bg-primary/10" : ""
+          data.incomeSource === "others" ? "bg-primary/10" : ""
         } hover:bg-primary/10 my-3`}
-        onClick={() => setIncomeSource("others")}
+        onClick={() => setData({ ...data, incomeSource: "others" })}
       >
         <div className="w-max m-auto pb-3">
           <List />

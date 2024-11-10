@@ -2,9 +2,7 @@ import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import SmallText from "../../components/SmallText";
 import PrimaryButton from "../../components/PrimaryButton";
-import { useState } from "react";
-function HowMuchBorrow({ setPage }) {
-  const [amount, setAmount] = useState(50000);
+function HowMuchBorrow({ setPage, data, setData }) {
   return (
     <>
       <Text align={`text-center`} padding={`pb-2`}>
@@ -15,7 +13,7 @@ function HowMuchBorrow({ setPage }) {
       </SubTitle>
       <h1 className="font-abel text-[80px] tab:text-[90px] font-normal text-primary leading-tight text-center">
         <span className="text-textColor3 font-poppins">৳ </span>
-        {amount}
+        {data.borrowData.borrowAmount}
       </h1>
       <div className="w-full flex items-center gap-4 justify-between pt-2">
         <SmallText color={`textColor3`}>৳15000</SmallText>
@@ -24,8 +22,16 @@ function HowMuchBorrow({ setPage }) {
           className="w-full h-1"
           min={15000}
           max={1000000}
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          value={data.borrowAmount}
+          onChange={(e) =>
+            setData((prevState) => ({
+              ...prevState,
+              borrowData: {
+                ...prevState.borrowData,
+                borrowAmount: e.target.value,
+              },
+            }))
+          }
           step={5000}
         />
         <SmallText color={`textColor3`}>৳1,000,000</SmallText>
@@ -33,6 +39,16 @@ function HowMuchBorrow({ setPage }) {
       <div className="w-full border border-primary mt-4 p-2">
         <select
           name="loanPurpose"
+          value={data.purpose}
+          onChange={(e) =>
+            setData((prevState) => ({
+              ...prevState,
+              borrowData: {
+                ...prevState.borrowData,
+                purpose: e.target.value,
+              },
+            }))
+          }
           className="w-full h-full p-1 text-sm sm:text-base"
         >
           <option value="">Loan Purpose</option>

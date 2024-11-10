@@ -1,16 +1,9 @@
 import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
-import { useState } from "react";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
-function FinancialPicture({ setPage }) {
-  const [financialPicture, setFinancialPicture] = useState({
-    annualIncome: "",
-    additionalIncome: "",
-    monthlyRate: "",
-  });
-
+function FinancialPicture({ data, setData, setPage }) {
   return (
     <>
       <SubTitle align={`text-center`} padding={`pb-2`} font={`font-normal`}>
@@ -25,17 +18,20 @@ function FinancialPicture({ setPage }) {
           ৳
         </SubHeading>
         <input
-          type="text"
+          type="number"
           name="Annual_income"
           id="annual_income"
           className="p-3 w-full"
           placeholder="Your Annual Income"
-          value={financialPicture.annualIncome}
+          value={data.financialPicture.annualIncome}
           onChange={(e) =>
-            setFinancialPicture({
-              ...financialPicture,
-              annualIncome: e.target.value,
-            })
+            setData((prevState) => ({
+              ...prevState,
+              financialPicture: {
+                ...prevState.financialPicture,
+                annualIncome: e.target.value,
+              },
+            }))
           }
         />
       </div>
@@ -44,17 +40,20 @@ function FinancialPicture({ setPage }) {
           ৳
         </SubHeading>
         <input
-          type="text"
+          type="number"
           name="Additional_income"
           id="additional_income"
           className="p-3 w-full"
           placeholder="Additional Income (optional)"
-          value={financialPicture.additionalIncome}
+          value={data.financialPicture.additionalIncome}
           onChange={(e) =>
-            setFinancialPicture({
-              ...financialPicture,
-              additionalIncome: e.target.value,
-            })
+            setData((prevState) => ({
+              ...prevState,
+              financialPicture: {
+                ...prevState.financialPicture,
+                additionalIncome: e.target.value,
+              },
+            }))
           }
         />
       </div>
@@ -63,17 +62,20 @@ function FinancialPicture({ setPage }) {
           ৳
         </SubHeading>
         <input
-          type="text"
+          type="number"
           name="Monthly_rate"
           id="monthly_rate"
           className="p-3 w-full"
           placeholder="Monthly Rent or Mortgage Payment"
-          value={financialPicture.monthlyRate}
+          value={data.financialPicture.monthlyRate}
           onChange={(e) =>
-            setFinancialPicture({
-              ...financialPicture,
-              monthlyRate: e.target.value,
-            })
+            setData((prevState) => ({
+              ...prevState,
+              financialPicture: {
+                ...prevState.financialPicture,
+                monthlyRate: e.target.value,
+              },
+            }))
           }
         />
       </div>

@@ -1,16 +1,9 @@
 import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
-import { useState } from "react";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
-function HomeAddress({ setPage }) {
-  const [homeAddress, setHomeAddress] = useState({
-    address: "",
-    thana: "",
-    district: "",
-    postalCode: "",
-  });
+function HomeAddress({ data, setData, setPage }) {
   return (
     <>
       <SubTitle align={`text-center`} padding={`py-0`} font={`font-normal`}>
@@ -26,9 +19,15 @@ function HomeAddress({ setPage }) {
           id="homeAddress"
           className="p-2 w-full border border-gray-400"
           placeholder="Home Address"
-          value={homeAddress.address}
+          value={data.homeAddress.address}
           onChange={(e) =>
-            setHomeAddress({ ...homeAddress, address: e.target.value })
+            setData((prevState) => ({
+              ...prevState,
+              homeAddress: {
+                ...prevState.homeAddress,
+                address: e.target.value,
+              },
+            }))
           }
         />
       </div>
@@ -39,9 +38,15 @@ function HomeAddress({ setPage }) {
           id="thana"
           className="p-2 w-full border border-gray-400"
           placeholder="Thana"
-          value={homeAddress.thana}
+          value={data.homeAddress.thana}
           onChange={(e) =>
-            setHomeAddress({ ...homeAddress, thana: e.target.value })
+            setData((prevState) => ({
+              ...prevState,
+              homeAddress: {
+                ...prevState.homeAddress,
+                thana: e.target.value,
+              },
+            }))
           }
         />
       </div>
@@ -53,9 +58,15 @@ function HomeAddress({ setPage }) {
             id="district"
             className="p-2 w-full border border-gray-400"
             placeholder="District"
-            value={homeAddress.district}
+            value={data.homeAddress.district}
             onChange={(e) =>
-              setHomeAddress({ ...homeAddress, district: e.target.value })
+              setData((prevState) => ({
+                ...prevState,
+                homeAddress: {
+                  ...prevState.homeAddress,
+                  district: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -66,9 +77,15 @@ function HomeAddress({ setPage }) {
             id="postalCode"
             className="p-2 w-full border border-gray-400"
             placeholder="Postal Code"
-            value={setHomeAddress.postalCode}
+            value={data.homeAddress.postalCode}
             onChange={(e) =>
-              setHomeAddress({ ...homeAddress, postalCode: e.target.value })
+              setData((prevState) => ({
+                ...prevState,
+                homeAddress: {
+                  ...prevState.homeAddress,
+                  postalCode: e.target.value,
+                },
+              }))
             }
           />
         </div>

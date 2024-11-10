@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 import { BiLock } from "react-icons/bi";
-function OtpCheck({ setPage }) {
+function OtpCheck({ data, setPage }) {
   const [otp, setOtp] = useState("");
   const [seconds, setSeconds] = useState(60);
 
@@ -30,7 +30,7 @@ function OtpCheck({ setPage }) {
         Please give the OTP so we can be sure it’s you
       </SubHeading>
       <SubHeading align={`text-center`} padding={`pb-2`}>
-        OTP is sent to 01XXX XXXXXX
+        OTP is sent to {data.phone.phoneNumber}
       </SubHeading>
       <div className="mt-4 mb-2 w-full border pr-2 border-gray-400 flex items-center gap-2">
         <input
