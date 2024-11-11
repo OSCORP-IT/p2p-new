@@ -16,15 +16,14 @@ const initialState = {
   personalDetail: { firstName: "", lastName: "", dob: "", email: "", id: "" },
   homeAddress: { address: "", thana: "", district: "", postalCode: "" },
   incomeSource: "",
-  financialPicture: { annualIncome: 0, additionalIncome: 0, monthlyRate: 0 },
+  financialPicture: { annualIncome: "", additionalIncome: "", monthlyRate: "" },
   loanApproval: { approved: false, amount: 0 },
   password: { inital: "", confirm: "", agree: true },
 };
 function CheckYourRate() {
-  const [page, setPage] = useState(9);
+  const [page, setPage] = useState(1);
   const [userData, setUserData] = useState(initialState);
   const navigate = useNavigate();
-  console.log(userData);
   return (
     <div className="w-full min-h-screen bg-gray-200">
       <div className="h-[70px] bg-white shadow-md shadow-gray-300 py-2">

@@ -4,6 +4,17 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 function FinancialPicture({ data, setData, setPage }) {
+  function handleSubmit() {
+    if (
+      data.financialPicture.annualIncome === "" ||
+      data.financialPicture.monthlyRate === ""
+    ) {
+      window.alert("Please fill the required fields.");
+      return;
+    }
+    setPage(8);
+    return;
+  }
   return (
     <>
       <SubTitle align={`text-center`} padding={`pb-2`} font={`font-normal`}>
@@ -18,7 +29,7 @@ function FinancialPicture({ data, setData, setPage }) {
           ৳
         </SubHeading>
         <input
-          type="number"
+          type="text"
           name="Annual_income"
           id="annual_income"
           className="p-3 w-full"
@@ -29,7 +40,7 @@ function FinancialPicture({ data, setData, setPage }) {
               ...prevState,
               financialPicture: {
                 ...prevState.financialPicture,
-                annualIncome: e.target.value,
+                annualIncome: Number(e.target.value),
               },
             }))
           }
@@ -40,7 +51,7 @@ function FinancialPicture({ data, setData, setPage }) {
           ৳
         </SubHeading>
         <input
-          type="number"
+          type="text"
           name="Additional_income"
           id="additional_income"
           className="p-3 w-full"
@@ -51,7 +62,7 @@ function FinancialPicture({ data, setData, setPage }) {
               ...prevState,
               financialPicture: {
                 ...prevState.financialPicture,
-                additionalIncome: e.target.value,
+                additionalIncome: Number(e.target.value),
               },
             }))
           }
@@ -62,7 +73,7 @@ function FinancialPicture({ data, setData, setPage }) {
           ৳
         </SubHeading>
         <input
-          type="number"
+          type="text"
           name="Monthly_rate"
           id="monthly_rate"
           className="p-3 w-full"
@@ -73,7 +84,7 @@ function FinancialPicture({ data, setData, setPage }) {
               ...prevState,
               financialPicture: {
                 ...prevState.financialPicture,
-                monthlyRate: e.target.value,
+                monthlyRate: Number(e.target.value),
               },
             }))
           }
@@ -86,7 +97,7 @@ function FinancialPicture({ data, setData, setPage }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(8)}>
+        <div className="w-full" onClick={handleSubmit}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Continue
           </PrimaryButton>

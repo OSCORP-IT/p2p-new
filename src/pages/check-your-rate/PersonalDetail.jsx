@@ -5,6 +5,14 @@ import { FaLessThan } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 function PersonalDetail({ setPage, data, setData }) {
+  function handleSubmit() {
+    if (Object.values(data.personalDetail).some((value) => value === "")) {
+      window.alert("All fields should be filled");
+      return;
+    }
+    setPage(5);
+    return;
+  }
   return (
     <>
       <SubTitle align={`text-center`} padding={`pb-2`} font={`font-normal`}>
@@ -115,7 +123,7 @@ function PersonalDetail({ setPage, data, setData }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(5)}>
+        <div className="w-full" onClick={handleSubmit}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Continue
           </PrimaryButton>

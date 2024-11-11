@@ -5,6 +5,14 @@ import Text from "../../components/Text";
 import List from "../../icon/List";
 import PrimaryButton from "../../components/PrimaryButton";
 function IncomeCheck({ data, setData, setPage }) {
+  function handleSubmit() {
+    if (data.incomeSource === "") {
+      window.alert("You must select one!");
+      return;
+    }
+    setPage(7);
+    return;
+  }
   return (
     <>
       <SubTitle align={`text-center`} font={`font-normal`}>
@@ -15,7 +23,7 @@ function IncomeCheck({ data, setData, setPage }) {
       </SubHeading>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.incomeSource === "employed" ? "bg-primary/10" : ""
+          data.incomeSource === "employed" ? "bg-accent/10" : ""
         } hover:bg-primary/10 mt-3`}
         onClick={() => setData({ ...data, incomeSource: "employed" })}
       >
@@ -29,7 +37,7 @@ function IncomeCheck({ data, setData, setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.incomeSource === "self" ? "bg-primary/10" : ""
+          data.incomeSource === "self" ? "bg-accent/10" : ""
         } hover:bg-primary/10 mt-3`}
         onClick={() => setData({ ...data, incomeSource: "self" })}
       >
@@ -46,7 +54,7 @@ function IncomeCheck({ data, setData, setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.incomeSource === "others" ? "bg-primary/10" : ""
+          data.incomeSource === "others" ? "bg-accent/10" : ""
         } hover:bg-primary/10 my-3`}
         onClick={() => setData({ ...data, incomeSource: "others" })}
       >
@@ -70,7 +78,7 @@ function IncomeCheck({ data, setData, setPage }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(7)}>
+        <div className="w-full" onClick={handleSubmit}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Continue
           </PrimaryButton>

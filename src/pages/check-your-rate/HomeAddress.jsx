@@ -4,6 +4,14 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 function HomeAddress({ data, setData, setPage }) {
+  function handleSubmit() {
+    if (Object.values(data.homeAddress).some((value) => value === "")) {
+      window.alert("All fields should be filled");
+      return;
+    }
+    setPage(6);
+    return;
+  }
   return (
     <>
       <SubTitle align={`text-center`} padding={`py-0`} font={`font-normal`}>
@@ -97,7 +105,7 @@ function HomeAddress({ data, setData, setPage }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(6)}>
+        <div className="w-full" onClick={handleSubmit}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Continue
           </PrimaryButton>

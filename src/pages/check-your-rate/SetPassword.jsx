@@ -41,9 +41,19 @@ function SetPassword({ setPage }) {
   }, [password]);
   useEffect(() => {
     setPasswordMatch(confirmPassword === password);
-  }, [confirmPassword]);
+  }, [password, confirmPassword]);
   function handleSubmit() {
-    if (agree) {
+    console.log(passwordMatch);
+    if (!passwordMatch) {
+      setFloatingNote({
+        state: true,
+        msg: "Confirm your password first!",
+      }); // Show the div
+      setTimeout(() => {
+        setFloatingNote({ state: false, msg: "" });
+      }, 3000);
+      return;
+    } else if (agree) {
       if (Object.values(validate).every((value) => value === true)) {
         setPage(10);
         return;

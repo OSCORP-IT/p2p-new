@@ -12,7 +12,9 @@ function HowMuchBorrow({ setPage, data, setData }) {
         How much would you like to borrow?
       </SubTitle>
       <h1 className="font-abel text-[80px] tab:text-[90px] font-normal text-primary leading-tight text-center">
-        <span className="text-textColor3 font-poppins">৳ </span>
+        <span className="text-textColor3 font-poppins text-[65px] tab:text-[75px]">
+          {"৳ "}
+        </span>
         {data.borrowData.borrowAmount}
       </h1>
       <div className="w-full flex items-center gap-4 justify-between pt-2">
