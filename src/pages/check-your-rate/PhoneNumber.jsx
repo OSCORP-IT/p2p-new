@@ -3,20 +3,36 @@ import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { userPhoneNumberCheck } from "../../services/Authentication";
 function PhoneNumber({ setPage, data, setData }) {
   const [isValid, setIsvalid] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [err, setErr] = useState("");
+
   const validateBangladeshiPhoneNumber = (phoneNumber) => {
     const regex = /^(?:\+880|880|0)1[3-9]\d{8}$/;
     return regex.test(phoneNumber);
   };
+  useEffect(() => {
+    const checkPhoneNumber = async () => {
+      if (isSubmitted && isValid) {
+        console.log(data.phone.phoneNumber);
+        try {
+          const response = await userPhoneNumberCheck(data.phone.phoneNumber);
+          if (response.number_already_exists) setPage(10);
+          else setPage(3); // Return boolean directly
+        } catch (error) {
+          console.log(error);
+          setErr("Error checking phone number");
+        }
+      }
+    };
+    checkPhoneNumber();
+  }, [isSubmitted, isValid]);
   function handleSubmit() {
-    const valid = validateBangladeshiPhoneNumber(data.phone.phoneNumber);
-    if (valid) {
-      setPage(3);
-      return;
-    }
-    setIsvalid(false);
+    setIsSubmitted(() => true);
+    setIsvalid(() => validateBangladeshiPhoneNumber(data.phone.phoneNumber));
   }
   return (
     <>
@@ -70,6 +86,11 @@ function PhoneNumber({ setPage, data, setData }) {
       {!isValid && (
         <div className="bg-red-200 p-2 mt-2 rounded-md">
           <Text>Give a valid phone number</Text>
+        </div>
+      )}
+      {err !== "" && (
+        <div className="bg-red-200 p-2 mt-2 rounded-md">
+          <Text>{err}</Text>
         </div>
       )}
       <div className="flex gap-2 items-center justify-between pt-4">

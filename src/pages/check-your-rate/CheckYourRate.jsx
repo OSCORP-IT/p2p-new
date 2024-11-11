@@ -10,6 +10,7 @@ import IncomeCheck from "./IncomeCheck";
 import FinancialPicture from "./FinancialPicture";
 import LoanDisburse from "./LoanDisburse";
 import SetPassword from "./SetPassword";
+import GivePassword from "./GIvePassword";
 const initialState = {
   borrowData: { borrowAmount: 50000, purpose: "" },
   phone: { phoneNumber: "", update: true },
@@ -94,6 +95,7 @@ function CheckYourRate() {
             setPage={setPage}
           />
         )}
+        {page === 10 && <GivePassword setPage={setPage} />}
       </div>
     </div>
   );

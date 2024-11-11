@@ -19,7 +19,6 @@ function FormContainer() {
   const [formPage, setFormPage] = useState(initialState);
   const [currentFormPage, setCurrentFormPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [formResponses, setFormResponses] = useState({});
 
   useEffect(() => {
     const fetchFormPages = async () => {
