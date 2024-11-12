@@ -2,7 +2,17 @@ import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import SmallText from "../../components/SmallText";
 import PrimaryButton from "../../components/PrimaryButton";
+import { useSelector } from "react-redux";
 function HowMuchBorrow({ setPage, data, setData }) {
+  const user = useSelector((state) => state.auth);
+  function handleSubmit() {
+    if (user.isLoggedIn) {
+      setPage(4);
+      return;
+    }
+    setPage(2);
+    return;
+  }
   return (
     <>
       <Text align={`text-center`} padding={`pb-2`}>
@@ -59,7 +69,7 @@ function HowMuchBorrow({ setPage, data, setData }) {
           <option value="business">Business Improvement</option>
         </select>
       </div>
-      <div className="w-full pt-4" onClick={() => setPage(2)}>
+      <div className="w-full pt-4" onClick={handleSubmit}>
         <PrimaryButton width={`w-full`} noIcon={true}>
           Continue
         </PrimaryButton>

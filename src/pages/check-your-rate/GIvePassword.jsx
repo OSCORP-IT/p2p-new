@@ -7,12 +7,47 @@ import Text from "../../components/Text";
 
 import { FaLessThan } from "react-icons/fa6";
 import PrimaryButton from "../../components/PrimaryButton";
-function GivePassword({ setPage }) {
+import { loginRequest } from "../../services/Authentication";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../features/authentication/authSlice";
+function GivePassword({ setPage, data, setData }) {
+  const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [see, setSee] = useState(false);
 
-  //   function handleSubmit() {}
+  const handleLogin = async () => {
+    console.log(password);
+    try {
+      const response = await loginRequest(data.phone.phoneNumber, password);
+
+      if (response && response.success) {
+        // Dispatch the logIn action with the user data
+        setData((prevState) => ({
+          ...prevState,
+          personalDetail: {
+            ...prevState.personalDetail,
+            firstName: response.result.client.first_name,
+            lastName: response.result.client.last_name,
+            dob: response.result.client.date_of_birth,
+          },
+        }));
+        dispatch(logIn(response.result.token));
+        setPage(4);
+      } else {
+        setFloatingNote({
+          state: true,
+          msg: response.message || "Login failed.",
+        });
+      }
+    } catch (err) {
+      setFloatingNote({
+        state: true,
+        msg: "Incorrect Password.",
+      });
+      console.error("Error:", err);
+    }
+  };
 
   return (
     <>
@@ -54,7 +89,7 @@ function GivePassword({ setPage }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(4)}>
+        <div className="w-full" onClick={handleLogin}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Continue
           </PrimaryButton>

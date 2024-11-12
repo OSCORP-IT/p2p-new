@@ -66,6 +66,11 @@ const Header = () => {
         { name: "Mental Health", path: "/pl/mental-health" },
       ],
     },
+    {
+      name: "Log In",
+      path: "/auth/login",
+      subItems: [],
+    },
   ];
 
   const handleSubMenuToggle = (index) => {

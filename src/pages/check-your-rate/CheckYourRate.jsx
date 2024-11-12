@@ -95,7 +95,13 @@ function CheckYourRate() {
             setPage={setPage}
           />
         )}
-        {page === 10 && <GivePassword setPage={setPage} />}
+        {page === 10 && (
+          <GivePassword
+            setPage={setPage}
+            data={userData}
+            setData={setUserData}
+          />
+        )}
       </div>
     </div>
   );
