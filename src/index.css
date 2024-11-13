@@ -33,6 +33,9 @@
 .react-datepicker__input-container input {
   width: 100% !important;
 }
+.custom-datepicker .react-datepicker__input-container input {
+  padding: 12px !important; /* Adjust padding as needed */
+}
 /* Style the track */
 input[type="range"] {
   -webkit-appearance: none;

@@ -83,7 +83,10 @@ function LogIn() {
               font={`font-semibold`}
             >
               Don&apos;t have an account?{" "}
-              <span className="text-primary cursor-pointer hover:text-accent">
+              <span
+                className="text-primary cursor-pointer hover:text-accent"
+                onClick={() => navigate("/auth/registration")}
+              >
                 Sign Up
               </span>
             </Text>

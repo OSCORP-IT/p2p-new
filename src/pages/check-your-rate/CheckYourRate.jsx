@@ -11,19 +11,35 @@ import FinancialPicture from "./FinancialPicture";
 import LoanDisburse from "./LoanDisburse";
 import SetPassword from "./SetPassword";
 import GivePassword from "./GIvePassword";
-const initialState = {
-  borrowData: { borrowAmount: 50000, purpose: "" },
-  phone: { phoneNumber: "", update: true },
-  personalDetail: { firstName: "", lastName: "", dob: "", email: "", id: "" },
-  homeAddress: { address: "", thana: "", district: "", postalCode: "" },
+const initialUserState = {
+  phone: "",
+  firstName: "",
+  lastName: "",
+  dob: "",
+  email: "",
+  id: "",
+  password: "",
+  agree: true,
+};
+const initialPortfolioState = {
+  borrowAmount: 50000,
+  purpose: "",
+  update: true,
+  address: "",
+  thana: "",
+  district: "",
+  postalCode: "",
   incomeSource: "",
-  financialPicture: { annualIncome: "", additionalIncome: "", monthlyRate: "" },
-  loanApproval: { approved: false, amount: 0 },
-  password: { inital: "", confirm: "", agree: true },
+  annualIncome: "",
+  additionalIncome: "",
+  monthlyRate: "",
+  disburseApproval: false,
+  disburseAmount: "",
 };
 function CheckYourRate() {
   const [page, setPage] = useState(1);
-  const [userData, setUserData] = useState(initialState);
+  const [userData, setUserData] = useState(initialUserState);
+  const [portfolioData, setPortfolioData] = useState(initialPortfolioState);
   const navigate = useNavigate();
   return (
     <div className="w-full min-h-screen bg-gray-200">
@@ -38,15 +54,17 @@ function CheckYourRate() {
       <div className="sm:mt-[30px] tab:mt-[60px] bg-white p-3 sm:p-[25px] tab:py-[30px] tab:px-[40px] w-full sm:w-[80%] tab:w-[45%] rounded-md m-auto">
         {page === 1 && (
           <HowMuchBorrow
-            data={userData}
-            setData={setUserData}
+            data={portfolioData}
+            setData={setPortfolioData}
             setPage={setPage}
           />
         )}
         {page === 2 && (
           <PhoneNumber
-            data={userData}
-            setData={setUserData}
+            userData={userData}
+            setUserData={setUserData}
+            portfolioData={portfolioData}
+            setPortfolioData={setPortfolioData}
             setPage={setPage}
           />
         )}
@@ -62,29 +80,29 @@ function CheckYourRate() {
         )}
         {page === 5 && (
           <HomeAddress
-            data={userData}
-            setData={setUserData}
+            data={portfolioData}
+            setData={setPortfolioData}
             setPage={setPage}
           />
         )}
         {page === 6 && (
           <IncomeCheck
-            data={userData}
-            setData={setUserData}
+            data={portfolioData}
+            setData={setPortfolioData}
             setPage={setPage}
           />
         )}
         {page === 7 && (
           <FinancialPicture
-            data={userData}
-            setData={setUserData}
+            data={portfolioData}
+            setData={setPortfolioData}
             setPage={setPage}
           />
         )}
         {page === 8 && (
           <LoanDisburse
-            data={userData}
-            setData={setUserData}
+            data={portfolioData}
+            setData={setPortfolioData}
             setPage={setPage}
           />
         )}

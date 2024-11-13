@@ -1,0 +1,57 @@
+import SideBg from "../../assets/RegistrationSideBg.jpeg";
+import Logo from "../../assets/BlackLogo.png";
+import { useNavigate } from "react-router-dom";
+import Text from "../../components/Text";
+import { PiPhoneCall } from "react-icons/pi";
+import { BiEnvelope } from "react-icons/bi";
+import "react-datepicker/dist/react-datepicker.css";
+import RegistrationStepOne from "./RegistrationStepOne";
+
+function Registration() {
+  const navigate = useNavigate();
+  return (
+    <div className="w-full bg-gray-200 sm:min-h-screen tab:h-screen flex tab:items-center">
+      <div className="w-full sm:w-2/3 p-4 sm:p-0">
+        <img
+          src={Logo}
+          alt="logo"
+          className="sm:hidden w-max cursor-pointer mx-auto my-2"
+          onClick={() => navigate("/")}
+        />
+        <RegistrationStepOne />
+      </div>
+      <div
+        className="hidden sm:w-1/3 sm:min-h-screen h-full bg-center bg-cover rounded-l-[20px] sm:py-[30px] sm:px-[20px] tab:py-[50px] tab:px-[30px] sm:flex flex-col justify-between"
+        style={{ backgroundImage: `url(${SideBg})` }}
+      >
+        <img
+          src={Logo}
+          alt="logo"
+          className="w-max cursor-pointer mx-auto"
+          onClick={() => navigate("/")}
+        />
+        <div className="tab:w-full">
+          <div className="tab:w-max m-auto border-y border-gray-200 flex flex-col tab:flex-row items-center gap-2 tab:gap-6 justify-center">
+            <div className="flex items-center gap-1">
+              <PiPhoneCall className="text-xl text-white" />
+              <Text color={`white`} padding={`py-0`}>
+                +880 1XXX XXXXXX
+              </Text>
+            </div>
+            <div className="flex items-center gap-1">
+              <BiEnvelope className="text-xl text-white" />
+              <Text color={`white`} padding={`py-0`}>
+                support@fintech.com
+              </Text>
+            </div>
+          </div>
+          <Text align={`text-center`} color={`white`}>
+            2024 © FINTECH
+          </Text>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Registration;

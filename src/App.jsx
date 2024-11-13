@@ -25,6 +25,7 @@ import PlasticSurgery from "./pages/pl-plasricSurgery/PlasticSurgery";
 import MentalHealth from "./pages/pl-mentalHealth/MentalHealth";
 import CheckYourRate from "./pages/check-your-rate/CheckYourRate";
 import LogIn from "./pages/login/LogIn";
+import Registration from "./pages/login/Registration";
 
 const router = createBrowserRouter([
   {
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/login",
     element: <LogIn />,
+  },
+  {
+    path: "/auth/registration",
+    element: <Registration />,
   },
 ]);
 function App() {
