@@ -15,8 +15,6 @@ export default {
         bgGradient1: "#DEECE8",
         bgGradient2: "#B3D4D8",
         bgGradient3: "#143A3A",
-        bgGradient4: "#069292",
-        bgGradient5: "#0A1313",
         dropShadow: "#B3D4D8",
         islamic: "#0da500",
         textColor2: "#22252b",
