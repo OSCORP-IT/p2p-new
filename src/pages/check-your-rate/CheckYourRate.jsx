@@ -68,9 +68,7 @@ function CheckYourRate() {
             setPage={setPage}
           />
         )}
-        {page === 3 && (
-          <OtpCheck data={userData} setData={setUserData} setPage={setPage} />
-        )}
+        {page === 3 && <OtpCheck data={userData} setPage={setPage} />}
         {page === 4 && (
           <PersonalDetail
             data={userData}
@@ -87,6 +85,7 @@ function CheckYourRate() {
         )}
         {page === 6 && (
           <IncomeCheck
+            userData={userData}
             data={portfolioData}
             setData={setPortfolioData}
             setPage={setPage}

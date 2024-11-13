@@ -30,7 +30,7 @@ function OtpCheck({ data, setPage }) {
         Please give the OTP so we can be sure it’s you
       </SubHeading>
       <SubHeading align={`text-center`} padding={`pb-2`}>
-        OTP is sent to {data.phone.phoneNumber}
+        OTP is sent to {data.phone}
       </SubHeading>
       <div className="mt-4 mb-2 w-full border pr-2 border-gray-400 flex items-center gap-2">
         <input

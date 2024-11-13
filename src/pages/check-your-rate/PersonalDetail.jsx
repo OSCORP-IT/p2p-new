@@ -5,8 +5,15 @@ import { FaLessThan } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 function PersonalDetail({ setPage, data, setData }) {
+  console.log(data);
   function handleSubmit() {
-    if (Object.values(data.personalDetail).some((value) => value === "")) {
+    if (
+      data.firstName === "" ||
+      data.lastName === "" ||
+      data.dob === "" ||
+      data.email === "" ||
+      data.id === ""
+    ) {
       window.alert("All fields should be filled");
       return;
     }
@@ -27,14 +34,11 @@ function PersonalDetail({ setPage, data, setData }) {
             id="firstName"
             className="p-2 w-full border border-gray-400"
             placeholder="First Name"
-            value={data.personalDetail.firstName}
+            value={data.firstName}
             onChange={(e) =>
               setData((prevState) => ({
                 ...prevState,
-                personalDetail: {
-                  ...prevState.personalDetail,
-                  firstName: e.target.value,
-                },
+                firstName: e.target.value,
               }))
             }
           />
@@ -46,14 +50,11 @@ function PersonalDetail({ setPage, data, setData }) {
             id="lastName"
             className="p-2 w-full border border-gray-400"
             placeholder="Last Name"
-            value={data.personalDetail.lastName}
+            value={data.lastName}
             onChange={(e) =>
               setData((prevState) => ({
                 ...prevState,
-                personalDetail: {
-                  ...prevState.personalDetail,
-                  lastName: e.target.value,
-                },
+                lastName: e.target.value,
               }))
             }
           />
@@ -65,15 +66,12 @@ function PersonalDetail({ setPage, data, setData }) {
           dateFormat={"dd/MM/yyyy"}
           name="dob"
           placeholderText="Date of birth (dd/mm/yyyy)"
-          selected={data.personalDetail.dob}
+          selected={data.dob}
           className="p-2 w-full border border-gray-400"
           onChange={(date) =>
             setData((prevState) => ({
               ...prevState,
-              personalDetail: {
-                ...prevState.personalDetail,
-                dob: date,
-              },
+              dob: date,
             }))
           }
         />
@@ -85,14 +83,11 @@ function PersonalDetail({ setPage, data, setData }) {
           id="email"
           className="p-2 w-full border border-gray-400"
           placeholder="E-mail"
-          value={data.personalDetail.email}
+          value={data.email}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              personalDetail: {
-                ...prevState.personalDetail,
-                email: e.target.value,
-              },
+              email: e.target.value,
             }))
           }
         />
@@ -104,14 +99,11 @@ function PersonalDetail({ setPage, data, setData }) {
           id="id"
           className="p-2 w-full border border-gray-400"
           placeholder="NID/Passport"
-          value={data.personalDetail.id}
+          value={data.id}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              personalDetail: {
-                ...prevState.personalDetail,
-                id: e.target.value,
-              },
+              id: e.target.value,
             }))
           }
         />

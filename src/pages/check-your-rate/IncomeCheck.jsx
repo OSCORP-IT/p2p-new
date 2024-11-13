@@ -4,7 +4,7 @@ import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
 import List from "../../icon/List";
 import PrimaryButton from "../../components/PrimaryButton";
-function IncomeCheck({ data, setData, setPage }) {
+function IncomeCheck({ userData, data, setData, setPage }) {
   function handleSubmit() {
     if (data.incomeSource === "") {
       window.alert("You must select one!");
@@ -16,7 +16,7 @@ function IncomeCheck({ data, setData, setPage }) {
   return (
     <>
       <SubTitle align={`text-center`} font={`font-normal`}>
-        Welcome, Mr. {data.personalDetail.firstName}!
+        Welcome, Mr. {userData.firstName}!
       </SubTitle>
       <SubHeading align={`text-center`} padding={`pb-3`} font={`font-normal`}>
         What is your source of income?

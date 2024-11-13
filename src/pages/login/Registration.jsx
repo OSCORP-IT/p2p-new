@@ -6,11 +6,15 @@ import { PiPhoneCall } from "react-icons/pi";
 import { BiEnvelope } from "react-icons/bi";
 import "react-datepicker/dist/react-datepicker.css";
 import RegistrationStepOne from "./RegistrationStepOne";
+import { useState } from "react";
+import RegistrationStepTwo from "./RegistrationStepTwo";
+import RegistrationStepThree from "./RegistrationStepThree";
 
 function Registration() {
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
   return (
-    <div className="w-full bg-gray-200 sm:min-h-screen tab:h-screen flex tab:items-center">
+    <div className="w-full bg-gray-200 sm:min-h-screen tab:h-screen flex sm:items-center">
       <div className="w-full sm:w-2/3 p-4 sm:p-0">
         <img
           src={Logo}
@@ -18,7 +22,28 @@ function Registration() {
           className="sm:hidden w-max cursor-pointer mx-auto my-2"
           onClick={() => navigate("/")}
         />
-        <RegistrationStepOne />
+        {page === 1 && <RegistrationStepOne setPage={setPage} />}
+        {page === 2 && <RegistrationStepTwo setPage={setPage} />}
+        {page === 3 && <RegistrationStepThree setPage={setPage} />}
+        <div className="w-full sm:hidden pt-[20px]">
+          <div className="tab:w-max m-auto border-y border-gray-500 py-1 flex items-center gap-4 tab:gap-6 justify-center">
+            <div className="flex items-center gap-1">
+              <PiPhoneCall className="text-xl text-titleColor" />
+              <Text color={`titleColor`} padding={`py-0`}>
+                +880 1XXX XXXXXX
+              </Text>
+            </div>
+            <div className="flex items-center gap-1">
+              <BiEnvelope className="text-xl text-titleColor" />
+              <Text color={`titleColor`} padding={`py-0`}>
+                support@fintech.com
+              </Text>
+            </div>
+          </div>
+          <Text align={`text-center`} color={`titleColor`}>
+            2024 © FINTECH
+          </Text>
+        </div>
       </div>
       <div
         className="hidden sm:w-1/3 sm:min-h-screen h-full bg-center bg-cover rounded-l-[20px] sm:py-[30px] sm:px-[20px] tab:py-[50px] tab:px-[30px] sm:flex flex-col justify-between"

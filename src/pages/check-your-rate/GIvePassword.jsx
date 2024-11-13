@@ -17,22 +17,27 @@ function GivePassword({ setPage, data, setData }) {
   const [see, setSee] = useState(false);
 
   const handleLogin = async () => {
-    console.log(password);
+    // console.log(password);
     try {
-      const response = await loginRequest(data.phone.phoneNumber, password);
+      const response = await loginRequest(data.phone, password);
 
       if (response && response.success) {
         // Dispatch the logIn action with the user data
         setData((prevState) => ({
           ...prevState,
-          personalDetail: {
-            ...prevState.personalDetail,
-            firstName: response.result.client.first_name,
-            lastName: response.result.client.last_name,
-            dob: response.result.client.date_of_birth,
-          },
+          firstName: response.result.client.first_name,
+          phone: response.result.client.mobile_number,
+          lastName: response.result.client.last_name,
+          dob: response.result.client.date_of_birth,
+          email: response.result.client.email,
+          id: response.result.client.nid_number,
         }));
-        dispatch(logIn(response.result.token));
+        dispatch(
+          logIn({
+            name: response.result.client.first_name,
+            token: response.result.token,
+          })
+        );
         setPage(4);
       } else {
         setFloatingNote({
@@ -72,8 +77,8 @@ function GivePassword({ setPage, data, setData }) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="w-max" onClick={() => setSee(!see)}>
-          {see && <RiEyeLine className="text-xl" />}
-          {!see && <RiEyeCloseLine className="text-xl" />}
+          {!see && <RiEyeLine className="text-xl" />}
+          {see && <RiEyeCloseLine className="text-xl" />}
         </div>
       </div>
 

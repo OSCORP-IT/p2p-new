@@ -5,10 +5,7 @@ import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 function FinancialPicture({ data, setData, setPage }) {
   function handleSubmit() {
-    if (
-      data.financialPicture.annualIncome === "" ||
-      data.financialPicture.monthlyRate === ""
-    ) {
+    if (data.annualIncome === "" || data.monthlyRate === "") {
       window.alert("Please fill the required fields.");
       return;
     }
@@ -38,10 +35,7 @@ function FinancialPicture({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              financialPicture: {
-                ...prevState.financialPicture,
-                annualIncome: Number(e.target.value),
-              },
+              annualIncome: Number(e.target.value),
             }))
           }
         />
@@ -60,10 +54,7 @@ function FinancialPicture({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              financialPicture: {
-                ...prevState.financialPicture,
-                additionalIncome: Number(e.target.value),
-              },
+              additionalIncome: Number(e.target.value),
             }))
           }
         />
@@ -82,10 +73,7 @@ function FinancialPicture({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              financialPicture: {
-                ...prevState.financialPicture,
-                monthlyRate: Number(e.target.value),
-              },
+              monthlyRate: Number(e.target.value),
             }))
           }
         />

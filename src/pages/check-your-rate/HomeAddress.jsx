@@ -5,7 +5,12 @@ import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 function HomeAddress({ data, setData, setPage }) {
   function handleSubmit() {
-    if (Object.values(data.homeAddress).some((value) => value === "")) {
+    if (
+      data.address === "" ||
+      data.thana === "" ||
+      data.district === "" ||
+      data.postalCode === ""
+    ) {
       window.alert("All fields should be filled");
       return;
     }
@@ -27,14 +32,11 @@ function HomeAddress({ data, setData, setPage }) {
           id="homeAddress"
           className="p-2 w-full border border-gray-400"
           placeholder="Home Address"
-          value={data.homeAddress.address}
+          value={data.address}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              homeAddress: {
-                ...prevState.homeAddress,
-                address: e.target.value,
-              },
+              address: e.target.value,
             }))
           }
         />
@@ -50,10 +52,7 @@ function HomeAddress({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              homeAddress: {
-                ...prevState.homeAddress,
-                thana: e.target.value,
-              },
+              thana: e.target.value,
             }))
           }
         />
@@ -70,10 +69,7 @@ function HomeAddress({ data, setData, setPage }) {
             onChange={(e) =>
               setData((prevState) => ({
                 ...prevState,
-                homeAddress: {
-                  ...prevState.homeAddress,
-                  district: e.target.value,
-                },
+                district: e.target.value,
               }))
             }
           />
@@ -89,10 +85,7 @@ function HomeAddress({ data, setData, setPage }) {
             onChange={(e) =>
               setData((prevState) => ({
                 ...prevState,
-                homeAddress: {
-                  ...prevState.homeAddress,
-                  postalCode: e.target.value,
-                },
+                postalCode: e.target.value,
               }))
             }
           />

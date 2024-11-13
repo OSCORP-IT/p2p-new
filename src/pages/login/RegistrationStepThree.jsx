@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
-import SubHeading from "../../components/SubHeading";
-import SubTitle from "../../components/SubTitle";
-import Gift from "../../icon/Gift";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import Text from "../../components/Text";
 import Cross from "../../icon/Cross";
 import CheckGreen from "../../icon/CheckGreen";
-import { FaLessThan } from "react-icons/fa6";
-import PrimaryButton from "../../components/PrimaryButton";
-function SetPassword({ setPage, data, setData }) {
+import { useEffect, useState } from "react";
+
+function RegistrationStepThree({ setPage }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
@@ -20,7 +16,6 @@ function SetPassword({ setPage, data, setData }) {
     hasLowercase: false,
     hasSpecialChar: false,
   });
-  const [agree, setAgree] = useState(true);
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [see, setSee] = useState({ first: false, confirm: false });
   const toggleField = (field) => {
@@ -53,15 +48,10 @@ function SetPassword({ setPage, data, setData }) {
         setFloatingNote({ state: false, msg: "" });
       }, 3000);
       return;
-    } else if (agree) {
-      if (Object.values(validate).every((value) => value === true)) {
-        setData({ ...data, password: password });
-        setPage(10);
-        return;
-      }
+    } else if (Object.values(validate).every((value) => value === true)) {
       setFloatingNote({
         state: true,
-        msg: "Invalid Password!",
+        msg: "Sumitting Request",
       }); // Show the div
       setTimeout(() => {
         setFloatingNote({ state: false, msg: "" });
@@ -70,31 +60,21 @@ function SetPassword({ setPage, data, setData }) {
     }
     setFloatingNote({
       state: true,
-      msg: "You must agree the terms & condition",
+      msg: "Invalid Password!",
     }); // Show the div
     setTimeout(() => {
       setFloatingNote({ state: false, msg: "" });
     }, 3000);
+    return;
   }
-
   return (
-    <>
-      <div className="w-max m-auto">
-        <Gift color={"#0d5152"} size={"60"} />
-      </div>
-      <SubTitle font={`font-normal`} align={`text-center`} color={`titleColor`}>
-        Let’s save your info and get your offers!
-      </SubTitle>
-      <SubHeading align={`text-center`} padding={`pt-1 pb-4`}>
-        Create a password for{" "}
-        <span className="text-primary">email@example.com</span>
-      </SubHeading>
-      <div className="mt-4 mb-3 w-full border pr-2 border-gray-400 flex items-center gap-2">
+    <div className="w-full sm:w-3/4 tab:w-2/3 m-auto py-6 sm:py-0">
+      <div className="w-full border bg-white border-gray-400 pr-2 tab:pr-3 rounded-md flex items-center gap-2">
         <input
           type={see.first ? "text" : "password"}
           name="Password"
           id="password"
-          className="p-3 w-full"
+          className="py-2 pl-2 tab:py-3 tab:pl-3 w-full rounded-md"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -143,12 +123,12 @@ function SetPassword({ setPage, data, setData }) {
           </div>
         </div>
       </div>
-      <div className="mt-3 w-full border pr-2 border-gray-400 flex items-center gap-2">
+      <div className="w-full border bg-white border-gray-400 pr-2 tab:pr-3 rounded-md flex items-center gap-2">
         <input
           type={see.confirm ? "text" : "password"}
           name="Confirm Password"
           id="confirm_password"
-          className="p-3 w-full"
+          className="py-2 pl-2 tab:py-3 tab:pl-3 w-full rounded-md"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -170,48 +150,29 @@ function SetPassword({ setPage, data, setData }) {
           </Text>
         )}
       </div>
-      <SubHeading padding={`py-2`}>
-        These documents contain important information, including your consent
-        doing business electronically.
-      </SubHeading>
-      <div className="flex items-start gap-2 justify-between">
-        <input
-          type="checkbox"
-          className="mt-1"
-          checked={agree}
-          onChange={(e) => setAgree(e.target.checked)}
-        />
-        <Text padding={`py-0`} color={`textColor3`}>
-          I have read and agree by electronic signature to the Terms of Use and
-          Electronic Consent, which includes your consent for us to send you
-          emails about our products and services, the Data Terms of Use. WebBank
-          and FINTECH privacy policies, Credit Report Authorization, and TCPA
-          Authorization.
-        </Text>
-      </div>
+
       {floatingNote.state && (
         <div className="bg-red-200 p-2 mt-2 rounded-md">
           <Text>{floatingNote.msg}</Text>
         </div>
       )}
-      <div className="flex gap-2 items-center justify-between pt-4">
-        <div
-          className="border border-primary p-2 rounded-md"
-          onClick={() => setPage(8)}
+
+      <div className="pt-4 w-full flex gap-2 items-center">
+        <button
+          onClick={() => setPage(1)}
+          className={`bg-white uppercase text-primary border border-primary text-base sm:text-lg tab:text-xl font-bold tracking-[4px] py-2.5 rounded-[10px] w-1/2`}
         >
-          <FaLessThan className="text-primary" />
-        </div>
-        <div className="w-full" onClick={handleSubmit}>
-          <PrimaryButton width={`w-full`} noIcon={true}>
-            Continue
-          </PrimaryButton>
-        </div>
+          Previous
+        </button>
+        <button
+          onClick={handleSubmit}
+          className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white text-base sm:text-lg tab:text-xl font-bold tracking-[4px]  py-2.5 rounded-[10px] w-1/2`}
+        >
+          Submit
+        </button>
       </div>
-      <Text align={`text-center`} color={`textColor3`}>
-        This will not affect your credit score
-      </Text>
-    </>
+    </div>
   );
 }
 
-export default SetPassword;
+export default RegistrationStepThree;

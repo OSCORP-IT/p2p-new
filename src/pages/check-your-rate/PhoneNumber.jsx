@@ -5,10 +5,18 @@ import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 import { useEffect, useState } from "react";
 import { userPhoneNumberCheck } from "../../services/Authentication";
-function PhoneNumber({ setPage, data, setData }) {
+import { useSelector } from "react-redux";
+function PhoneNumber({
+  setPage,
+  userData,
+  setUserData,
+  portfolioData,
+  setPortfolioData,
+}) {
   const [isValid, setIsvalid] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [err, setErr] = useState("");
+  const user = useSelector((state) => state.auth);
 
   const validateBangladeshiPhoneNumber = (phoneNumber) => {
     const regex = /^(?:\+880|880|0)1[3-9]\d{8}$/;
@@ -17,9 +25,9 @@ function PhoneNumber({ setPage, data, setData }) {
   useEffect(() => {
     const checkPhoneNumber = async () => {
       if (isSubmitted && isValid) {
-        console.log(data.phone.phoneNumber);
+        console.log(userData.phone);
         try {
-          const response = await userPhoneNumberCheck(data.phone.phoneNumber);
+          const response = await userPhoneNumberCheck(userData.phone);
           if (response.number_already_exists) setPage(10);
           else setPage(3); // Return boolean directly
         } catch (error) {
@@ -29,10 +37,14 @@ function PhoneNumber({ setPage, data, setData }) {
       }
     };
     checkPhoneNumber();
-  }, [isSubmitted, isValid]);
+  }, [isSubmitted, isValid, userData.phone, setPage]);
   function handleSubmit() {
+    if (user.isLoggedIn) {
+      setPage(4);
+      return;
+    }
     setIsSubmitted(() => true);
-    setIsvalid(() => validateBangladeshiPhoneNumber(data.phone.phoneNumber));
+    setIsvalid(() => validateBangladeshiPhoneNumber(userData.phone));
   }
   return (
     <>
@@ -50,14 +62,11 @@ function PhoneNumber({ setPage, data, setData }) {
           id="phone"
           className="p-2 w-full border border-gray-400"
           placeholder="Phone Number"
-          value={data.phone.phoneNumber}
+          value={userData.phone}
           onChange={(e) =>
-            setData((prevState) => ({
+            setUserData((prevState) => ({
               ...prevState,
-              phone: {
-                ...prevState.phone,
-                phoneNumber: e.target.value,
-              },
+              phone: e.target.value,
             }))
           }
         />
@@ -66,14 +75,11 @@ function PhoneNumber({ setPage, data, setData }) {
         <input
           type="checkbox"
           className="mt-1"
-          checked={data.phone.update}
+          checked={portfolioData.update}
           onChange={(e) =>
-            setData((prevState) => ({
+            setPortfolioData((prevState) => ({
               ...prevState,
-              phone: {
-                ...prevState.phone,
-                update: e.target.checked,
-              },
+              update: e.target.checked,
             }))
           }
         />
