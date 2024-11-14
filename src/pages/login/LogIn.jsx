@@ -8,13 +8,45 @@ import SubTitle from "../../components/SubTitle";
 import { HiLockClosed } from "react-icons/hi2";
 import Text from "../../components/Text";
 import { PiPhoneCall } from "react-icons/pi";
+import { useDispatch } from "react-redux";
+import { loginRequest } from "../../services/Authentication";
+import { logIn } from "../../features/authentication/authSlice";
 
 function LogIn() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [see, setSee] = useState(false);
+  const handleLogin = async () => {
+    // console.log(password);
+    try {
+      const response = await loginRequest(emailOrPhone, password);
+
+      if (response && response.success) {
+        // Dispatch the logIn action with the user data
+        dispatch(
+          logIn({
+            name: response.result.client.first_name,
+            token: response.result.token,
+          })
+        );
+        navigate(-1);
+      } else {
+        setFloatingNote({
+          state: true,
+          msg: response.message || "Login failed.",
+        });
+      }
+    } catch (err) {
+      setFloatingNote({
+        state: true,
+        msg: "Incorrect Password.",
+      });
+      console.error("Error:", err);
+    }
+  };
   return (
     <div className="sm:h-screen w-full flex items-center">
       <div className="w-full px-4 sm:px-0 sm:w-[60%] h-full">
@@ -70,8 +102,14 @@ function LogIn() {
               <HiLockClosed className="text-textColor3" />
               <Text color={`textColor3`}>Forgot Password</Text>
             </div>
+            {floatingNote.state && (
+              <div className="bg-red-200 p-2 mt-2 rounded-md">
+                <Text>{floatingNote.msg}</Text>
+              </div>
+            )}
             <div className="pt-2 w-max m-auto">
               <button
+                onClick={handleLogin}
                 className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px]`}
               >
                 Login
