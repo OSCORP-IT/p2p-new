@@ -6,10 +6,10 @@ import SubHeading from "../../components/SubHeading";
 function HomeAddress({ data, setData, setPage }) {
   function handleSubmit() {
     if (
-      data.address === "" ||
+      data.home_address === "" ||
       data.thana === "" ||
       data.district === "" ||
-      data.postalCode === ""
+      data.postal_code === ""
     ) {
       window.alert("All fields should be filled");
       return;
@@ -32,11 +32,11 @@ function HomeAddress({ data, setData, setPage }) {
           id="homeAddress"
           className="p-2 w-full border border-gray-400"
           placeholder="Home Address"
-          value={data.address}
+          value={data.home_address}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              address: e.target.value,
+              home_address: e.target.value,
             }))
           }
         />
@@ -48,7 +48,7 @@ function HomeAddress({ data, setData, setPage }) {
           id="thana"
           className="p-2 w-full border border-gray-400"
           placeholder="Thana"
-          value={data.homeAddress.thana}
+          value={data.thana}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
@@ -65,7 +65,7 @@ function HomeAddress({ data, setData, setPage }) {
             id="district"
             className="p-2 w-full border border-gray-400"
             placeholder="District"
-            value={data.homeAddress.district}
+            value={data.district}
             onChange={(e) =>
               setData((prevState) => ({
                 ...prevState,
@@ -81,11 +81,11 @@ function HomeAddress({ data, setData, setPage }) {
             id="postalCode"
             className="p-2 w-full border border-gray-400"
             placeholder="Postal Code"
-            value={data.homeAddress.postalCode}
+            value={data.postal_code}
             onChange={(e) =>
               setData((prevState) => ({
                 ...prevState,
-                postalCode: e.target.value,
+                postal_code: e.target.value,
               }))
             }
           />

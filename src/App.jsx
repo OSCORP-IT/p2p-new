@@ -26,6 +26,7 @@ import MentalHealth from "./pages/pl-mentalHealth/MentalHealth";
 import CheckYourRate from "./pages/check-your-rate/CheckYourRate";
 import LogIn from "./pages/login/LogIn";
 import Registration from "./pages/login/Registration";
+import useAutoLogout from "./useAutoLogOut";
 
 const router = createBrowserRouter([
   {
@@ -139,6 +140,7 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  useAutoLogout();
   return <RouterProvider router={router} />;
 }
 

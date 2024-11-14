@@ -25,9 +25,9 @@ function PhoneNumber({
   useEffect(() => {
     const checkPhoneNumber = async () => {
       if (isSubmitted && isValid) {
-        console.log(userData.phone);
+        console.log(userData.mobile_number);
         try {
-          const response = await userPhoneNumberCheck(userData.phone);
+          const response = await userPhoneNumberCheck(userData.mobile_number);
           if (response.number_already_exists) setPage(10);
           else setPage(3); // Return boolean directly
         } catch (error) {
@@ -37,14 +37,14 @@ function PhoneNumber({
       }
     };
     checkPhoneNumber();
-  }, [isSubmitted, isValid, userData.phone, setPage]);
+  }, [isSubmitted, isValid, userData.mobile_number, setPage]);
   function handleSubmit() {
     if (user.isLoggedIn) {
       setPage(4);
       return;
     }
     setIsSubmitted(() => true);
-    setIsvalid(() => validateBangladeshiPhoneNumber(userData.phone));
+    setIsvalid(() => validateBangladeshiPhoneNumber(userData.mobile_number));
   }
   return (
     <>
@@ -62,11 +62,11 @@ function PhoneNumber({
           id="phone"
           className="p-2 w-full border border-gray-400"
           placeholder="Phone Number"
-          value={userData.phone}
+          value={userData.mobile_number}
           onChange={(e) =>
             setUserData((prevState) => ({
               ...prevState,
-              phone: e.target.value,
+              mobile_number: e.target.value,
             }))
           }
         />
@@ -75,11 +75,13 @@ function PhoneNumber({
         <input
           type="checkbox"
           className="mt-1"
-          checked={portfolioData.update}
+          checked={
+            portfolioData.is_notifiable_in_mobile_number == "1" ? true : false
+          }
           onChange={(e) =>
             setPortfolioData((prevState) => ({
               ...prevState,
-              update: e.target.checked,
+              is_notifiable_in_mobile_number: e.target.checked ? "1" : "0",
             }))
           }
         />

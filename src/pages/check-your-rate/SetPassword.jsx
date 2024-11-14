@@ -9,8 +9,6 @@ import CheckGreen from "../../icon/CheckGreen";
 import { FaLessThan } from "react-icons/fa6";
 import PrimaryButton from "../../components/PrimaryButton";
 function SetPassword({ setPage, data, setData }) {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [validate, setValidate] = useState({
     lengthValid: false,
@@ -38,10 +36,10 @@ function SetPassword({ setPage, data, setData }) {
       hasLowercase: /[a-z]/.test(password),
       hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
     });
-  }, [password]);
+  }, [data.password]);
   useEffect(() => {
-    setPasswordMatch(confirmPassword === password);
-  }, [password, confirmPassword]);
+    setPasswordMatch(data.password_confirmation === data.password);
+  }, [data.password, data.password_confirmation]);
   function handleSubmit() {
     console.log(passwordMatch);
     if (!passwordMatch) {
@@ -55,7 +53,7 @@ function SetPassword({ setPage, data, setData }) {
       return;
     } else if (agree) {
       if (Object.values(validate).every((value) => value === true)) {
-        setData({ ...data, password: password });
+        setData({ ...data, password: data.password });
         setPage(10);
         return;
       }
@@ -96,8 +94,8 @@ function SetPassword({ setPage, data, setData }) {
           id="password"
           className="p-3 w-full"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={data.password}
+          onChange={(e) => setData({ ...data, password: e.target.value })}
         />
         <div className="w-max" onClick={() => toggleField("first")}>
           {!see.first && <RiEyeLine className="text-xl" />}
@@ -150,8 +148,10 @@ function SetPassword({ setPage, data, setData }) {
           id="confirm_password"
           className="p-3 w-full"
           placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={data.password_confirmation}
+          onChange={(e) =>
+            setData({ ...data, password_confirmation: e.target.value })
+          }
         />
         <div className="w-max" onClick={() => toggleField("confirm")}>
           {!see.confirm && <RiEyeLine className="text-xl" />}

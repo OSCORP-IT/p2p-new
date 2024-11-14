@@ -12,29 +12,28 @@ import LoanDisburse from "./LoanDisburse";
 import SetPassword from "./SetPassword";
 import GivePassword from "./GIvePassword";
 const initialUserState = {
-  phone: "",
-  firstName: "",
-  lastName: "",
-  dob: "",
+  first_name: "",
+  last_name: "",
+  identification_type: "",
+  identification_number: "",
+  date_of_birth: "",
   email: "",
-  id: "",
+  mobile_number: "",
   password: "",
-  agree: true,
+  password_confirmation: "",
 };
 const initialPortfolioState = {
-  borrowAmount: 50000,
-  purpose: "",
-  update: true,
-  address: "",
+  borrow_amount: "50000",
+  loan_type_id: "",
+  is_notifiable_in_mobile_number: "1", // accept only 0 or 1
+  home_address: "",
   thana: "",
   district: "",
-  postalCode: "",
-  incomeSource: "",
-  annualIncome: "",
-  additionalIncome: "",
-  monthlyRate: "",
-  disburseApproval: false,
-  disburseAmount: "",
+  postal_code: "",
+  source_of_income: "",
+  annual_income: "",
+  additional_income: "",
+  monthly_rent_or_mortgage_payment: "",
 };
 function CheckYourRate() {
   const [page, setPage] = useState(1);
@@ -112,13 +111,7 @@ function CheckYourRate() {
             setPage={setPage}
           />
         )}
-        {page === 10 && (
-          <GivePassword
-            setPage={setPage}
-            data={userData}
-            setData={setUserData}
-          />
-        )}
+        {page === 10 && <GivePassword setPage={setPage} data={userData} />}
       </div>
     </div>
   );

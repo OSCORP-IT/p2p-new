@@ -25,7 +25,7 @@ function HowMuchBorrow({ setPage, data, setData }) {
         <span className="text-textColor3 font-poppins text-[65px] tab:text-[75px]">
           {"৳ "}
         </span>
-        {data.borrowAmount}
+        {data.borrow_amount}
       </h1>
       <div className="w-full flex items-center gap-4 justify-between pt-2">
         <SmallText color={`textColor3`}>৳15000</SmallText>
@@ -34,11 +34,11 @@ function HowMuchBorrow({ setPage, data, setData }) {
           className="w-full h-1"
           min={15000}
           max={1000000}
-          value={data.borrowAmount}
+          value={data.borrow_amount}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              borrowAmount: e.target.value,
+              borrow_amount: e.target.value,
             }))
           }
           step={5000}
@@ -48,11 +48,11 @@ function HowMuchBorrow({ setPage, data, setData }) {
       <div className="w-full border border-primary mt-4 p-2">
         <select
           name="loanPurpose"
-          value={data.purpose}
+          value={data.loan_type_id}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              purpose: e.target.value,
+              loan_type_id: e.target.value,
             }))
           }
           className="w-full h-full p-1 text-sm sm:text-base"

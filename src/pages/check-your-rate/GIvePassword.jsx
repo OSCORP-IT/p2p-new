@@ -10,7 +10,7 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { loginRequest } from "../../services/Authentication";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../features/authentication/authSlice";
-function GivePassword({ setPage, data, setData }) {
+function GivePassword({ setPage, data }) {
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
@@ -19,19 +19,10 @@ function GivePassword({ setPage, data, setData }) {
   const handleLogin = async () => {
     // console.log(password);
     try {
-      const response = await loginRequest(data.phone, password);
+      const response = await loginRequest(data.mobile_number, password);
 
       if (response && response.success) {
         // Dispatch the logIn action with the user data
-        setData((prevState) => ({
-          ...prevState,
-          firstName: response.result.client.first_name,
-          phone: response.result.client.mobile_number,
-          lastName: response.result.client.last_name,
-          dob: response.result.client.date_of_birth,
-          email: response.result.client.email,
-          id: response.result.client.nid_number,
-        }));
         dispatch(
           logIn({
             name: response.result.client.first_name,

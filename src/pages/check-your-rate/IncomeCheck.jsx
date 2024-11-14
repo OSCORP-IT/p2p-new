@@ -6,7 +6,7 @@ import List from "../../icon/List";
 import PrimaryButton from "../../components/PrimaryButton";
 function IncomeCheck({ userData, data, setData, setPage }) {
   function handleSubmit() {
-    if (data.incomeSource === "") {
+    if (data.source_of_income === "") {
       window.alert("You must select one!");
       return;
     }
@@ -23,9 +23,9 @@ function IncomeCheck({ userData, data, setData, setPage }) {
       </SubHeading>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.incomeSource === "employed" ? "bg-accent/10" : ""
+          data.source_of_income === "employed" ? "bg-accent/10" : ""
         } hover:bg-primary/10 mt-3`}
-        onClick={() => setData({ ...data, incomeSource: "employed" })}
+        onClick={() => setData({ ...data, source_of_income: "employed" })}
       >
         <div className="w-max m-auto pb-3">
           <List />
@@ -37,9 +37,9 @@ function IncomeCheck({ userData, data, setData, setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.incomeSource === "self" ? "bg-accent/10" : ""
+          data.source_of_income === "self" ? "bg-accent/10" : ""
         } hover:bg-primary/10 mt-3`}
-        onClick={() => setData({ ...data, incomeSource: "self" })}
+        onClick={() => setData({ ...data, source_of_income: "self" })}
       >
         <div className="w-max m-auto pb-3">
           <List />
@@ -54,9 +54,9 @@ function IncomeCheck({ userData, data, setData, setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.incomeSource === "others" ? "bg-accent/10" : ""
+          data.source_of_income === "others" ? "bg-accent/10" : ""
         } hover:bg-primary/10 my-3`}
-        onClick={() => setData({ ...data, incomeSource: "others" })}
+        onClick={() => setData({ ...data, source_of_income: "others" })}
       >
         <div className="w-max m-auto pb-3">
           <List />

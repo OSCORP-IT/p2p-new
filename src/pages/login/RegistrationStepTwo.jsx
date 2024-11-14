@@ -4,7 +4,7 @@ import SmallText from "../../components/SmallText";
 import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import Input from "./Input";
-function RegistrationStepTwo({ setPage }) {
+function RegistrationStepTwo({ setPage, data }) {
   const [seconds, setSeconds] = useState(60);
 
   useEffect(() => {
@@ -30,8 +30,8 @@ function RegistrationStepTwo({ setPage }) {
         className="m-auto sm:w-[40%] tab:w-[50%]"
       />
       <Text align={`text-center`}>
-        We have sent a 6 digit code to +880 1XXXXXXXXX. Please insert the code
-        below.
+        We have sent a 6 digit code to <strong>{data.mobile_number}</strong>.
+        Please insert the code below.
       </Text>
       <div className="w-full py-2">
         <Input placeholder={`Verification Code`} name={`otp`} type={`text`} />

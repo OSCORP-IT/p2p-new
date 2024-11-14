@@ -5,7 +5,10 @@ import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 function FinancialPicture({ data, setData, setPage }) {
   function handleSubmit() {
-    if (data.annualIncome === "" || data.monthlyRate === "") {
+    if (
+      data.annual_income === "" ||
+      data.monthly_rent_or_mortgage_payment === ""
+    ) {
       window.alert("Please fill the required fields.");
       return;
     }
@@ -31,11 +34,11 @@ function FinancialPicture({ data, setData, setPage }) {
           id="annual_income"
           className="p-3 w-full"
           placeholder="Your Annual Income"
-          value={data.financialPicture.annualIncome}
+          value={data.annual_income}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              annualIncome: Number(e.target.value),
+              annual_income: Number(e.target.value),
             }))
           }
         />
@@ -50,11 +53,11 @@ function FinancialPicture({ data, setData, setPage }) {
           id="additional_income"
           className="p-3 w-full"
           placeholder="Additional Income (optional)"
-          value={data.financialPicture.additionalIncome}
+          value={data.additional_income}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              additionalIncome: Number(e.target.value),
+              additional_income: Number(e.target.value),
             }))
           }
         />
@@ -69,11 +72,11 @@ function FinancialPicture({ data, setData, setPage }) {
           id="monthly_rate"
           className="p-3 w-full"
           placeholder="Monthly Rent or Mortgage Payment"
-          value={data.financialPicture.monthlyRate}
+          value={data.monthly_rent_or_mortgage_payment}
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              monthlyRate: Number(e.target.value),
+              monthly_rent_or_mortgage_payment: Number(e.target.value),
             }))
           }
         />

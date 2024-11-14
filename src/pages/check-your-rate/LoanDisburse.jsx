@@ -4,8 +4,17 @@ import Title from "../../components/Title";
 import PrimaryButton from "../../components/PrimaryButton";
 import SubHeading from "../../components/SubHeading";
 import Text from "../../components/Text";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function LoanDisburse({ setPage }) {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  function handleSubmit() {
+    if (user.isLoggedIn) {
+      navigate("/");
+    }
+  }
   return (
     <>
       <h1 className="text-center font-rage font-normal text-[40px] sm:text-[50px] tab:text-6xl text-primary">
@@ -34,7 +43,7 @@ function LoanDisburse({ setPage }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(9)}>
+        <div className="w-full" onClick={handleSubmit}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Apply Now
           </PrimaryButton>

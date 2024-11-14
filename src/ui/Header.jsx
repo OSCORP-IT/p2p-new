@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const nav = useNavigate();
+  const user = useSelector((state) => state.auth);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
 
@@ -67,7 +69,7 @@ const Header = () => {
       ],
     },
     {
-      name: "Log In",
+      name: user.isLoggedIn ? user.userName : "Log In",
       path: "/auth/login",
       subItems: [],
     },
