@@ -25,6 +25,7 @@ function PersonalDetail({ setPage, data, setData }) {
               last_name: response.result.client.last_name,
               date_of_birth: response.result.client.date_of_birth,
               email: response.result.client.email,
+              identification_type: response.result.client.identification_type,
               identification_number:
                 response.result.client.identification_number,
             }));
@@ -43,6 +44,7 @@ function PersonalDetail({ setPage, data, setData }) {
       data.last_name === "" ||
       data.date_of_birth === "" ||
       data.email === "" ||
+      data.identification_type === "" ||
       data.identification_number === ""
     ) {
       window.alert("All fields should be filled");
@@ -128,6 +130,24 @@ function PersonalDetail({ setPage, data, setData }) {
                 }))
               }
             />
+          </div>
+          <div className="pb-2 w-full">
+            <select
+              name="id"
+              id="id"
+              className="p-2 w-full border border-gray-400"
+              value={data.identification_type}
+              onChange={(e) =>
+                setData((prevState) => ({
+                  ...prevState,
+                  identification_type: e.target.value,
+                }))
+              }
+            >
+              <option value="">Select Identification Type</option>
+              <option value="nid">NID</option>
+              <option value="passpport">Passport</option>
+            </select>
           </div>
           <div className="pb-2 w-full">
             <input

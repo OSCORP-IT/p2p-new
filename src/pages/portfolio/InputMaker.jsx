@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function InputMaker({ item }) {
   const result = { field_id: item.field_id, answer_text: "" };
-  console.log(item.field_type);
+
   if (
     item.field_type === "table_group" ||
     item.field_type === "section_group"
@@ -19,7 +19,6 @@ function InputMaker({ item }) {
   } else if (item.field_type === "number") {
     result.answer_text = 0;
   }
-  console.log(result);
 
   return (
     <>

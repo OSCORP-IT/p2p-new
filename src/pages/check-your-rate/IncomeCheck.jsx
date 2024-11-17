@@ -5,6 +5,7 @@ import Text from "../../components/Text";
 import List from "../../icon/List";
 import PrimaryButton from "../../components/PrimaryButton";
 function IncomeCheck({ userData, data, setData, setPage }) {
+  console.log(userData.first_name);
   function handleSubmit() {
     if (data.source_of_income === "") {
       window.alert("You must select one!");
@@ -16,15 +17,15 @@ function IncomeCheck({ userData, data, setData, setPage }) {
   return (
     <>
       <SubTitle align={`text-center`} font={`font-normal`}>
-        Welcome, Mr. {userData.firstName}!
+        Welcome, Mr. {userData.first_name}!
       </SubTitle>
       <SubHeading align={`text-center`} padding={`pb-3`} font={`font-normal`}>
         What is your source of income?
       </SubHeading>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.source_of_income === "employed" ? "bg-accent/10" : ""
-        } hover:bg-primary/10 mt-3`}
+          data.source_of_income === "employed" ? "bg-accent/20" : ""
+        } hover:bg-primary/20 mt-3`}
         onClick={() => setData({ ...data, source_of_income: "employed" })}
       >
         <div className="w-max m-auto pb-3">
@@ -37,8 +38,8 @@ function IncomeCheck({ userData, data, setData, setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.source_of_income === "self" ? "bg-accent/10" : ""
-        } hover:bg-primary/10 mt-3`}
+          data.source_of_income === "self" ? "bg-accent/20" : ""
+        } hover:bg-primary/20 mt-3`}
         onClick={() => setData({ ...data, source_of_income: "self" })}
       >
         <div className="w-max m-auto pb-3">
@@ -54,8 +55,8 @@ function IncomeCheck({ userData, data, setData, setPage }) {
       </div>
       <div
         className={`px-10 py-5 border border-gray-400 rounded-md cursor-pointer ${
-          data.source_of_income === "others" ? "bg-accent/10" : ""
-        } hover:bg-primary/10 my-3`}
+          data.source_of_income === "others" ? "bg-accent/20" : ""
+        } hover:bg-primary/20 my-3`}
         onClick={() => setData({ ...data, source_of_income: "others" })}
       >
         <div className="w-max m-auto pb-3">

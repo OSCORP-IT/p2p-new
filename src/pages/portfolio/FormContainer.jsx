@@ -7,6 +7,7 @@ import { showForm, showFormPage } from "../../services/FormAPI";
 import { BiError, BiLoader } from "react-icons/bi";
 import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
+import { useSelector } from "react-redux";
 
 const initialState = {
   data: null,
@@ -19,17 +20,19 @@ function FormContainer() {
   const [formPage, setFormPage] = useState(initialState);
   const [currentFormPage, setCurrentFormPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const user = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchFormPages = async () => {
       try {
-        const data = await showForm(`1`, `1`);
+        const data = await showForm(user.userToken, `5`);
+        console.log(data);
         setFormState({
-          data,
+          data: data.result.form_responses[1],
           loading: false,
           error: null,
         });
-        setTotalPage(data.result.form.total_pages);
+        setTotalPage(data.result.form_responses[1].total_pages);
       } catch (error) {
         setFormState({
           data: null,
@@ -39,7 +42,7 @@ function FormContainer() {
       }
     };
     fetchFormPages();
-  }, []);
+  }, [user.userToken]);
   useEffect(() => {
     setFormPage({
       data: null,
@@ -48,10 +51,10 @@ function FormContainer() {
     });
     const fetchPageFields = async () => {
       try {
-        const data = await showFormPage(1, 1, currentFormPage);
-        console.log("Fetched page fields data:", data); // Check the page fields data structure
+        const data = await showFormPage(5, 1, 1, 36, user.userToken);
+        // console.log("Fetched page fields data:", data); // Check the page fields data structure
         setFormPage({
-          data,
+          data: data.result,
           loading: false,
           error: null,
         });
@@ -64,7 +67,8 @@ function FormContainer() {
       }
     };
     fetchPageFields();
-  }, [currentFormPage]);
+  }, [user.userToken]);
+  console.log(formState);
   return (
     <>
       {formState.loading && (
@@ -83,7 +87,7 @@ function FormContainer() {
       <div className="flex items-start gap-5 px-5">
         {formState.data && (
           <div className="w-[30%] bg-white rounded-md p-[15px]">
-            {formState.data.result.form.form_pages.map((item, index) => (
+            {formState.data.form.form_pages.map((item, index) => (
               <div key={item.id}>
                 <div className="flex items-center gap-2">
                   <div
@@ -112,7 +116,7 @@ function FormContainer() {
                     </Text>
                   </div>
                 </div>
-                {formState.data.result.form.total_pages !== index + 1 && (
+                {formState.data.form.total_pages !== index + 1 && (
                   <div
                     className={`h-[15px] w-[15px] border-r-2 border-accent ${
                       index + 1 < currentFormPage
@@ -133,7 +137,7 @@ function FormContainer() {
         )}
         {formPage.data && (
           <div className="w-[70%] bg-white rounded-md p-[15px]">
-            {formPage.data.result.form_page.form_fields.map((item) => (
+            {formPage.data.response_answer.map((item) => (
               <div key={item.id} className="w-full">
                 <InputMaker item={item} />
               </div>

@@ -27,6 +27,7 @@ import CheckYourRate from "./pages/check-your-rate/CheckYourRate";
 import LogIn from "./pages/login/LogIn";
 import Registration from "./pages/login/Registration";
 import useAutoLogout from "./useAutoLogOut";
+import Form from "./pages/portfolio/Form";
 
 const router = createBrowserRouter([
   {
@@ -137,6 +138,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/registration",
     element: <Registration />,
+  },
+  {
+    path: "/form",
+    element: <Form />,
   },
 ]);
 function App() {

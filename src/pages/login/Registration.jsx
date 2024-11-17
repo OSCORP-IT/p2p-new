@@ -44,7 +44,13 @@ function Registration() {
         {page === 2 && (
           <RegistrationStepTwo setPage={setPage} data={userData} />
         )}
-        {page === 3 && <RegistrationStepThree setPage={setPage} />}
+        {page === 3 && (
+          <RegistrationStepThree
+            setPage={setPage}
+            data={userData}
+            setData={setUserData}
+          />
+        )}
         <div className="w-full sm:hidden pt-[20px]">
           <div className="tab:w-max m-auto border-y border-gray-500 py-1 flex items-center gap-4 tab:gap-6 justify-center">
             <div className="flex items-center gap-1">

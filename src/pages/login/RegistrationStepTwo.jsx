@@ -4,8 +4,42 @@ import SmallText from "../../components/SmallText";
 import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import Input from "./Input";
+import { otpVerify } from "../../services/Authentication";
 function RegistrationStepTwo({ setPage, data }) {
   const [seconds, setSeconds] = useState(60);
+  const [otp, setOtp] = useState("");
+
+  const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
+
+  const handleOtpVerify = async () => {
+    // console.log(password);
+    try {
+      const response = await otpVerify(data.mobile_number, otp);
+
+      if (response && response.success) {
+        // Dispatch the logIn action with the user data
+        setFloatingNote({
+          state: true,
+          msg: response.message,
+        });
+        setTimeout(() => {
+          setFloatingNote({ state: false, msg: "" });
+        }, 3000);
+        setPage(3);
+      } else {
+        setFloatingNote({
+          state: true,
+          msg: response.message || "Problem checking OTP",
+        });
+      }
+    } catch (err) {
+      setFloatingNote({
+        state: true,
+        msg: "Incorrect OTP",
+      });
+      console.error("Error:", err);
+    }
+  };
 
   useEffect(() => {
     // If seconds reach 0, stop the countdown
@@ -34,7 +68,13 @@ function RegistrationStepTwo({ setPage, data }) {
         Please insert the code below.
       </Text>
       <div className="w-full py-2">
-        <Input placeholder={`Verification Code`} name={`otp`} type={`text`} />
+        <Input
+          placeholder={`Verification Code`}
+          name={`otp`}
+          type={`text`}
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+        />
       </div>
       <div>
         {seconds > 0 && (
@@ -64,6 +104,11 @@ function RegistrationStepTwo({ setPage, data }) {
             </SmallText>
           </div>
         )}
+        {floatingNote.state && (
+          <div className="bg-red-200 p-2 mt-2 rounded-md">
+            <Text>{floatingNote.msg}</Text>
+          </div>
+        )}
       </div>
       <div className="pt-4 w-full flex gap-2 items-center">
         <button
@@ -73,7 +118,7 @@ function RegistrationStepTwo({ setPage, data }) {
           Previous
         </button>
         <button
-          onClick={() => setPage(3)}
+          onClick={handleOtpVerify}
           className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white text-base sm:text-lg tab:text-xl font-bold tracking-[4px]  py-2.5 rounded-[10px] w-1/2`}
         >
           Next Step

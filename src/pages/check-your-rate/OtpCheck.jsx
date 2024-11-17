@@ -5,10 +5,40 @@ import { useEffect, useState } from "react";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
 import { BiLock } from "react-icons/bi";
+import { otpVerify } from "../../services/Authentication";
 function OtpCheck({ data, setPage }) {
   const [otp, setOtp] = useState("");
   const [seconds, setSeconds] = useState(60);
+  const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
+  const handleOtpVerify = async () => {
+    // console.log(password);
+    try {
+      const response = await otpVerify(data.mobile_number, otp);
 
+      if (response && response.success) {
+        // Dispatch the logIn action with the user data
+        setFloatingNote({
+          state: true,
+          msg: response.message,
+        });
+        setTimeout(() => {
+          setFloatingNote({ state: false, msg: "" });
+        }, 3000);
+        setPage(4);
+      } else {
+        setFloatingNote({
+          state: true,
+          msg: response.message || "Problem checking OTP",
+        });
+      }
+    } catch (err) {
+      setFloatingNote({
+        state: true,
+        msg: "Incorrect OTP",
+      });
+      console.error("Error:", err);
+    }
+  };
   useEffect(() => {
     // If seconds reach 0, stop the countdown
     if (seconds <= 0) return;
@@ -62,6 +92,11 @@ function OtpCheck({ data, setPage }) {
           </div>
         )}
       </div>
+      {floatingNote.state && (
+        <div className="bg-red-200 p-2 mt-2 rounded-md">
+          <Text>{floatingNote.msg}</Text>
+        </div>
+      )}
       <div className="flex gap-2 items-center justify-between pt-4">
         <div
           className="border border-primary p-2 rounded-md"
@@ -69,7 +104,7 @@ function OtpCheck({ data, setPage }) {
         >
           <FaLessThan className="text-primary" />
         </div>
-        <div className="w-full" onClick={() => setPage(4)}>
+        <div className="w-full" onClick={handleOtpVerify}>
           <PrimaryButton width={`w-full`} noIcon={true}>
             Continue
           </PrimaryButton>

@@ -8,7 +8,11 @@ import Cross from "../../icon/Cross";
 import CheckGreen from "../../icon/CheckGreen";
 import { FaLessThan } from "react-icons/fa6";
 import PrimaryButton from "../../components/PrimaryButton";
+import { registrationRequest } from "../../services/Authentication";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../features/authentication/authSlice";
 function SetPassword({ setPage, data, setData }) {
+  const dispatch = useDispatch();
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [validate, setValidate] = useState({
     lengthValid: false,
@@ -29,18 +33,18 @@ function SetPassword({ setPage, data, setData }) {
   };
   useEffect(() => {
     setValidate({
-      lengthValid: password.length >= 8 && password.length <= 16,
-      noWhitespace: !/\s/.test(password),
-      hasNumber: /\d/.test(password),
-      hasUppercase: /[A-Z]/.test(password),
-      hasLowercase: /[a-z]/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+      lengthValid: data.password.length >= 8 && data.password.length <= 16,
+      noWhitespace: !/\s/.test(data.password),
+      hasNumber: /\d/.test(data.password),
+      hasUppercase: /[A-Z]/.test(data.password),
+      hasLowercase: /[a-z]/.test(data.password),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(data.password),
     });
   }, [data.password]);
   useEffect(() => {
     setPasswordMatch(data.password_confirmation === data.password);
   }, [data.password, data.password_confirmation]);
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log(passwordMatch);
     if (!passwordMatch) {
       setFloatingNote({
@@ -53,8 +57,37 @@ function SetPassword({ setPage, data, setData }) {
       return;
     } else if (agree) {
       if (Object.values(validate).every((value) => value === true)) {
-        setData({ ...data, password: data.password });
-        setPage(10);
+        try {
+          const response = await registrationRequest(data);
+
+          if (response && response.success) {
+            // Dispatch the logIn action with the user data
+            setFloatingNote({
+              state: true,
+              msg: response.message,
+            });
+            setTimeout(() => {
+              setFloatingNote({ state: false, msg: "" });
+            }, 3000);
+            dispatch(
+              logIn({
+                token: response.result.token,
+                name: response.result.client.first_name,
+              })
+            );
+            setPage(4);
+          } else {
+            setFloatingNote({
+              state: true,
+              msg: response.message || "Problem checking OTP",
+            });
+          }
+        } catch (err) {
+          setFloatingNote({
+            state: true,
+            msg: err.message,
+          });
+        }
         return;
       }
       setFloatingNote({
@@ -84,8 +117,7 @@ function SetPassword({ setPage, data, setData }) {
         Let’s save your info and get your offers!
       </SubTitle>
       <SubHeading align={`text-center`} padding={`pt-1 pb-4`}>
-        Create a password for{" "}
-        <span className="text-primary">email@example.com</span>
+        Create a password for <span className="text-primary">{data.email}</span>
       </SubHeading>
       <div className="mt-4 mb-3 w-full border pr-2 border-gray-400 flex items-center gap-2">
         <input
@@ -159,7 +191,7 @@ function SetPassword({ setPage, data, setData }) {
         </div>
       </div>
       <div className="pb-3">
-        {confirmPassword.length > 0 && passwordMatch && (
+        {data.password_confirmation.length > 0 && passwordMatch && (
           <Text padding={`py-0`} color={`primary`}>
             Password matched
           </Text>

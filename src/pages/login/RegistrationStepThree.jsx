@@ -3,11 +3,15 @@ import Text from "../../components/Text";
 import Cross from "../../icon/Cross";
 import CheckGreen from "../../icon/CheckGreen";
 import { useEffect, useState } from "react";
+import { registrationRequest } from "../../services/Authentication";
+import { logIn } from "../../features/authentication/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function RegistrationStepThree({ setPage }) {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+function RegistrationStepThree({ setPage, data, setData }) {
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [validate, setValidate] = useState({
     lengthValid: false,
     noWhitespace: false,
@@ -26,18 +30,18 @@ function RegistrationStepThree({ setPage }) {
   };
   useEffect(() => {
     setValidate({
-      lengthValid: password.length >= 8 && password.length <= 16,
-      noWhitespace: !/\s/.test(password),
-      hasNumber: /\d/.test(password),
-      hasUppercase: /[A-Z]/.test(password),
-      hasLowercase: /[a-z]/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+      lengthValid: data.password.length >= 8 && data.password.length <= 16,
+      noWhitespace: !/\s/.test(data.password),
+      hasNumber: /\d/.test(data.password),
+      hasUppercase: /[A-Z]/.test(data.password),
+      hasLowercase: /[a-z]/.test(data.password),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(data.password),
     });
-  }, [password]);
+  }, [data.password]);
   useEffect(() => {
-    setPasswordMatch(confirmPassword === password);
-  }, [password, confirmPassword]);
-  function handleSubmit() {
+    setPasswordMatch(data.password_confirmation === data.password);
+  }, [data.password, data.password_confirmation]);
+  async function handleSubmit() {
     console.log(passwordMatch);
     if (!passwordMatch) {
       setFloatingNote({
@@ -48,24 +52,49 @@ function RegistrationStepThree({ setPage }) {
         setFloatingNote({ state: false, msg: "" });
       }, 3000);
       return;
-    } else if (Object.values(validate).every((value) => value === true)) {
-      setFloatingNote({
-        state: true,
-        msg: "Sumitting Request",
-      }); // Show the div
-      setTimeout(() => {
-        setFloatingNote({ state: false, msg: "" });
-      }, 3000);
-      return;
+    } else {
+      if (Object.values(validate).every((value) => value === true)) {
+        try {
+          const response = await registrationRequest(data);
+
+          if (response && response.success) {
+            // Dispatch the logIn action with the user data
+            setFloatingNote({
+              state: true,
+              msg: response.message,
+            });
+            setTimeout(() => {
+              setFloatingNote({ state: false, msg: "" });
+            }, 3000);
+            dispatch(
+              logIn({
+                token: response.result.token,
+                name: response.result.client.first_name,
+              })
+            );
+            navigate("/");
+          } else {
+            setFloatingNote({
+              state: true,
+              msg: response.message || "Problem checking OTP",
+            });
+          }
+        } catch (err) {
+          setFloatingNote({
+            state: true,
+            msg: err.message,
+          });
+        }
+        return;
+      }
     }
     setFloatingNote({
       state: true,
-      msg: "Invalid Password!",
+      msg: "You must agree the terms & condition",
     }); // Show the div
     setTimeout(() => {
       setFloatingNote({ state: false, msg: "" });
     }, 3000);
-    return;
   }
   return (
     <div className="w-full sm:w-3/4 tab:w-2/3 m-auto py-6 sm:py-0">
@@ -76,8 +105,8 @@ function RegistrationStepThree({ setPage }) {
           id="password"
           className="py-2 pl-2 tab:py-3 tab:pl-3 w-full rounded-md"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={data.password}
+          onChange={(e) => setData({ ...data, password: e.target.value })}
         />
         <div className="w-max" onClick={() => toggleField("first")}>
           {!see.first && <RiEyeLine className="text-xl" />}
@@ -130,8 +159,10 @@ function RegistrationStepThree({ setPage }) {
           id="confirm_password"
           className="py-2 pl-2 tab:py-3 tab:pl-3 w-full rounded-md"
           placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={data.password_confirmation}
+          onChange={(e) =>
+            setData({ ...data, password_confirmation: e.target.value })
+          }
         />
         <div className="w-max" onClick={() => toggleField("confirm")}>
           {!see.confirm && <RiEyeLine className="text-xl" />}
@@ -139,7 +170,7 @@ function RegistrationStepThree({ setPage }) {
         </div>
       </div>
       <div className="pb-3">
-        {confirmPassword.length > 0 && passwordMatch && (
+        {data.password_confirmation.length > 0 && passwordMatch && (
           <Text padding={`py-0`} color={`primary`}>
             Password matched
           </Text>

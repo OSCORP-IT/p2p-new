@@ -13,7 +13,7 @@ function LoanDisburse({ setPage }) {
   function handleSubmit() {
     if (user.isLoggedIn) {
       navigate("/");
-    }
+    } else setPage(9);
   }
   return (
     <>

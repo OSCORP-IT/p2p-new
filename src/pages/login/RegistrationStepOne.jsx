@@ -20,18 +20,23 @@ function RegistrationStepOne({ setPage, data, setData }) {
   useEffect(() => {
     const checkPhoneNumber = async () => {
       if (isSubmitted && isValid) {
-        console.log(data.mobile_number);
         try {
           const response = await userPhoneNumberCheck(data.mobile_number);
-          if (response.number_already_exists) setErr("Already Registered");
-          else setPage(2); // Return boolean directly
+          if (response.number_already_exists) {
+            setIsSubmitted(() => false);
+            setIsvalid(() => false);
+            setErr("Already Registered");
+          } else setPage(2); // Return boolean directly
         } catch (error) {
-          setErr("Error checking phone number");
+          setIsSubmitted(() => false);
+          setIsvalid(() => false);
+          setErr(error.message);
+          return;
         }
       }
     };
     checkPhoneNumber();
-  }, [isSubmitted, isValid, data.mobile_number, setPage]);
+  }, [isSubmitted, isValid]);
   function checkFilling() {
     if (
       data.first_name === "" ||
