@@ -18,21 +18,36 @@ const initialState = {
 function FormContainer() {
   const [formState, setFormState] = useState(initialState);
   const [formPage, setFormPage] = useState(initialState);
-  const [currentFormPage, setCurrentFormPage] = useState(1);
+  const [currentFormPage, setCurrentFormPage] = useState(0);
+  const [currentResponseId, setCurrentResponseId] = useState(null);
+  const [currentFormId, setCurrentFormId] = useState(null);
+  const [currentFormPageId, setCurrentFormPageId] = useState(null);
+  const [currentForm, setCurrentForm] = useState(0);
+  const [totalForm, setTotalForm] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const user = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchFormPages = async () => {
       try {
-        const data = await showForm(user.userToken, `5`);
+        const data = await showForm(user.userToken, `6`);
         console.log(data);
         setFormState({
-          data: data.result.form_responses[1],
+          data: data.result.form_responses[currentForm],
           loading: false,
           error: null,
         });
-        setTotalPage(data.result.form_responses[1].total_pages);
+        setTotalPage(data.result.form_responses[currentForm].form.total_pages);
+        setTotalForm(data.result.form_responses.length);
+        setCurrentFormId(data.result.form_responses[currentForm].form.id);
+        setCurrentResponseId(
+          data.result.form_responses[currentForm].form_response_id
+        );
+        setCurrentFormPageId(
+          data.result.form_responses[currentForm].form.form_pages[
+            currentFormPage
+          ].id
+        );
       } catch (error) {
         setFormState({
           data: null,
@@ -42,7 +57,7 @@ function FormContainer() {
       }
     };
     fetchFormPages();
-  }, [user.userToken]);
+  }, [user.userToken, currentForm]);
   useEffect(() => {
     setFormPage({
       data: null,
@@ -50,27 +65,58 @@ function FormContainer() {
       error: null,
     });
     const fetchPageFields = async () => {
-      try {
-        const data = await showFormPage(5, 1, 1, 36, user.userToken);
-        // console.log("Fetched page fields data:", data); // Check the page fields data structure
-        setFormPage({
-          data: data.result,
-          loading: false,
-          error: null,
-        });
-      } catch (error) {
-        setFormPage({
-          data: null,
-          loading: false,
-          error: "Error fetching form pages",
-        });
+      if (formState.data) {
+        try {
+          const data = await showFormPage(
+            6,
+            currentFormId,
+            currentFormPageId,
+            currentResponseId,
+            user.userToken
+          );
+          // console.log("Fetched page fields data:", data); // Check the page fields data structure
+          setFormPage({
+            data: data.result,
+            loading: false,
+            error: null,
+          });
+        } catch (error) {
+          setFormPage({
+            data: null,
+            loading: false,
+            error: "Error fetching form pages",
+          });
+        }
       }
     };
     fetchPageFields();
-  }, [user.userToken]);
-  console.log(formState);
+  }, [user.userToken, formState.data]);
+  function handleData() {
+    if (totalPage === currentFormPage + 1) {
+      if (totalForm === currentForm + 1) {
+        return;
+      } else {
+        setCurrentForm((cf) => cf + 1);
+      }
+    } else {
+      setCurrentFormPage((cp) => cp + 1);
+    }
+  }
   return (
     <>
+      <div className="flex gap-2 items-center p-1 border border-black">
+        <h1>{`Total Form: ${totalForm}`}</h1>
+        <h1>{`Current Form: ${currentForm + 1}`}</h1>
+        {formState.data && (
+          <h1>{`Current Form Response ID: ${formState.data.form_response_id}`}</h1>
+        )}
+        {formState.data && (
+          <h1>{`Current Form ID: ${formState.data.form.id}`}</h1>
+        )}
+        <h1>{`Current Page: ${currentFormPage}`}</h1>
+        <h1>{`Total Page: ${totalPage}`}</h1>
+      </div>
+      <button onClick={handleData}>Click 1</button>
       {formState.loading && (
         <div className="flex gap-2 items-center">
           <BiLoader className=" animate-spin" />

@@ -2,8 +2,7 @@ import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
 import { FaLessThan } from "react-icons/fa6";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "../login/Datepicker";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchProfile } from "../../services/Authentication";
@@ -101,13 +100,10 @@ function PersonalDetail({ setPage, data, setData }) {
           </div>
           <div className="pb-2 w-full">
             <DatePicker
-              showIcon
               dateFormat={"dd/MM/yyyy"}
               name="dob"
-              placeholderText="Date of birth (dd/mm/yyyy)"
-              selected={data.date_of_birth}
-              className="p-2 w-full border border-gray-400"
-              onChange={(date) =>
+              date={data.date_of_birth}
+              setDate={(date) =>
                 setData((prevState) => ({
                   ...prevState,
                   date_of_birth: date,

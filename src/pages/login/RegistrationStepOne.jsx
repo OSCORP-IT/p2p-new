@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import Input from "./Input";
-import DatePicker from "react-datepicker";
+import DatePicker from "./Datepicker";
 import { userPhoneNumberCheck } from "../../services/Authentication";
 import Text from "../../components/Text";
 
@@ -106,18 +106,16 @@ function RegistrationStepOne({ setPage, data, setData }) {
       </div>
       <div className="w-full py-2">
         <DatePicker
-          showIcon
           dateFormat={"dd/MM/yyyy"}
-          selected={data.date_of_birth}
-          onChange={(date) =>
+          name={`date_of_birth`}
+          rounded={true}
+          date={data.date_of_birth}
+          setDate={(date) =>
             setData((prevState) => ({
               ...prevState,
               date_of_birth: date,
             }))
           }
-          name="dob"
-          placeholderText="Date of birth (dd/mm/yyyy)"
-          className="p-3 w-full border border-gray-400 rounded-md text-textColor3"
         />
         <div className="py-2 tab:py-4">
           <Input

@@ -11,6 +11,7 @@ import { PiPhoneCall } from "react-icons/pi";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../../services/Authentication";
 import { logIn } from "../../features/authentication/authSlice";
+import Datepicker from "./Datepicker";
 
 function LogIn() {
   const dispatch = useDispatch();
@@ -128,6 +129,7 @@ function LogIn() {
                 Sign Up
               </span>
             </Text>
+            <Datepicker />
           </div>
         </div>
         <div className="w-full sm:h-[15%] pt-[40px] sm:pt-4 tab:pt-0">

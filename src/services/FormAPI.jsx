@@ -51,13 +51,15 @@ export async function showFormPage(
     headers: myHeaders,
     redirect: "follow",
   };
-
+  console.log(loanPortfolioId, formId, formPage, responseId, token);
   try {
     const response = await fetch(
       `${BASE_URL}/dashboard/applied-loan-portfolios/${loanPortfolioId}/forms/${formId}/form-pages/${formPage}/form-responses/${responseId}`,
       requestOptions
     );
     const result = await response.json();
+    console.log(`Result`);
+    console.log(result);
     return result;
   } catch (error) {
     throw new Error();
