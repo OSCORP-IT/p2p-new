@@ -8,6 +8,7 @@ import { BiError, BiLoader } from "react-icons/bi";
 import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
+import { buildFromResponse } from "./BuildFromResponse";
 
 const initialState = {
   data: null,
@@ -25,13 +26,13 @@ function FormContainer() {
   const [currentForm, setCurrentForm] = useState(0);
   const [totalForm, setTotalForm] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [formResponse, setFormResponse] = useState({});
   const user = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchFormPages = async () => {
       try {
-        const data = await showForm(user.userToken, `6`);
-        console.log(data);
+        const data = await showForm(user.userToken, `8`);
         setFormState({
           data: data.result.form_responses[currentForm],
           loading: false,
@@ -57,7 +58,7 @@ function FormContainer() {
       }
     };
     fetchFormPages();
-  }, [user.userToken, currentForm]);
+  }, [user.userToken, currentForm, currentFormPage]);
   useEffect(() => {
     setFormPage({
       data: null,
@@ -68,13 +69,16 @@ function FormContainer() {
       if (formState.data) {
         try {
           const data = await showFormPage(
-            6,
+            8,
             currentFormId,
             currentFormPageId,
             currentResponseId,
             user.userToken
           );
           // console.log("Fetched page fields data:", data); // Check the page fields data structure
+          {
+            data && setFormResponse(() => buildFromResponse(data));
+          }
           setFormPage({
             data: data.result,
             loading: false,
@@ -90,7 +94,13 @@ function FormContainer() {
       }
     };
     fetchPageFields();
-  }, [user.userToken, formState.data]);
+  }, [
+    user.userToken,
+    formState.data,
+    currentFormPageId,
+    currentFormId,
+    currentResponseId,
+  ]);
   function handleData() {
     if (totalPage === currentFormPage + 1) {
       if (totalForm === currentForm + 1) {
@@ -100,6 +110,11 @@ function FormContainer() {
       }
     } else {
       setCurrentFormPage((cp) => cp + 1);
+      setCurrentFormId(() => formState.data.form.id);
+
+      setCurrentFormPageId(
+        () => formState.data.form.form_pages[currentFormPage].id
+      );
     }
   }
   return (
@@ -138,9 +153,9 @@ function FormContainer() {
                 <div className="flex items-center gap-2">
                   <div
                     className={`p-2 border-2 ${
-                      index + 1 < currentFormPage
+                      index < currentFormPage
                         ? "border-accent bg-accent"
-                        : index + 1 > currentFormPage
+                        : index > currentFormPage
                         ? "border-textColor3/50 bg-white"
                         : "border-accent bg-white"
                     } rounded-full`}
@@ -183,9 +198,14 @@ function FormContainer() {
         )}
         {formPage.data && (
           <div className="w-[70%] bg-white rounded-md p-[15px]">
-            {formPage.data.response_answer.map((item) => (
+            {formPage.data.response_answer.map((item, index) => (
               <div key={item.id} className="w-full">
-                <InputMaker item={item} />
+                <InputMaker
+                  item={item}
+                  index={index}
+                  data={formResponse}
+                  setData={setFormResponse}
+                />
               </div>
             ))}
             {currentFormPage < totalPage && (

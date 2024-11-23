@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function RegistrationStepThree({ setPage, data, setData }) {
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
+  const [showPasswordMaker, setShowPasswordMaker] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [validate, setValidate] = useState({
@@ -98,73 +99,82 @@ function RegistrationStepThree({ setPage, data, setData }) {
   }
   return (
     <div className="w-full sm:w-3/4 tab:w-2/3 m-auto py-6 sm:py-0">
-      <div className="w-full border bg-white border-gray-400 pr-2 tab:pr-3 rounded-md flex items-center gap-2">
+      <div className="relative mb-2 w-full border bg-white border-gray-400 rounded-md flex items-center gap-2">
         <input
           type={see.first ? "text" : "password"}
           name="Password"
           id="password"
-          className="py-2 pl-2 tab:py-3 tab:pl-3 w-full rounded-md"
+          className="py-2 pl-2 pr-8 tab:py-3 tab:pl-3 w-full rounded-md"
           placeholder="Password"
           value={data.password}
+          onFocus={() => setShowPasswordMaker(true)}
           onChange={(e) => setData({ ...data, password: e.target.value })}
         />
-        <div className="w-max" onClick={() => toggleField("first")}>
+        <div
+          className="absolute right-2 top-[28%] w-max"
+          onClick={() => toggleField("first")}
+        >
           {!see.first && <RiEyeLine className="text-xl" />}
           {see.first && <RiEyeCloseLine className="text-xl" />}
         </div>
       </div>
-      <div className="bg-gray-200 p-3">
-        <Text font={`font-semibold`}>Your password must contain:</Text>
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="flex gap-2 items-center">
-              {!validate.lengthValid && <Cross />}
-              {validate.lengthValid && <CheckGreen />}
-              <Text color={`textColor3`}>8-16 characters</Text>
+      {showPasswordMaker && (
+        <div className="bg-gray-200 p-3">
+          <Text font={`font-semibold`}>Your password must contain:</Text>
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex gap-2 items-center">
+                {!validate.lengthValid && <Cross />}
+                {validate.lengthValid && <CheckGreen />}
+                <Text color={`textColor3`}>8-16 characters</Text>
+              </div>
+              <div className="flex gap-2 items-center">
+                {!validate.noWhitespace && <Cross />}
+                {validate.noWhitespace && <CheckGreen />}
+                <Text color={`textColor3`}>no whitespace</Text>
+              </div>
+              <div className="flex gap-2 items-center">
+                {!validate.hasNumber && <Cross />}
+                {validate.hasNumber && <CheckGreen />}
+                <Text color={`textColor3`}>1 numeric value</Text>
+              </div>
             </div>
-            <div className="flex gap-2 items-center">
-              {!validate.noWhitespace && <Cross />}
-              {validate.noWhitespace && <CheckGreen />}
-              <Text color={`textColor3`}>no whitespace</Text>
-            </div>
-            <div className="flex gap-2 items-center">
-              {!validate.hasNumber && <Cross />}
-              {validate.hasNumber && <CheckGreen />}
-              <Text color={`textColor3`}>1 numeric value</Text>
-            </div>
-          </div>
-          <div>
-            <div className="flex gap-2 items-center">
-              {!validate.hasUppercase && <Cross />}
-              {validate.hasUppercase && <CheckGreen />}
-              <Text color={`textColor3`}>1 uppercase letter</Text>
-            </div>
-            <div className="flex gap-2 items-center">
-              {!validate.hasLowercase && <Cross />}
-              {validate.hasLowercase && <CheckGreen />}
-              <Text color={`textColor3`}>1 lowercase letter</Text>
-            </div>
-            <div className="flex gap-2 items-center">
-              {!validate.hasSpecialChar && <Cross />}
-              {validate.hasSpecialChar && <CheckGreen />}
-              <Text color={`textColor3`}>1 special character</Text>
+            <div>
+              <div className="flex gap-2 items-center">
+                {!validate.hasUppercase && <Cross />}
+                {validate.hasUppercase && <CheckGreen />}
+                <Text color={`textColor3`}>1 uppercase letter</Text>
+              </div>
+              <div className="flex gap-2 items-center">
+                {!validate.hasLowercase && <Cross />}
+                {validate.hasLowercase && <CheckGreen />}
+                <Text color={`textColor3`}>1 lowercase letter</Text>
+              </div>
+              <div className="flex gap-2 items-center">
+                {!validate.hasSpecialChar && <Cross />}
+                {validate.hasSpecialChar && <CheckGreen />}
+                <Text color={`textColor3`}>1 special character</Text>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-full border bg-white border-gray-400 pr-2 tab:pr-3 rounded-md flex items-center gap-2">
+      )}
+      <div className="relative w-full border bg-white border-gray-400 rounded-md flex items-center gap-2">
         <input
           type={see.confirm ? "text" : "password"}
           name="Confirm Password"
           id="confirm_password"
-          className="py-2 pl-2 tab:py-3 tab:pl-3 w-full rounded-md"
+          className="py-2 pl-2 pr-8 tab:py-3 tab:pl-3 w-full rounded-md"
           placeholder="Confirm Password"
           value={data.password_confirmation}
           onChange={(e) =>
             setData({ ...data, password_confirmation: e.target.value })
           }
         />
-        <div className="w-max" onClick={() => toggleField("confirm")}>
+        <div
+          className="absolute right-2 top-[28%] w-max"
+          onClick={() => toggleField("confirm")}
+        >
           {!see.confirm && <RiEyeLine className="text-xl" />}
           {see.confirm && <RiEyeCloseLine className="text-xl" />}
         </div>

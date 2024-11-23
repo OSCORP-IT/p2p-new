@@ -119,17 +119,20 @@ function SetPassword({ setPage, data, setData }) {
       <SubHeading align={`text-center`} padding={`pt-1 pb-4`}>
         Create a password for <span className="text-primary">{data.email}</span>
       </SubHeading>
-      <div className="mt-4 mb-3 w-full border pr-2 border-gray-400 flex items-center gap-2">
+      <div className="relative mt-4 mb-3 w-full border border-gray-400 flex items-center gap-2">
         <input
           type={see.first ? "text" : "password"}
           name="Password"
           id="password"
-          className="p-3 w-full"
+          className="py-3 pl-3 pr-8 w-full"
           placeholder="Password"
           value={data.password}
           onChange={(e) => setData({ ...data, password: e.target.value })}
         />
-        <div className="w-max" onClick={() => toggleField("first")}>
+        <div
+          className="absolute right-2 top-[35%] my-auto w-max"
+          onClick={() => toggleField("first")}
+        >
           {!see.first && <RiEyeLine className="text-xl" />}
           {see.first && <RiEyeCloseLine className="text-xl" />}
         </div>
@@ -173,19 +176,22 @@ function SetPassword({ setPage, data, setData }) {
           </div>
         </div>
       </div>
-      <div className="mt-3 w-full border pr-2 border-gray-400 flex items-center gap-2">
+      <div className="relative mt-3 w-full border border-gray-400 flex items-center gap-2">
         <input
           type={see.confirm ? "text" : "password"}
           name="Confirm Password"
           id="confirm_password"
-          className="p-3 w-full"
+          className="py-3 pl-3 pr-8 w-full"
           placeholder="Confirm Password"
           value={data.password_confirmation}
           onChange={(e) =>
             setData({ ...data, password_confirmation: e.target.value })
           }
         />
-        <div className="w-max" onClick={() => toggleField("confirm")}>
+        <div
+          className="absolute right-2 top-[35%] my-auto w-max"
+          onClick={() => toggleField("confirm")}
+        >
           {!see.confirm && <RiEyeLine className="text-xl" />}
           {see.confirm && <RiEyeCloseLine className="text-xl" />}
         </div>

@@ -11,7 +11,6 @@ import { PiPhoneCall } from "react-icons/pi";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../../services/Authentication";
 import { logIn } from "../../features/authentication/authSlice";
-import Datepicker from "./Datepicker";
 
 function LogIn() {
   const dispatch = useDispatch();
@@ -69,32 +68,37 @@ function LogIn() {
                 .
               </span>
             </SubTitle>
-            <div className="my-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 pl-2 border-gray-400 flex items-center gap-2">
-              <div className="w-max">{<BiEnvelope className="text-xl" />}</div>
+            <div className="relative my-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
+              <div className="absolute left-2 top-[30%] w-max">
+                <BiEnvelope className="text-xl" />
+              </div>
               <input
                 type="text"
                 name="emailOrPhone"
                 id="emailOrPhone"
-                className="p-3 w-full rounded-md"
+                className="py-3 pr-3 pl-8 w-full rounded-md"
                 placeholder="Email / Phone"
                 value={emailOrPhone}
                 onChange={(e) => setEmailOrPhone(e.target.value)}
               />
             </div>
-            <div className="mt-4 mb-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 px-2 border-gray-400 flex items-center gap-2">
-              <div className="w-max">
+            <div className="relative mt-4 mb-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
+              <div className="absolute left-2 top-[30%] w-max">
                 {<RiLockPasswordLine className="text-xl" />}
               </div>
               <input
                 type={see ? "text" : "password"}
                 name="Password"
                 id="password"
-                className="p-3 w-full"
+                className="py-3 px-8 w-full rounded-md"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="w-max" onClick={() => setSee(!see)}>
+              <div
+                className="absolute right-2 top-[35%] w-max"
+                onClick={() => setSee(!see)}
+              >
                 {see && <RiEyeLine className="text-xl" />}
                 {!see && <RiEyeCloseLine className="text-xl" />}
               </div>
@@ -129,7 +133,6 @@ function LogIn() {
                 Sign Up
               </span>
             </Text>
-            <Datepicker />
           </div>
         </div>
         <div className="w-full sm:h-[15%] pt-[40px] sm:pt-4 tab:pt-0">

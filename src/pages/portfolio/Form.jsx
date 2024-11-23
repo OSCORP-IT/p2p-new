@@ -1,9 +1,9 @@
-import { FaList } from "react-icons/fa6";
-import Heading1 from "../../components/Heading1";
-import Text from "../../components/Text";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { FaChartLine, FaUserEdit } from "react-icons/fa";
-import { FcSettings } from "react-icons/fc";
+// import { FaList } from "react-icons/fa6";
+// import Heading1 from "../../components/Heading1";
+// import Text from "../../components/Text";
+// import { LuLayoutDashboard } from "react-icons/lu";
+// import { FaChartLine, FaUserEdit } from "react-icons/fa";
+// import { FcSettings } from "react-icons/fc";
 import Heading2 from "../../components/Heading2";
 import PrimaryButton from "../../components/PrimaryButton";
 import { GrNotification, GrSearchAdvanced } from "react-icons/gr";
@@ -13,7 +13,7 @@ import FormContainer from "./FormContainer";
 function Form() {
   return (
     <div className="w-full flex items-start justify-normal">
-      <div className="bg-white w-1/5 py-5 pr-5 h-screen">
+      {/* <div className="bg-white w-1/5 py-5 pr-5 h-screen">
         <Heading1 align={`w-max m-auto`}>P2P New</Heading1>
         <div className="py-12 w-full">
           <div className="flex gap-2 items-center py-1 px-8">
@@ -47,8 +47,8 @@ function Form() {
             </Text>
           </div>
         </div>
-      </div>
-      <div className="bg-gray-100 w-4/5 min-h-screen p-5">
+      </div> */}
+      <div className="bg-gray-100 w-full min-h-screen p-5">
         <div className="w-full flex items-center justify-between pb-10">
           <Heading2>My Portfolio</Heading2>
           <div className="flex items-center gap-4">

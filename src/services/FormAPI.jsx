@@ -34,7 +34,7 @@ export async function showForm(token, loanPortfolioId) {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error(error);
+    throw new Error();
   }
 }
 
@@ -58,8 +58,6 @@ export async function showFormPage(
       requestOptions
     );
     const result = await response.json();
-    console.log(`Result`);
-    console.log(result);
     return result;
   } catch (error) {
     throw new Error();

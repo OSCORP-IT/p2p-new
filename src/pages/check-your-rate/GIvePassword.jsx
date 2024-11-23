@@ -57,17 +57,20 @@ function GivePassword({ setPage, data }) {
         Insert your password
         <span className="text-primary"> for your account</span>
       </SubHeading>
-      <div className="mt-4 mb-3 w-full border pr-2 border-gray-400 flex items-center gap-2">
+      <div className="relative mt-4 mb-3 w-full border border-gray-400">
         <input
           type={see ? "text" : "password"}
           name="Password"
           id="password"
-          className="p-3 w-full"
+          className="py-3 pl-3 pr-8 w-full"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="w-max" onClick={() => setSee(!see)}>
+        <div
+          className="absolute right-2 top-[35%] my-auto w-max"
+          onClick={() => setSee(!see)}
+        >
           {!see && <RiEyeLine className="text-xl" />}
           {see && <RiEyeCloseLine className="text-xl" />}
         </div>

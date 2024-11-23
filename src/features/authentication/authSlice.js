@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const FIVE_MINUTES = 5 * 60 * 1000;
+const FIVE_MINUTES = 20 * 60 * 1000;
 
 // Load initial state from localStorage if session is still valid
 const loadStateFromLocalStorage = () => {

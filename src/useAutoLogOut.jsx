@@ -2,7 +2,7 @@ import { useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { logOut } from "../src/features/authentication/authSlice";
 
-const useAutoLogout = (timeout = 5 * 60 * 1000) => {
+const useAutoLogout = (timeout = 20 * 60 * 1000) => {
   const dispatch = useDispatch();
 
   // Reset timer and update last activity time in localStorage

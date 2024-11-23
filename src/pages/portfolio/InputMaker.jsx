@@ -1,24 +1,30 @@
 import Text from "../../components/Text";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import PrimaryButton from "../../components/PrimaryButton";
+import SectionGroup from "./SectionGroup";
+import TableGroup from "./TableGroup";
 
-function InputMaker({ item }) {
-  const result = { field_id: item.field_id, answer_text: "" };
+function InputMaker({ item, index, data, setData }) {
+  const handleInputChange = (value) => {
+    const updatedAnswers = [...data.response_answers];
 
-  if (
-    item.field_type === "table_group" ||
-    item.field_type === "section_group"
-  ) {
-    // Initialize an array of empty objects based on options within the group
-    result.answer_text = [
-      item.options.reduce((acc, option) => {
-        acc[option.field_name] = ""; // Initialize each option field to an empty string
-        return acc;
-      }, {}),
-    ];
-  } else if (item.field_type === "number") {
-    result.answer_text = 0;
-  }
+    updatedAnswers[index].answer_text = value;
+    setData((prev) => ({ ...prev, response_answers: updatedAnswers }));
+  };
+  const handleCheckboxChange = (event) => {
+    const updatedAnswers = [...data.response_answers];
+    const { value, checked } = event.target;
+    let newArray = updatedAnswers[index].answer_text;
+
+    if (checked) {
+      newArray = [...newArray, value]; // Add value if checked
+    } else {
+      newArray = newArray.filter((item) => item !== value); // Remove value if unchecked
+    }
+    updatedAnswers[index].answer_text = newArray;
+    setData((prev) => ({ ...prev, response_answers: updatedAnswers }));
+  };
 
   return (
     <>
@@ -32,9 +38,9 @@ function InputMaker({ item }) {
         <input
           type="text"
           name={item.field_name}
-          value={result.answer_text}
-          onChange={(e) => (result.answer_text = e.target.value)}
-          placeholder={item.placeholder}
+          value={data.response_answers[index].answer_text || ""}
+          onChange={(e) => handleInputChange(e.target.value)}
+          placeholder={item.label}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
         />
       )}
@@ -43,6 +49,8 @@ function InputMaker({ item }) {
           showIcon
           dateFormat={"DD/MM/YYYY"}
           name={item.field_name}
+          selected={data.response_answers[index].answer_text || ""}
+          onChange={(date) => handleInputChange(date)}
           className="w-full py-2 px-2 border border-gray-300 rounded-md"
         />
       )}
@@ -54,6 +62,8 @@ function InputMaker({ item }) {
                 type="radio"
                 id={option}
                 value={option}
+                checked={data.response_answers[index].answer_text === option}
+                onChange={(e) => handleInputChange(e.target.value)}
                 name={item.field_name}
                 className=" cursor-pointer border checked:border-accent"
               />
@@ -66,13 +76,17 @@ function InputMaker({ item }) {
         <input
           type="number"
           name={item.field_name}
-          placeholder={"Number of Children"}
+          placeholder={item.placeholder}
+          value={data.response_answers[index].answer_text || ""}
+          onChange={(e) => handleInputChange(e.target.value)}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
         />
       )}
       {item.field_type === "dropdown" && (
         <select
           name={item.field_name}
+          value={data.response_answers[index].answer_text || ""}
+          onChange={(e) => handleInputChange(e.target.value)}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
         >
           <option value=""> Select one</option>
@@ -88,7 +102,9 @@ function InputMaker({ item }) {
           name={item.field_name}
           rows="4"
           cols="50"
-          placeholder="Write your notes..."
+          placeholder={item.placeholder}
+          value={data.response_answers[index].answer_text || ""}
+          onChange={(e) => handleInputChange(e.target.value)}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
         ></textarea>
       )}
@@ -100,6 +116,10 @@ function InputMaker({ item }) {
                 type="checkbox"
                 name={item.field_name}
                 id={option}
+                checked={data.response_answers[index].answer_text.includes(
+                  option
+                )}
+                onChange={handleCheckboxChange}
                 value={option}
               />
               <label htmlFor={option}>{option}</label>
@@ -108,91 +128,28 @@ function InputMaker({ item }) {
         </div>
       )}
       {item.field_type === "table_group" && (
-        <div className="border border-gray-300 p-1 rounded-md">
-          <div className="flex items-center gap-2 text-center text-lg font-medium">
-            {item.options.map((option, index) => (
-              <div
-                key={index}
-                className="rounded-md py-1.5 bg-gray-200 flex-grow"
-              >
-                <Text align={"text-center"} font={`font-bold`}>
-                  {option.label}
-                </Text>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-2 text-center text-base mt-1">
-            {item.options.map((option) => (
-              <>
-                {option.field_type === "dropdown" && (
-                  <div className="rounded-md py-1 w-1/3">
-                    <select className="w-full rounded-md px-4 py-1 border border-gray-300">
-                      <option value="">--Select--</option>
-                      {option.options.map((field) => (
-                        <option value={field} key={field}>
-                          {field}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
-                {option.field_type === "text" && (
-                  <div className="rounded-md py-1 w-1/3">
-                    <input
-                      type="text"
-                      name={option.field_name}
-                      id={option.field_name}
-                      placeholder={option.label}
-                      className="text-base text-center font-normal rounded-lg w-full border border-gray-300 py-1"
-                    />
-                  </div>
-                )}
-                {option.field_type === "number" && (
-                  <div className="rounded-md py-1 w-1/3">
-                    <input
-                      type="number"
-                      name={option.field_name}
-                      id={option.field_name}
-                      placeholder={option.label}
-                      className="text-base text-center font-normal rounded-lg w-full border border-gray-300 py-1"
-                    />
-                  </div>
-                )}
-              </>
-            ))}
-          </div>
-          <div className="py-2">
-            <h2 className="text-base font-medium py-1 rounded-md cursor-pointer bg-accent text-white text-center">
-              Add {item.label} +
-            </h2>
-          </div>
-        </div>
+        <TableGroup item={item} index={index} data={data} setData={setData} />
       )}
       {item.field_type === "section_group" && (
-        <div className="border border-gray-200 px-4 rounded-md pb-2 mt-4">
-          <div className="bg-white -mt-4 w-max">
-            <Text font={`font-semibold`}>
-              {item.label}
-              {item.is_required && <span className="text-red-600">*</span>}
-            </Text>
-          </div>
-          {item.options.map((option, index) => (
-            <InputMaker item={option} key={index} />
-          ))}
-          <div className="py-2">
-            <h2 className="text-base font-medium py-1 rounded-md cursor-pointer bg-accent text-white text-center">
-              Add {item.label} +
-            </h2>
-          </div>
-        </div>
+        <SectionGroup
+          inputItem={item}
+          dataIndex={index}
+          data={data}
+          setData={setData}
+        />
       )}
       {item.field_type === "file" && (
-        <input
-          type="file"
-          name={item.field_name}
-          // placeholder={item.placeholder}
-          className="py-2 px-2 border border-gray-300 rounded-md w-full"
-        />
+        <div className="flex items-center gap-4">
+          <input
+            type="file"
+            name={item.field_name}
+            // placeholder={item.placeholder}
+            className="py-2 px-2 border border-gray-300 rounded-md w-full"
+          />
+          <div>
+            <PrimaryButton>upload</PrimaryButton>
+          </div>
+        </div>
       )}
     </>
   );

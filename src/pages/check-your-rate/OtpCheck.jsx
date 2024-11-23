@@ -62,7 +62,7 @@ function OtpCheck({ data, setPage }) {
       <SubHeading align={`text-center`} padding={`pb-2`}>
         OTP is sent to {data.phone}
       </SubHeading>
-      <div className="mt-4 mb-2 w-full border pr-2 border-gray-400 flex items-center gap-2">
+      <div className="relative mt-4 mb-2 w-full border border-gray-400 flex items-center gap-2">
         <input
           type="text"
           name="OTP"
@@ -72,7 +72,7 @@ function OtpCheck({ data, setPage }) {
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
         />
-        <BiLock className="text-xl text-textColor3" />
+        <BiLock className="absolute right-2 top-[30%] w-max text-xl text-textColor3" />
       </div>
       <div className="pt-1">
         {seconds > 0 && (
