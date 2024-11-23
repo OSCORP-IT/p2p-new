@@ -8,7 +8,7 @@ import { BiError, BiLoader } from "react-icons/bi";
 import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
-import { buildFromResponse } from "./BuildFromResponse";
+import { buildFromResponse, hasEmptyValues } from "./BuildFromResponse";
 
 const initialState = {
   data: null,
@@ -109,9 +109,11 @@ function FormContainer() {
         setCurrentForm((cf) => cf + 1);
       }
     } else {
+      if (hasEmptyValues(formResponse.response_answers)) {
+        alert("Fill all the required field");
+      }
       setCurrentFormPage((cp) => cp + 1);
       setCurrentFormId(() => formState.data.form.id);
-
       setCurrentFormPageId(
         () => formState.data.form.form_pages[currentFormPage].id
       );

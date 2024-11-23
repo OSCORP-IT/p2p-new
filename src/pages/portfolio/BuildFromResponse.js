@@ -50,3 +50,25 @@ export function buildFromResponse(apiResponse) {
   console.log(initialValues);
   return initialValues;
 }
+
+export const hasEmptyValues = (responseAnswers) => {
+  console.log(responseAnswers);
+  for (let response of responseAnswers) {
+    const answerText = response.answer_text;
+
+    // If answer_text is empty or a string, it's invalid
+    if (Array.isArray(answerText)) {
+      for (let row of answerText) {
+        for (let key in row) {
+          const value = row[key];
+          if (value === "" || (Array.isArray(value) && value.length === 0)) {
+            return true; // Found an empty value
+          }
+        }
+      }
+    } else if (answerText === "" || answerText.length === 0) {
+      return true; // answer_text is empty or invalid
+    }
+  }
+  return false; // No empty values found
+};
