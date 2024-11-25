@@ -110,8 +110,8 @@ function InputMaker({ item, index, data, setData }) {
       )}
       {item.field_type === "checkbox" && (
         <div className="flex w-full items-center justify-between px-6">
-          {item.options.map((option, index) => (
-            <div key={index} className="flex items-center gap-2">
+          {item.options.map((option, ind) => (
+            <div key={ind} className="flex items-center gap-2">
               <input
                 type="checkbox"
                 name={item.field_name}

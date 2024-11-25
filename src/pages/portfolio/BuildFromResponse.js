@@ -14,33 +14,39 @@ export function buildFromResponse(apiResponse) {
       field.field_type === "paragraph" ||
       field.field_type === "file"
     ) {
-      fieldDefault.answer_text = ""; // Default is an empty string
+      fieldDefault.answer_text =
+        field.answer_text !== null ? field.answer_text : ""; // Default is an empty string
     }
     // For checkbox fields
     else if (field.field_type === "checkbox") {
-      fieldDefault.answer_text = []; // Default is an empty array (no options selected)
+      fieldDefault.answer_text =
+        field.answer_text !== null ? field.answer_text : []; // Default is an empty array (no options selected)
     }
     // For group fields (table_group, section_group)
     else if (
       field.field_type === "table_group" ||
       field.field_type === "section_group"
     ) {
-      fieldDefault.answer_text = []; // Initialize as an empty array for the rows or sections
+      if (field.answer_text === null) {
+        fieldDefault.answer_text = []; // Initialize as an empty array for the rows or sections
 
-      // For each option inside a group, initialize default values in a single object
-      if (field.options) {
-        // Create an object where the keys are the option names (labels)
-        let groupObject = {};
+        // For each option inside a group, initialize default values in a single object
+        if (field.options) {
+          // Create an object where the keys are the option names (labels)
+          let groupObject = {};
 
-        field.options.forEach((option) => {
-          // Initialize each option with an empty value
-          if (option.field_type === "checkbox")
-            groupObject[option.field_name] = [];
-          else groupObject[option.field_name] = ""; // Default to empty string for text fields
-        });
+          field.options.forEach((option) => {
+            // Initialize each option with an empty value
+            if (option.field_type === "checkbox")
+              groupObject[option.field_name] = [];
+            else groupObject[option.field_name] = ""; // Default to empty string for text fields
+          });
 
-        // Add this object to the answer_text array
-        fieldDefault.answer_text.push(groupObject);
+          // Add this object to the answer_text array
+          fieldDefault.answer_text.push(groupObject);
+        }
+      } else {
+        fieldDefault.answer_text = field.answer_text;
       }
     }
 

@@ -93,12 +93,12 @@ function TableGroup({ item, index, data, setData }) {
   };
 
   const currentRows = data.response_answers[index]?.answer_text || [];
-  const dataNumber = item.options.length;
+  const dataNumber = String(item.options.length);
 
   return (
     <div className="border border-gray-300 p-1 rounded-md w-full">
       {/* Table Headers */}
-      <div className="flex items-center gap-2 text-center text-lg font-medium w-full">
+      <div className="flex items-center justify-between gap-2 w-full">
         {item.options.map((option, idx) => (
           <div
             key={idx}

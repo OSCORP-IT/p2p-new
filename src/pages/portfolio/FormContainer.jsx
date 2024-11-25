@@ -3,12 +3,16 @@ import SmallText from "../../components/SmallText";
 import Text from "../../components/Text";
 import Title from "../../components/Title";
 import { useEffect, useState } from "react";
-import { showForm, showFormPage } from "../../services/FormAPI";
+import {
+  showForm,
+  showFormPage,
+  submitPortfolioResponse,
+} from "../../services/FormAPI";
 import { BiError, BiLoader } from "react-icons/bi";
 import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
-import { buildFromResponse, hasEmptyValues } from "./BuildFromResponse";
+import { buildFromResponse } from "./BuildFromResponse";
 
 const initialState = {
   data: null,
@@ -101,22 +105,40 @@ function FormContainer() {
     currentFormId,
     currentResponseId,
   ]);
-  function handleData() {
+  async function handleData() {
     if (totalPage === currentFormPage + 1) {
       if (totalForm === currentForm + 1) {
         return;
       } else {
-        setCurrentForm((cf) => cf + 1);
+        try {
+          const data = await submitPortfolioResponse(
+            formResponse,
+            user.userToken
+          );
+          console.log(data);
+          if (data.success) {
+            setCurrentForm((cf) => cf + 1);
+          } else throw new Error();
+        } catch (error) {
+          console.log(error);
+        }
       }
     } else {
-      if (hasEmptyValues(formResponse.response_answers)) {
-        alert("Fill all the required field");
+      try {
+        const data = await submitPortfolioResponse(
+          formResponse,
+          user.userToken
+        );
+        if (data.success) {
+          setCurrentFormPage((cp) => cp + 1);
+          setCurrentFormId(() => formState.data.form.id);
+          setCurrentFormPageId(
+            () => formState.data.form.form_pages[currentFormPage].id
+          );
+        } else throw new Error();
+      } catch (error) {
+        console.log(error);
       }
-      setCurrentFormPage((cp) => cp + 1);
-      setCurrentFormId(() => formState.data.form.id);
-      setCurrentFormPageId(
-        () => formState.data.form.form_pages[currentFormPage].id
-      );
     }
   }
   return (

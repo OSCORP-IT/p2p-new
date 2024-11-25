@@ -63,3 +63,28 @@ export async function showFormPage(
     throw new Error();
   }
 }
+
+export async function submitPortfolioResponse(response, token) {
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const raw = JSON.stringify(response);
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      `${BASE_URL}/dashboard/applied-loan-portfolios/1/forms/1/form-pages/1/form-responses/14/submit`,
+      requestOptions
+    );
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
