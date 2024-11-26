@@ -13,6 +13,8 @@ import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
 import { buildFromResponse } from "./BuildFromResponse";
+import Menu from "../../icon/Menu";
+import MenuClose from "../../icon/MenuClose";
 
 const initialState = {
   data: null,
@@ -20,7 +22,11 @@ const initialState = {
   error: null,
 };
 
-function FormContainer() {
+function FormContainer({ portfolio_id }) {
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
   const [formState, setFormState] = useState(initialState);
   const [formPage, setFormPage] = useState(initialState);
   const [currentFormPage, setCurrentFormPage] = useState(0);
@@ -36,7 +42,7 @@ function FormContainer() {
   useEffect(() => {
     const fetchFormPages = async () => {
       try {
-        const data = await showForm(user.userToken, `8`);
+        const data = await showForm(user.userToken, portfolio_id);
         setFormState({
           data: data.result.form_responses[currentForm],
           loading: false,
@@ -62,7 +68,7 @@ function FormContainer() {
       }
     };
     fetchFormPages();
-  }, [user.userToken, currentForm, currentFormPage]);
+  }, [portfolio_id, user.userToken, currentForm, currentFormPage]);
   useEffect(() => {
     setFormPage({
       data: null,
@@ -73,7 +79,7 @@ function FormContainer() {
       if (formState.data) {
         try {
           const data = await showFormPage(
-            8,
+            portfolio_id,
             currentFormId,
             currentFormPageId,
             currentResponseId,
@@ -99,6 +105,7 @@ function FormContainer() {
     };
     fetchPageFields();
   }, [
+    portfolio_id,
     user.userToken,
     formState.data,
     currentFormPageId,
@@ -143,7 +150,10 @@ function FormContainer() {
   }
   return (
     <>
-      <div className="flex gap-2 items-center p-1 border border-black">
+      <div className="fixed top-3 left-2 bg-white p-2" onClick={toggleExpand}>
+        {expanded ? <MenuClose /> : <Menu />}
+      </div>
+      {/* <div className="flex gap-2 items-start p-2 border border-black">
         <h1>{`Total Form: ${totalForm}`}</h1>
         <h1>{`Current Form: ${currentForm + 1}`}</h1>
         {formState.data && (
@@ -154,7 +164,7 @@ function FormContainer() {
         )}
         <h1>{`Current Page: ${currentFormPage}`}</h1>
         <h1>{`Total Page: ${totalPage}`}</h1>
-      </div>
+      </div> */}
       <button onClick={handleData}>Click 1</button>
       {formState.loading && (
         <div className="flex gap-2 items-center">
@@ -169,50 +179,102 @@ function FormContainer() {
         </div>
       )}
 
-      <div className="flex items-start gap-5 px-5">
+      <div className="relative flex items-start gap-5 sm:px-5">
         {formState.data && (
-          <div className="w-[30%] bg-white rounded-md p-[15px]">
-            {formState.data.form.form_pages.map((item, index) => (
-              <div key={item.id}>
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`p-2 border-2 ${
-                      index < currentFormPage
-                        ? "border-accent bg-accent"
-                        : index > currentFormPage
-                        ? "border-textColor3/50 bg-white"
-                        : "border-accent bg-white"
-                    } rounded-full`}
-                  >
-                    <FaCircle
-                      className={`text-[6px] ${
+          <>
+            <div className="block sm:w-[30%] bg-white rounded-md sm:p-[15px]">
+              {formState.data.form.form_pages.map((item, index) => (
+                <div key={item.id}>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={`p-2 border-2 ${
+                        index < currentFormPage
+                          ? "border-accent bg-accent"
+                          : index > currentFormPage
+                          ? "border-textColor3/50 bg-white"
+                          : "border-accent bg-white"
+                      } rounded-full m-auto sm:m-0`}
+                    >
+                      <FaCircle
+                        className={`text-[6px] ${
+                          index + 1 < currentFormPage
+                            ? "text-white"
+                            : index + 1 > currentFormPage
+                            ? "text-textColor3/50"
+                            : "text-accent"
+                        }`}
+                      />
+                    </div>
+                    <div className="hidden sm:block">
+                      <SmallText padding={`p-0`}>Step {index + 1}</SmallText>
+                      <Text padding={`p-0`} font={`font-semibold`}>
+                        {item.title}
+                      </Text>
+                    </div>
+                  </div>
+                  {formState.data.form.total_pages !== index + 1 && (
+                    <div
+                      className={`h-[15px] w-[15px] border-r-2 border-accent ${
                         index + 1 < currentFormPage
-                          ? "text-white"
-                          : index + 1 > currentFormPage
-                          ? "text-textColor3/50"
-                          : "text-accent"
+                          ? "border-accent"
+                          : "border-textColor3/50"
                       }`}
-                    />
-                  </div>
-                  <div>
-                    <SmallText padding={`p-0`}>Step {index + 1}</SmallText>
-                    <Text padding={`p-0`} font={`font-semibold`}>
-                      {item.title}
-                    </Text>
-                  </div>
+                    ></div>
+                  )}
                 </div>
-                {formState.data.form.total_pages !== index + 1 && (
-                  <div
-                    className={`h-[15px] w-[15px] border-r-2 border-accent ${
-                      index + 1 < currentFormPage
-                        ? "border-accent"
-                        : "border-textColor3/50"
-                    }`}
-                  ></div>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+            <div
+              className={`sm:hidden absolute top-0 left-0 min-h-screen ${
+                expanded ? "w-5/6" : "w-1/6"
+              } transition-all duration-500 ease-in-out bg-white rounded-lg`}
+            >
+              {formState.data.form.form_pages.map((item, index) => (
+                <div key={item.id}>
+                  <div className="flex items-center gap-2 py-1">
+                    <div
+                      className={`p-2 border-2 ${
+                        index < currentFormPage
+                          ? "border-accent bg-accent"
+                          : index > currentFormPage
+                          ? "border-textColor3/50 bg-white"
+                          : "border-accent bg-white"
+                      } rounded-full ${expanded ? "" : "m-auto"}`}
+                    >
+                      <FaCircle
+                        className={`text-[6px] ${
+                          index + 1 < currentFormPage
+                            ? "text-white"
+                            : index + 1 > currentFormPage
+                            ? "text-textColor3/50"
+                            : "text-accent"
+                        }`}
+                      />
+                    </div>
+                    <div className={expanded ? `block ` : `hidden`}>
+                      <SmallText padding={`p-0`}>Step {index + 1}</SmallText>
+                      <Text padding={`p-0`} font={`font-semibold`}>
+                        {item.title}
+                      </Text>
+                    </div>
+                  </div>
+                  {formState.data.form.total_pages !== index + 1 && (
+                    <div
+                      className={`${
+                        expanded ? "w-[15px] h-[20px]" : "w-[5px] h-[15px]"
+                      } ${
+                        expanded ? "m-0" : "m-auto"
+                      } border-r-2 border-accent ${
+                        index + 1 < currentFormPage
+                          ? "border-accent"
+                          : "border-textColor3/50"
+                      }`}
+                    ></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         )}
         {formPage.loading && (
           <div className="flex gap-2 items-center">
@@ -221,49 +283,53 @@ function FormContainer() {
           </div>
         )}
         {formPage.data && (
-          <div className="w-[70%] bg-white rounded-md p-[15px]">
-            {formPage.data.response_answer.map((item, index) => (
-              <div key={item.id} className="w-full">
-                <InputMaker
-                  item={item}
-                  index={index}
-                  data={formResponse}
-                  setData={setFormResponse}
-                />
-              </div>
-            ))}
-            {currentFormPage < totalPage && (
-              <div className="flex items-center gap-4">
-                {currentFormPage !== 1 && (
+          <>
+            <div className="w-[15%] sm:hidden"></div>
+            <div className="w-[80%] sm:w-[70%] bg-white rounded-md p-[15px]">
+              {formPage.data.response_answer.map((item, index) => (
+                <div key={item.id} className="w-full">
+                  <InputMaker
+                    item={item}
+                    index={index}
+                    data={formResponse}
+                    setData={setFormResponse}
+                  />
+                </div>
+              ))}
+
+              {currentFormPage < totalPage && (
+                <div className="flex items-center gap-4">
+                  {currentFormPage !== 1 && (
+                    <div
+                      className="w-max m-auto pt-8"
+                      onClick={() => setCurrentFormPage(currentFormPage - 1)}
+                    >
+                      <AccentButton leftIcon={true}>Previous Page</AccentButton>
+                    </div>
+                  )}
+                  <div
+                    className="w-max m-auto pt-8"
+                    onClick={() => setCurrentFormPage(currentFormPage + 1)}
+                  >
+                    <AccentButton>Next Page</AccentButton>
+                  </div>
+                </div>
+              )}
+              {currentFormPage == totalPage && (
+                <div className="flex items-center gap-4">
                   <div
                     className="w-max m-auto pt-8"
                     onClick={() => setCurrentFormPage(currentFormPage - 1)}
                   >
                     <AccentButton leftIcon={true}>Previous Page</AccentButton>
                   </div>
-                )}
-                <div
-                  className="w-max m-auto pt-8"
-                  onClick={() => setCurrentFormPage(currentFormPage + 1)}
-                >
-                  <AccentButton>Next Page</AccentButton>
+                  <div className="w-max m-auto pt-8">
+                    <AccentButton>Submit</AccentButton>
+                  </div>
                 </div>
-              </div>
-            )}
-            {currentFormPage == totalPage && (
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-max m-auto pt-8"
-                  onClick={() => setCurrentFormPage(currentFormPage - 1)}
-                >
-                  <AccentButton leftIcon={true}>Previous Page</AccentButton>
-                </div>
-                <div className="w-max m-auto pt-8">
-                  <AccentButton>Submit</AccentButton>
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          </>
         )}
       </div>
     </>

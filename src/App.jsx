@@ -140,7 +140,7 @@ const router = createBrowserRouter([
     element: <Registration />,
   },
   {
-    path: "/form",
+    path: "/form/:portfolio_id",
     element: <Form />,
   },
 ]);
