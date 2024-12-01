@@ -28,6 +28,7 @@ import LogIn from "./pages/login/LogIn";
 import Registration from "./pages/login/Registration";
 import useAutoLogout from "./useAutoLogOut";
 import Form from "./pages/portfolio/Form";
+import UserDashboard from "./pages/user-dashboard/UserDashboard";
 
 const router = createBrowserRouter([
   {
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
   {
     path: "/form/:portfolio_id",
     element: <Form />,
+  },
+  {
+    path: "/user/dashboard",
+    element: <UserDashboard />,
   },
 ]);
 function App() {

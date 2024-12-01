@@ -153,18 +153,6 @@ function FormContainer({ portfolio_id }) {
       <div className="fixed top-3 left-2 bg-white p-2" onClick={toggleExpand}>
         {expanded ? <MenuClose /> : <Menu />}
       </div>
-      {/* <div className="flex gap-2 items-start p-2 border border-black">
-        <h1>{`Total Form: ${totalForm}`}</h1>
-        <h1>{`Current Form: ${currentForm + 1}`}</h1>
-        {formState.data && (
-          <h1>{`Current Form Response ID: ${formState.data.form_response_id}`}</h1>
-        )}
-        {formState.data && (
-          <h1>{`Current Form ID: ${formState.data.form.id}`}</h1>
-        )}
-        <h1>{`Current Page: ${currentFormPage}`}</h1>
-        <h1>{`Total Page: ${totalPage}`}</h1>
-      </div> */}
       <button onClick={handleData}>Click 1</button>
       {formState.loading && (
         <div className="flex gap-2 items-center">
