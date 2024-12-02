@@ -3,6 +3,8 @@ import Heading2 from "../../components/Heading2";
 import DashboardLayout from "./DashboardLayout";
 import SmallText from "../../components/SmallText";
 import Bank from "../../assets/Bank.svg";
+import PaperPlane from "../../assets/PaperPlane.svg";
+import ArrRight from "../../assets/ArrRight.svg";
 import CreditCard from "../../assets/CreditCard.svg";
 import Wallet from "../../assets/Wallet.svg";
 import CalendarDots from "../../assets/CalendarDots.svg";
@@ -32,6 +34,49 @@ function UserDashboard() {
     { label: "Personal Loan", value: 55 },
     { label: "Business Loan", value: 70 },
     { label: "Home Loan", value: 15 },
+  ];
+  const loans = [
+    {
+      loanType: "Personal Loan",
+      name: "General",
+      amount: 100000,
+      dueDate: "12-07-2024",
+    },
+    {
+      loanType: "Home Loan",
+      name: "Mortgage",
+      amount: 100000,
+      dueDate: "12-07-2024",
+    },
+    {
+      loanType: "Business Loan",
+      name: "Equipment",
+      amount: 100000,
+      dueDate: "12-07-2024",
+    },
+  ];
+  const transactions = [
+    {
+      transactionType: "Repayment",
+      name: "Personal",
+      amount: 100000, // Absolute value
+      date: "12-07-2024",
+      flag: "debit",
+    },
+    {
+      transactionType: "Loan Disbursement",
+      name: null,
+      amount: 1000000, // Absolute value
+      date: "12-07-2024",
+      flag: "credit",
+    },
+    {
+      transactionType: "Repayment",
+      name: "Personal",
+      amount: 100000, // Absolute value
+      date: "12-07-2024",
+      flag: "debit",
+    },
   ];
 
   return (
@@ -101,8 +146,8 @@ function UserDashboard() {
             </SmallText>
           </div>
         </div>
-        <div className="mt-3 w-full flex items-start gap-3">
-          <div className="w-[40%] bg-white  rounded-md shadow-md px-5 py-4">
+        <div className="mt-3 w-full flex items-start gap-3 h-[270px]">
+          <div className="h-full w-[40%] bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`}>
               Loan Distribution
             </Heading2>
@@ -136,7 +181,7 @@ function UserDashboard() {
               </div>
             </div>
           </div>
-          <div className="w-[60%] bg-white  rounded-md shadow-md px-5 py-4">
+          <div className="h-full w-[60%] bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`} padding={`pt-1 pb-4`}>
               Loan Repayment Progress
             </Heading2>
@@ -155,6 +200,72 @@ function UserDashboard() {
                     style={{ width: `${item.value}%` }}
                     className={`h-full bg-gradient-to-r from-[#ff6b00] via-[#803600] to-[#ff6b00] rounded-[40px]`}
                   ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-3 w-full flex items-start gap-3 h-[270px]">
+          <div className="h-full w-[50%] bg-white  rounded-md shadow-md px-5 py-4">
+            <Heading2 font={`font-bold font-poppins`}>
+              Upcoming Payments
+            </Heading2>
+            {loans.map((item, index) => (
+              <div key={index} className="mt-2">
+                <div className="flex items-center justify-between">
+                  <Text font={`font-semibold`}>
+                    {item.loanType} - {item.name}
+                  </Text>
+                  <Text font={`font-semibold`}>৳ {item.amount}</Text>
+                </div>
+                <div className="flex items-start justify-between">
+                  <SmallText color={`textColor3`}>
+                    Due on {item.dueDate}
+                  </SmallText>
+                  <button className="rounded-[4px] bg-accent py-1 px-4 text-[10px] font-semibold text-white sm:text-xs">
+                    Pay Now
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="h-full w-[50%] bg-white  rounded-md shadow-md px-5 py-4">
+            <Heading2 font={`font-bold font-poppins`}>
+              Recent Transaction
+            </Heading2>
+            {transactions.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start justify-between gap-3 mt-2"
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`${
+                      item.flag === "debit" ? "bg-red-700" : "bg-primary"
+                    } p-1 rounded-full`}
+                  >
+                    <img
+                      src={item.flag === "debit" ? PaperPlane : ArrRight}
+                      alt="transaction icon"
+                    />
+                  </div>
+                  <div>
+                    <Text font={`font-semibold`}>
+                      {item.transactionType}
+                      {item.name ? `-${item.name}` : ""}
+                    </Text>
+                    <SmallText padding={`py-0`} color={`textColor3`}>
+                      {item.date}
+                    </SmallText>
+                  </div>
+                </div>
+                <div>
+                  <Text
+                    font={`font-semibold`}
+                    color={item.flag === "debit" ? "red-700" : "primary"}
+                  >
+                    {item.flag === "debit" ? "-" : "+"}৳{item.amount}
+                  </Text>
                 </div>
               </div>
             ))}

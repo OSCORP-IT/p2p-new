@@ -179,7 +179,7 @@ function DashboardLayout({ active, children }) {
           </div>
         </div>
       </div>
-      <div className="w-4/5 pt-4 px-4">
+      <div className="w-4/5 pt-4 px-4 overflow-y-scroll h-screen">
         <div className="flex items-center justify-between pl-2">
           <SubTitle font={`bold`}>Dashboard</SubTitle>
           <div className="flex items-center gap-4">
