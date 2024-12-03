@@ -194,7 +194,7 @@ function DashboardLayout({ active, children }) {
             </div>
           </div>
         </div>
-        <div className="pl-2 pt-6">{children}</div>
+        <div className="pl-2 pt-6 h-full">{children}</div>
       </div>
     </div>
   );

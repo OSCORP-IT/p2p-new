@@ -29,6 +29,7 @@ import Registration from "./pages/login/Registration";
 import useAutoLogout from "./useAutoLogOut";
 import Form from "./pages/portfolio/Form";
 import UserDashboard from "./pages/user-dashboard/UserDashboard";
+import MyLoans from "./pages/my-loans/MyLoans";
 
 const router = createBrowserRouter([
   {
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
   {
     path: "/user/dashboard",
     element: <UserDashboard />,
+  },
+  {
+    path: "/user/my-loans",
+    element: <MyLoans />,
   },
 ]);
 function App() {
