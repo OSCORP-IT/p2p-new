@@ -109,7 +109,7 @@ function DashboardLayout({ active, children }) {
                   font={`font-semibold`}
                   color={active === "admin" ? `accent` : `textColor3`}
                 >
-                  Admin Control
+                  Admin Contact
                 </Text>
               </div>
             </div>

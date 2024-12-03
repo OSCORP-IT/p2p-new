@@ -10,6 +10,11 @@ import Wallet from "../../assets/Wallet.svg";
 import CalendarDots from "../../assets/CalendarDots.svg";
 import DounutChart from "./DounutChart";
 import Text from "../../components/Text";
+import IconButton from "../../components/IconButton";
+import AccentButton from "../../components/AccentButton";
+import PaperPlaneTilt from "../../icon/PaperPlaneTilt";
+import { PiUsersThree } from "react-icons/pi";
+import { BiPlusCircle } from "react-icons/bi";
 
 function UserDashboard() {
   const data = [
@@ -76,6 +81,26 @@ function UserDashboard() {
       amount: 100000, // Absolute value
       date: "12-07-2024",
       flag: "debit",
+    },
+  ];
+  const disbursementData = [
+    {
+      loanName: "Car Loan (Personal)",
+      installmentNo: "01",
+      amount: 500000,
+      date: "2024-06-22",
+    },
+    {
+      loanName: "Business Loan",
+      installmentNo: "02",
+      amount: 100000,
+      date: "2024-06-20",
+    },
+    {
+      loanName: "Marriage Loan (Personal)",
+      installmentNo: "03",
+      amount: 50000,
+      date: "2024-06-24",
     },
   ];
 
@@ -269,6 +294,95 @@ function UserDashboard() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+        <div className="mt-3 w-full flex items-start gap-3 h-[250px] mb-3">
+          <div className="h-full w-2/3 bg-white  rounded-md shadow-md px-5 py-4">
+            <Heading2 font={`font-bold font-poppins`}>
+              Loan Disbursement Schedule
+            </Heading2>
+            <div className="flex items-center justify-normal border-b border-textColor3 py-2">
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[35%]`}
+              >
+                Loan Name
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[25%]`}
+              >
+                Installment No
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[20%]`}
+              >
+                Amount
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[20%]`}
+              >
+                Date
+              </Text>
+            </div>
+            {disbursementData.map((item, index) => (
+              <div
+                key={index}
+                className="border-b border-textColor3 py-1 flex items-center"
+              >
+                <Text color={`textColor3`} align={`text-left w-[35%]`}>
+                  {item.loanName}
+                </Text>
+                <Text color={`textColor3`} align={`text-left w-[25%]`}>
+                  {item.installmentNo}
+                </Text>
+                <Text color={`textColor3`} align={`text-left w-[20%]`}>
+                  ৳ {item.amount}
+                </Text>
+                <Text color={`textColor3`} align={`text-left w-[20%]`}>
+                  {item.date}
+                </Text>
+              </div>
+            ))}
+          </div>
+          <div className="h-full w-1/3 bg-white  rounded-md shadow-md px-5 py-4">
+            <Heading2 font={`font-bold font-poppins`} padding={`pt-1`}>
+              Quick Actions
+            </Heading2>
+            <Text color={`textColor3`}>Manage your finance with ease</Text>
+            <div className="mt-2">
+              <IconButton bg={`accent w-full`} text={`make payment`}>
+                <PaperPlaneTilt />
+              </IconButton>
+            </div>
+            <div className="mt-2">
+              <IconButton
+                bg={`white w-full`}
+                textColor={`text-[#737780]`}
+                text={`support ticket`}
+                border={true}
+                borderColor={`border-[#737780]`}
+              >
+                <BiPlusCircle className="font-semibold text-2xl" />
+              </IconButton>
+            </div>
+            <div className="mt-2">
+              <IconButton
+                bg={`white w-full`}
+                textColor={`text-[#737780]`}
+                text={`admin contact`}
+                border={true}
+                borderColor={`border-[#737780]`}
+              >
+                <PiUsersThree className="font-semibold text-2xl" />
+              </IconButton>
+            </div>
           </div>
         </div>
       </DashboardLayout>
