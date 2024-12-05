@@ -3,7 +3,9 @@ import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
 import { FaLessThan } from "react-icons/fa6";
 import SubHeading from "../../components/SubHeading";
+import { useSelector } from "react-redux";
 function FinancialPicture({ data, setData, setPage }) {
+  const user = useSelector((state) => state.auth);
   function handleSubmit() {
     if (
       data.annual_income === "" ||
@@ -12,7 +14,9 @@ function FinancialPicture({ data, setData, setPage }) {
       window.alert("Please fill the required fields.");
       return;
     }
-    setPage(8);
+    {
+      user.isLoggedIn ? setPage(8) : setPage(9);
+    }
     return;
   }
   return (

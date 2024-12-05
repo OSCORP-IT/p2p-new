@@ -79,7 +79,7 @@ function SetPassword({ setPage, data, setData }) {
           } else {
             setFloatingNote({
               state: true,
-              msg: response.message || "Problem checking OTP",
+              msg: response.message || "Something Wrong!",
             });
           }
         } catch (err) {

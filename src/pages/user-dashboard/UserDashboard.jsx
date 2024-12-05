@@ -106,9 +106,9 @@ function UserDashboard() {
   return (
     <>
       <DashboardLayout active={"dashboard"}>
-        <div className="flex w-full items-center gap-3">
-          <div className="w-2/3 flex items-center gap-3">
-            <div className="w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
+        <div className="flex flex-wrap sm:flex-nowrap w-full items-center gap-2 tab:gap-3">
+          <div className="w-full sm:w-3/4 tab:w-2/3 flex flex-wrap sm:flex-nowrap items-center gap-2 tab:gap-3">
+            <div className="w-[48%] sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
               <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-accent/20 rounded-full"></div>
               <div className="flex items-center justify-between">
                 <Small padding={`py-0`} color={`textColor3`}>
@@ -123,7 +123,7 @@ function UserDashboard() {
                 <span className="text-[#0da500]">+20.1%</span> from last month
               </SmallText>
             </div>
-            <div className="w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
+            <div className="w-[48%] sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
               <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-purple-800/20 rounded-full"></div>
               <div className="flex items-center justify-between">
                 <Small padding={`py-0`} color={`textColor3`}>
@@ -138,7 +138,7 @@ function UserDashboard() {
                 2 pending for approval
               </SmallText>
             </div>
-            <div className="w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
+            <div className="hidden sm:block sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
               <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-[#0da500]/20 rounded-full"></div>
               <div className="flex items-center justify-between">
                 <Small padding={`py-0`} color={`textColor3`}>
@@ -154,7 +154,7 @@ function UserDashboard() {
               </SmallText>
             </div>
           </div>
-          <div className="w-1/3 shadow-md bg-white p-[10px] rounded-md relative overflow-hidden">
+          <div className="w-full sm:w-1/4 tab:w-1/3 shadow-md bg-white p-[10px] rounded-md relative overflow-hidden">
             <div className=" absolute -top-8 -right-6 w-[100px] h-[100px] bg-primary/20 rounded-full"></div>
             <div className="flex items-center justify-between">
               <Small padding={`py-0`} color={`textColor3`}>
@@ -170,8 +170,8 @@ function UserDashboard() {
             </SmallText>
           </div>
         </div>
-        <div className="mt-3 w-full flex items-start gap-3 h-[270px]">
-          <div className="h-full w-[40%] bg-white  rounded-md shadow-md px-5 py-4">
+        <div className="mt-3 w-full flex flex-wrap sm:flex-nowrap items-start gap-2 tab:gap-3 sm:h-[270px]">
+          <div className="h-auto sm:h-full w-full sm:w-1/2 tab:w-[40%] bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`}>
               Loan Distribution
             </Heading2>
@@ -205,7 +205,7 @@ function UserDashboard() {
               </div>
             </div>
           </div>
-          <div className="h-full w-[60%] bg-white  rounded-md shadow-md px-5 py-4">
+          <div className="h-auto sm:h-full w-full sm:w-1/2 tab:w-[60%] bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`} padding={`pt-1 pb-4`}>
               Loan Repayment Progress
             </Heading2>
@@ -229,8 +229,8 @@ function UserDashboard() {
             ))}
           </div>
         </div>
-        <div className="mt-3 w-full flex items-start gap-3 h-[270px]">
-          <div className="h-full w-[50%] bg-white  rounded-md shadow-md px-5 py-4">
+        <div className="mt-3 w-full flex items-start flex-wrap sm:flex-nowrap gap-2 tab:gap-3 sm:h-[270px]">
+          <div className="h-full w-full sm:w-[50%] bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`}>
               Upcoming Payments
             </Heading2>
@@ -253,14 +253,14 @@ function UserDashboard() {
               </div>
             ))}
           </div>
-          <div className="h-full w-[50%] bg-white  rounded-md shadow-md px-5 py-4">
+          <div className="h-full w-full sm:w-[50%] bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`}>
               Recent Transaction
             </Heading2>
             {transactions.map((item, index) => (
               <div
                 key={index}
-                className="flex items-start justify-between gap-3 mt-2"
+                className="flex items-start justify-between gap-2 tab:gap-3 mt-2"
               >
                 <div className="flex items-center gap-2">
                   <div
@@ -295,8 +295,8 @@ function UserDashboard() {
             ))}
           </div>
         </div>
-        <div className="mt-3 w-full flex items-start gap-3 h-[250px] mb-3">
-          <div className="h-full w-2/3 bg-white  rounded-md shadow-md px-5 py-4">
+        <div className="mt-3 w-full flex flex-wrap sm:flex-nowrap items-start gap-2 tab:gap-3 sm:h-[250px] mb-3">
+          <div className="h-full w-full sm:w-[65%] overflow-y-scroll tab:w-2/3 bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`}>
               Loan Disbursement Schedule
             </Heading2>
@@ -350,7 +350,7 @@ function UserDashboard() {
               </div>
             ))}
           </div>
-          <div className="h-full w-1/3 bg-white  rounded-md shadow-md px-5 py-4">
+          <div className="h-full w-full sm:w-[35%] tab:w-1/3 bg-white  rounded-md shadow-md px-5 py-4">
             <Heading2 font={`font-bold font-poppins`} padding={`pt-1`}>
               Quick Actions
             </Heading2>
@@ -360,7 +360,18 @@ function UserDashboard() {
                 <PaperPlaneTilt />
               </IconButton>
             </div>
-            <div className="mt-2">
+            <div className="tab:hidden mt-2">
+              <IconButton
+                bg={`white w-full`}
+                textColor={`text-[#737780]`}
+                text={`apply new loan`}
+                border={true}
+                borderColor={`border-[#737780]`}
+              >
+                <BiPlusCircle className="font-semibold text-2xl" />
+              </IconButton>
+            </div>
+            <div className="hidden tab:block mt-2">
               <IconButton
                 bg={`white w-full`}
                 textColor={`text-[#737780]`}

@@ -30,6 +30,7 @@ import useAutoLogout from "./useAutoLogOut";
 import Form from "./pages/portfolio/Form";
 import UserDashboard from "./pages/user-dashboard/UserDashboard";
 import MyLoans from "./pages/my-loans/MyLoans";
+import Transaction from "./pages/transaction/Transaction";
 
 const router = createBrowserRouter([
   {
@@ -152,6 +153,10 @@ const router = createBrowserRouter([
   {
     path: "/user/my-loans",
     element: <MyLoans />,
+  },
+  {
+    path: "/user/transaction",
+    element: <Transaction />,
   },
 ]);
 function App() {

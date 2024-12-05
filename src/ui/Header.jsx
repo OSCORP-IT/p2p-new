@@ -68,11 +68,11 @@ const Header = () => {
         { name: "Mental Health", path: "/pl/mental-health" },
       ],
     },
-    {
-      name: user.isLoggedIn ? user.userName : "Log In",
-      path: "/auth/login",
-      subItems: [],
-    },
+    // {
+    //   name: user.isLoggedIn ? user.userName : "Log In",
+    //   path: "/auth/login",
+    //   subItems: [],
+    // },
   ];
 
   const handleSubMenuToggle = (index) => {
@@ -117,6 +117,22 @@ const Header = () => {
                 )}
               </div>
             ))}
+            {user.isLoggedIn && (
+              <button
+                className="hover:bg-gray-200 px-3 py-2 text-sm font-medium"
+                onClick={() => nav("/user/dashboard")}
+              >
+                {user.userName}
+              </button>
+            )}
+            {!user.isLoggedIn && (
+              <button
+                className="hover:bg-gray-200 px-3 py-2 text-sm font-medium"
+                onClick={() => nav("/auth/login")}
+              >
+                Log In
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}

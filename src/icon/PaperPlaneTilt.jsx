@@ -8,12 +8,12 @@ function PaperPlaneTilt() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="PaperPlaneTilt">
-        <path
+        {/* <path
           id="Vector"
           d="M0.5625 23.9375V0.0625H24.4375V23.9375H0.5625Z"
           stroke="white"
           strokeWidth="0.125"
-        />
+        /> */}
         <path
           id="Vector_2"
           d="M10.625 13.875L15.5 9"

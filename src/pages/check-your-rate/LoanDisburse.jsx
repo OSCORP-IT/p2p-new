@@ -4,16 +4,24 @@ import Title from "../../components/Title";
 import PrimaryButton from "../../components/PrimaryButton";
 import SubHeading from "../../components/SubHeading";
 import Text from "../../components/Text";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { checkRateSubmit } from "../../services/checkYourRate";
+import { useSelector } from "react-redux";
 
-function LoanDisburse({ setPage }) {
-  const user = useSelector((state) => state.auth);
+function LoanDisburse({ data, setPage }) {
   const navigate = useNavigate();
-  function handleSubmit() {
-    if (user.isLoggedIn) {
-      navigate("/");
-    } else setPage(9);
+  const user = useSelector((state) => state.auth);
+  async function handleSubmit() {
+    try {
+      const response = await checkRateSubmit(data, user.userToken);
+      if (response && response.success) {
+        // Dispatch the logIn action with the user data
+        navigate(`/form/${response.result.id}`);
+      }
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   }
   return (
     <>

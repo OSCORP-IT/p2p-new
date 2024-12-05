@@ -7,7 +7,7 @@ export default {
         primary: "#0d5152",
         secondary: "#4A7C7D",
         titleColor: "#22252b",
-        textColor3: "#777986",
+        textColor3: "#333740",
         textGradient1: "#649697",
         textGradient2: "#08312F",
         accent: "#ff6b00",
@@ -17,6 +17,7 @@ export default {
         bgGradient3: "#143A3A",
         dropShadow: "#B3D4D8",
         islamic: "#0da500",
+        blueText: "#000aff",
         textColor2: "#22252b",
       },
       fontFamily: {
