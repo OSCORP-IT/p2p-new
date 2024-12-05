@@ -24,8 +24,8 @@ const initialUserState = {
 };
 const initialPortfolioState = {
   borrow_amount: "10000",
-  loan_type_id: " ",
-  is_notifiable_in_mobile_number: "1",
+  loan_type_id: "",
+  is_notifiable_in_mobile_number: "1", // accept only 0 or 1
   home_address: "",
   thana: "",
   district: "",

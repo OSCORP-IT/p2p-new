@@ -13,7 +13,7 @@ export async function checkRateSubmit(data, userToken) {
     body: raw,
     redirect: "follow",
   };
-  console.log(data, userToken);
+  console.log(raw, userToken);
   try {
     const response = await fetch(
       "https://admin-p2p.alzakati.com/api/client-panel/dashboard/check-your-rate-submit",

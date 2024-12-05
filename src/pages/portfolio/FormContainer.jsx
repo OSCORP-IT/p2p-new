@@ -13,8 +13,6 @@ import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
 import { buildFromResponse } from "./BuildFromResponse";
-import Menu from "../../icon/Menu";
-import MenuClose from "../../icon/MenuClose";
 
 const initialState = {
   data: null,
@@ -22,11 +20,7 @@ const initialState = {
   error: null,
 };
 
-function FormContainer({ portfolio_id }) {
-  const [expanded, setExpanded] = useState(false);
-  const toggleExpand = () => {
-    setExpanded(!expanded);
-  };
+function FormContainer({ portfolio_id, expanded }) {
   const [formState, setFormState] = useState(initialState);
   const [formPage, setFormPage] = useState(initialState);
   const [currentFormPage, setCurrentFormPage] = useState(0);
@@ -150,9 +144,6 @@ function FormContainer({ portfolio_id }) {
   }
   return (
     <>
-      <div className="fixed top-3 left-2 bg-white p-2" onClick={toggleExpand}>
-        {expanded ? <MenuClose /> : <Menu />}
-      </div>
       <button onClick={handleData}>Click 1</button>
       {formState.loading && (
         <div className="flex gap-2 items-center">

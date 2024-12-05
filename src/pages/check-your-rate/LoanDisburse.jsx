@@ -15,8 +15,7 @@ function LoanDisburse({ data, setPage }) {
     try {
       const response = await checkRateSubmit(data, user.userToken);
       if (response && response.success) {
-        // Dispatch the logIn action with the user data
-        navigate(`/form/${response.result.id}`);
+        navigate(`/form/${response.result.loan_portfolio.id}`);
       }
     } catch (err) {
       console.log(err);

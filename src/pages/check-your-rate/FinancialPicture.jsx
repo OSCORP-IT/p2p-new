@@ -42,7 +42,7 @@ function FinancialPicture({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              annual_income: Number(e.target.value),
+              annual_income: e.target.value,
             }))
           }
         />
@@ -61,7 +61,7 @@ function FinancialPicture({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              additional_income: Number(e.target.value),
+              additional_income: e.target.value,
             }))
           }
         />
@@ -80,7 +80,7 @@ function FinancialPicture({ data, setData, setPage }) {
           onChange={(e) =>
             setData((prevState) => ({
               ...prevState,
-              monthly_rent_or_mortgage_payment: Number(e.target.value),
+              monthly_rent_or_mortgage_payment: e.target.value,
             }))
           }
         />
