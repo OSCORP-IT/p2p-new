@@ -226,30 +226,31 @@ import SidebarToggle from "../../icon/SidebarToggle";
 
 function DashboardLayout({ active, children }) {
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar visibility
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const handleToggle = () => {
+    setSidebarOpen((prevState) => !prevState); // Toggles the value
+  };
+  // State for sidebar visibility
 
   return (
     <>
-      <div className="flex items-center justify-between pl-2 bg-white tab:bg-transparent">
-        <SidebarToggle />
+      <div className="fixed top-0 left-0 w-full h-[50px] flex items-center justify-between pl-2 bg-white tab:hidden shadow-md z-50">
+        <div onClick={handleToggle}>
+          <SidebarToggle />
+        </div>
         <div>
           <img onClick={() => navigate("/")} src={Logo} alt="logo" />
         </div>
-        <SubTitle font={`bold hidden tab:block`}>Dashboard</SubTitle>
         <div className="flex items-center gap-4">
-          <PrimaryButton
-            bg={`gradient-to-r from-[#ff6b00] to-[#803600] hidden tab:block`}
-          >
-            apply for new loan
-          </PrimaryButton>
-          <div className="p-2 bg-white rounded-full">
+          <div className="p-2 bg-gray-200 rounded-full">
             <RiMessengerLine className="text-xl" />
           </div>
-          <div className="p-2 bg-white rounded-full">
+          <div className="p-2 bg-gray-200 rounded-full">
             <IoMdNotificationsOutline className="text-xl" />
           </div>
         </div>
       </div>
+      <div className="h-[50px] tab:hidden"></div>
       <div className="flex items-start bg-gray-200">
         {/* Sidebar */}
         <div
@@ -257,7 +258,7 @@ function DashboardLayout({ active, children }) {
             sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           }`}
         >
-          <div className="tab:h-[10%] w-max m-auto pb-2">
+          <div className="hidden tab:block tab:h-[10%] w-max m-auto pb-2">
             <img onClick={() => navigate("/")} src={Logo} alt="logo" />
           </div>
           <div className="tab:h-[65%] py-2">
@@ -329,6 +330,7 @@ function DashboardLayout({ active, children }) {
               </div>
             </div>
             <div
+              onClick={() => navigate("/user/admin-contact")}
               className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
                 active === "admin" ? "border-l-4 border-l-accent" : ""
               } flex items-center justify-end`}
@@ -442,7 +444,7 @@ function DashboardLayout({ active, children }) {
         {/* Overlay for mobile */}
         {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+            className="fixed left-0 top-4 z-30 lg:hidden inset-0 bg-black/50"
             onClick={() => setSidebarOpen(false)}
           ></div>
         )}

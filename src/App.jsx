@@ -31,6 +31,7 @@ import Form from "./pages/portfolio/Form";
 import UserDashboard from "./pages/user-dashboard/UserDashboard";
 import MyLoans from "./pages/my-loans/MyLoans";
 import Transaction from "./pages/transaction/Transaction";
+import AdminContact from "./pages/admin-contact/AdminContact";
 
 const router = createBrowserRouter([
   {
@@ -157,6 +158,10 @@ const router = createBrowserRouter([
   {
     path: "/user/transaction",
     element: <Transaction />,
+  },
+  {
+    path: "/user/admin-contact",
+    element: <AdminContact />,
   },
 ]);
 function App() {

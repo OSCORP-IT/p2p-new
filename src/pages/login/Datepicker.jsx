@@ -1,7 +1,14 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const TailwindDatePicker = ({ date, setDate, dateFormat, name, rounded }) => {
+const TailwindDatePicker = ({
+  date,
+  setDate,
+  dateFormat,
+  name,
+  rounded,
+  placeholder,
+}) => {
   return (
     <div className="relative">
       <DatePicker
@@ -12,7 +19,9 @@ const TailwindDatePicker = ({ date, setDate, dateFormat, name, rounded }) => {
         className={`w-full py-2 px-3 border ${
           rounded ? "rounded-md" : ""
         } border-gray-400`}
-        placeholderText="Date of Birth (dd/mm/yyyy)"
+        placeholderText={
+          placeholder ? placeholder : "Date of Birth (dd/mm/yyyy)"
+        }
       />
       <div className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none">
         <svg
