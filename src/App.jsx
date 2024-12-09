@@ -32,6 +32,8 @@ import UserDashboard from "./pages/user-dashboard/UserDashboard";
 import MyLoans from "./pages/my-loans/MyLoans";
 import Transaction from "./pages/transaction/Transaction";
 import AdminContact from "./pages/admin-contact/AdminContact";
+import Settings from "./pages/settings/Settings";
+import Profile from "./pages/profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -162,6 +164,14 @@ const router = createBrowserRouter([
   {
     path: "/user/admin-contact",
     element: <AdminContact />,
+  },
+  {
+    path: "/user/settings",
+    element: <Settings />,
+  },
+  {
+    path: "/user/profile",
+    element: <Profile />,
   },
 ]);
 function App() {

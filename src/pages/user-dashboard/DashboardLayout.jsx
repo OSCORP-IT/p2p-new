@@ -223,6 +223,7 @@ import { RiMessengerLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import SidebarToggle from "../../icon/SidebarToggle";
+import Disbursement from "../../icon/Disbursement";
 
 function DashboardLayout({ active, children }) {
   const navigate = useNavigate();
@@ -254,14 +255,14 @@ function DashboardLayout({ active, children }) {
       <div className="flex items-start bg-gray-200">
         {/* Sidebar */}
         <div
-          className={`overflow-y-scroll tab:overflow-y-hidden fixed tab:relative h-screen z-40 bg-white w-4/6 sm:w-1/3 tab:w-1/5 py-5 pr-5 transition-transform transform ${
+          className={`fixed tab:relative h-screen z-40 bg-white w-4/6 sm:w-1/3 tab:w-1/5 py-3 tab:py-5 pr-3 tab:pr-5 transition-transform transform ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           }`}
         >
-          <div className="hidden tab:block tab:h-[10%] w-max m-auto pb-2">
+          <div className="hidden tab:block h-[10%] w-max m-auto pb-2">
             <img onClick={() => navigate("/")} src={Logo} alt="logo" />
           </div>
-          <div className="tab:h-[65%] py-2">
+          <div className="h-[65%] py-2 overflow-y-scroll no-scrollbar">
             {/* Sidebar Links */}
             <div
               onClick={() => navigate("/user/dashboard")}
@@ -303,6 +304,28 @@ function DashboardLayout({ active, children }) {
                     color={active === "loan" ? `accent` : `textColor3`}
                   >
                     My Loans
+                  </Text>
+                </div>
+              </div>
+            </div>
+            <div
+              onClick={() => navigate("/user/disbursement")}
+              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                active === "loan" ? "border-l-4 border-l-accent" : ""
+              } flex items-center justify-end`}
+            >
+              <div
+                className={`w-[90%] ${
+                  active === "loan" ? "shadow-md" : ""
+                } hover:shadow-md py-2 rounded-md`}
+              >
+                <div className="flex gap-2 items-center px-8 m-auto">
+                  <Disbursement active={active === "loan"} />
+                  <Text
+                    font={`font-semibold`}
+                    color={active === "loan" ? `accent` : `textColor3`}
+                  >
+                    Disbursement
                   </Text>
                 </div>
               </div>
@@ -352,20 +375,21 @@ function DashboardLayout({ active, children }) {
               </div>
             </div>
             <div
+              onClick={() => navigate("/user/settings")}
               className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "setting" ? "border-l-4 border-l-accent" : ""
+                active === "settings" ? "border-l-4 border-l-accent" : ""
               } flex items-center justify-end`}
             >
               <div
                 className={`w-[90%] ${
-                  active === "setting" ? "shadow-md" : ""
+                  active === "settings" ? "shadow-md" : ""
                 } hover:shadow-md py-2 rounded-md`}
               >
                 <div className="flex gap-2 items-center px-8 m-auto">
-                  <Setting active={active === "setting"} />
+                  <Setting active={active === "settings"} />
                   <Text
                     font={`font-semibold`}
-                    color={active === "setting" ? `accent` : `textColor3`}
+                    color={active === "settings" ? `accent` : `textColor3`}
                   >
                     Settings
                   </Text>
@@ -373,6 +397,7 @@ function DashboardLayout({ active, children }) {
               </div>
             </div>
             <div
+              onClick={() => navigate("/user/profile")}
               className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
                 active === "profile" ? "border-l-4 border-l-accent" : ""
               } flex items-center justify-end`}
@@ -394,7 +419,7 @@ function DashboardLayout({ active, children }) {
               </div>
             </div>
           </div>
-          <div className="mt-4 sm:mt-0tab:h-[25%] ml-4">
+          <div className="mt-4 h-[25%] ml-4 ">
             <img
               src={profile}
               alt="profile image"

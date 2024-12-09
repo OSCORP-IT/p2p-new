@@ -64,3 +64,13 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   margin-top: -6px; /* Centers thumb on track */
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

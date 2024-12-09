@@ -1,13 +1,13 @@
 import { GoArrowDownRight } from "react-icons/go";
 
-function PrimaryButton({ children, bg, noIcon, width, letterCase }) {
+function PrimaryButton({ children, bg, noIcon, width, letterCase, padding }) {
   return (
     <button
       className={`${
         letterCase ? `${letterCase}` : "capitalize"
-      } flex gap-2 items-center py-2 px-10 text-white ${
-        bg ? `bg-${bg}` : "bg-primary"
-      } ${
+      } flex gap-2 items-center ${
+        padding ? padding : "py-2 px-10"
+      } text-white ${bg ? `bg-${bg}` : "bg-primary"} ${
         width ? `${width}` : ""
       } rounded-md text-sm sm:text-15[px] tab:text-base font-semibold`}
     >

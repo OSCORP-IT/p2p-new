@@ -1,13 +1,14 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const TailwindDatePicker = ({
+const Datepicker = ({
   date,
   setDate,
   dateFormat,
   name,
   rounded,
   placeholder,
+  textColor,
 }) => {
   return (
     <div className="relative">
@@ -18,7 +19,7 @@ const TailwindDatePicker = ({
         onChange={(date) => setDate(date)}
         className={`w-full py-2 px-3 border ${
           rounded ? "rounded-md" : ""
-        } border-gray-400`}
+        } border-textColor3 ${textColor ? textColor : ""}`}
         placeholderText={
           placeholder ? placeholder : "Date of Birth (dd/mm/yyyy)"
         }
@@ -79,4 +80,4 @@ const TailwindDatePicker = ({
   );
 };
 
-export default TailwindDatePicker;
+export default Datepicker;
