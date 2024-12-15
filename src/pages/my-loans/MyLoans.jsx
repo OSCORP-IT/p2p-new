@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import DashboardLayout from "../user-dashboard/DashboardLayout";
 import Tab from "./Tab";
@@ -7,9 +7,18 @@ import ActiveLoans from "./ActiveLoans";
 import PendingLoans from "./PendingLoans";
 import IncompleteApplication from "./IncompleteApplication";
 import ClosedLoans from "./ClosedLoans";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function MyLoans() {
   const [activeTab, setActiveTab] = useState("1");
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
 
   return (
     <DashboardLayout active={"loan"}>

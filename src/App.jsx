@@ -34,6 +34,7 @@ import Transaction from "./pages/transaction/Transaction";
 import AdminContact from "./pages/admin-contact/AdminContact";
 import Settings from "./pages/settings/Settings";
 import Profile from "./pages/profile/Profile";
+import Disbursement from "./pages/disbursement/Disbursement";
 
 const router = createBrowserRouter([
   {
@@ -172,6 +173,10 @@ const router = createBrowserRouter([
   {
     path: "/user/profile",
     element: <Profile />,
+  },
+  {
+    path: "/user/disbursement",
+    element: <Disbursement />,
   },
 ]);
 function App() {

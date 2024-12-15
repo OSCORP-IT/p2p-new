@@ -3,12 +3,14 @@ import SmallText from "../../components/SmallText";
 import Text from "../../components/Text";
 import Title from "../../components/Title";
 import { useEffect, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import {
   showForm,
   showFormPage,
   submitPortfolioResponse,
 } from "../../services/FormAPI";
-import { BiError, BiLoader } from "react-icons/bi";
+import { BiError } from "react-icons/bi";
 import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
@@ -106,7 +108,7 @@ function FormContainer({ portfolio_id, expanded }) {
     currentFormId,
     currentResponseId,
   ]);
-  async function handleData() {
+  async function handleNextData() {
     if (totalPage === currentFormPage + 1) {
       if (totalForm === currentForm + 1) {
         return;
@@ -142,13 +144,29 @@ function FormContainer({ portfolio_id, expanded }) {
       }
     }
   }
+  async function handlePrevData() {
+    if (totalPage === currentFormPage + 1) {
+      if (totalPage === 1) {
+        if (currentForm > 0) {
+          setCurrentForm((cf) => cf - 1);
+        }
+      }
+      setCurrentFormPage((cp) => cp - 1);
+    } else {
+      if (currentFormPage === 0) {
+        if (currentForm > 0) {
+          setCurrentForm((cf) => cf - 1);
+        } else return;
+      } else {
+        setCurrentFormPage((cp) => cp - 1);
+      }
+    }
+  }
   return (
-    <>
-      <button onClick={handleData}>Click 1</button>
+    <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
       {formState.loading && (
-        <div className="flex gap-2 items-center">
-          <BiLoader className=" animate-spin" />
-          <Text>Loading</Text>
+        <div className="w-1/5">
+          <Skeleton count={3} />
         </div>
       )}
       {formState.error && (
@@ -205,7 +223,7 @@ function FormContainer({ portfolio_id, expanded }) {
             </div>
             <div
               className={`sm:hidden absolute top-0 left-0 min-h-screen ${
-                expanded ? "w-5/6" : "w-1/6"
+                expanded ? "w-5/6 pl-2" : "w-1/6"
               } transition-all duration-500 ease-in-out bg-white rounded-lg`}
             >
               {formState.data.form.form_pages.map((item, index) => (
@@ -256,9 +274,8 @@ function FormContainer({ portfolio_id, expanded }) {
           </>
         )}
         {formPage.loading && (
-          <div className="flex gap-2 items-center">
-            <BiLoader className=" animate-spin" />
-            <Text>Loading</Text>
+          <div className="w-4/5">
+            <Skeleton count={10} />
           </div>
         )}
         {formPage.data && (
@@ -278,18 +295,12 @@ function FormContainer({ portfolio_id, expanded }) {
 
               {currentFormPage < totalPage && (
                 <div className="flex items-center gap-4">
-                  {currentFormPage !== 1 && (
-                    <div
-                      className="w-max m-auto pt-8"
-                      onClick={() => setCurrentFormPage(currentFormPage - 1)}
-                    >
+                  {(currentFormPage !== 0 || currentForm !== 0) && (
+                    <div className="w-max m-auto pt-8" onClick={handlePrevData}>
                       <AccentButton leftIcon={true}>Previous Page</AccentButton>
                     </div>
                   )}
-                  <div
-                    className="w-max m-auto pt-8"
-                    onClick={() => setCurrentFormPage(currentFormPage + 1)}
-                  >
+                  <div className="w-max m-auto pt-8" onClick={handleNextData}>
                     <AccentButton>Next Page</AccentButton>
                   </div>
                 </div>
@@ -311,7 +322,7 @@ function FormContainer({ portfolio_id, expanded }) {
           </>
         )}
       </div>
-    </>
+    </SkeletonTheme>
   );
 }
 

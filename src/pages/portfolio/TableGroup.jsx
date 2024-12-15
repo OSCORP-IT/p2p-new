@@ -100,10 +100,7 @@ function TableGroup({ item, index, data, setData }) {
       {/* Table Headers */}
       <div className="flex items-center justify-between gap-2 w-full">
         {item.options.map((option, idx) => (
-          <div
-            key={idx}
-            className={`rounded-md py-1.5 bg-gray-200 w-1/${dataNumber}`}
-          >
+          <div key={idx} className={`rounded-md py-1.5 bg-gray-200 w-1/4`}>
             <Text align={"text-center"} font={`font-bold`}>
               {option.label}
             </Text>

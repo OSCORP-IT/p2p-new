@@ -1,11 +1,20 @@
 import DashboardLayout from "../user-dashboard/DashboardLayout";
 import Heading2 from "../../components/Heading2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToggleButton from "./ToggleButton";
 import SubHeading from "../../components/SubHeading";
 import PrimaryButton from "../../components/PrimaryButton";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
   const [is2FAEnabled, setIs2FAEnabled] = useState(false);
   const [isEmailNotificationEnabled, setIsEmailNotificationEnabled] =
     useState(false);

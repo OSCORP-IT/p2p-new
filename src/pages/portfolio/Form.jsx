@@ -14,7 +14,7 @@ function Form() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="h-[70px] flex items-center bg-white shadow-md shadow-gray-300 py-2 w-full">
+      <div className="h-[70px] flex items-center bg-white border-b-2 py-2 w-full">
         <div className="w-[10%] px-4 sm:hidden" onClick={toggleExpand}>
           {expanded ? <MenuClose /> : <Menu />}
         </div>

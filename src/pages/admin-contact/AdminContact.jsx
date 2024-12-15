@@ -4,6 +4,8 @@ import DetailModal from "./DetailModal";
 import ContactSchedule from "./ContactSchedule";
 import RecentCommunication from "./RecentCommunication";
 import ContactOptions from "./ContactOptions";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const messages = [
   {
     ID: 23553,
@@ -33,6 +35,13 @@ const messages = [
   },
 ];
 function AdminContact() {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
   const [showDetails, setShowDetails] = useState(false);
   const [data, setData] = useState(messages);
   const [searchString, setSearchString] = useState("");

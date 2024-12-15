@@ -311,19 +311,19 @@ function DashboardLayout({ active, children }) {
             <div
               onClick={() => navigate("/user/disbursement")}
               className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "loan" ? "border-l-4 border-l-accent" : ""
+                active === "disbursement" ? "border-l-4 border-l-accent" : ""
               } flex items-center justify-end`}
             >
               <div
                 className={`w-[90%] ${
-                  active === "loan" ? "shadow-md" : ""
+                  active === "disbursement" ? "shadow-md" : ""
                 } hover:shadow-md py-2 rounded-md`}
               >
                 <div className="flex gap-2 items-center px-8 m-auto">
-                  <Disbursement active={active === "loan"} />
+                  <Disbursement active={active === "disbursement"} />
                   <Text
                     font={`font-semibold`}
-                    color={active === "loan" ? `accent` : `textColor3`}
+                    color={active === "disbursement" ? `accent` : `textColor3`}
                   >
                     Disbursement
                   </Text>

@@ -1,9 +1,9 @@
 import Text from "../../components/Text";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import PrimaryButton from "../../components/PrimaryButton";
 import SectionGroup from "./SectionGroup";
 import TableGroup from "./TableGroup";
+import { uploadFileToServer } from "../../services/FileUpload";
 
 function InputMaker({ item, index, data, setData }) {
   const handleInputChange = (value) => {
@@ -25,6 +25,19 @@ function InputMaker({ item, index, data, setData }) {
     updatedAnswers[index].answer_text = newArray;
     setData((prev) => ({ ...prev, response_answers: updatedAnswers }));
   };
+  async function handleUpload(event) {
+    const file = event.target.files[0]; // Get the selected file
+    if (file) {
+      try {
+        const result = await uploadFileToServer(file);
+        const updatedAnswers = [...data.response_answers];
+        updatedAnswers[index].answer_text = result.file_path;
+        setData((prev) => ({ ...prev, response_answers: updatedAnswers }));
+      } catch (error) {
+        window.alert("Failed to upload file.");
+      }
+    }
+  }
 
   return (
     <>
@@ -139,16 +152,14 @@ function InputMaker({ item, index, data, setData }) {
         />
       )}
       {item.field_type === "file" && (
-        <div className="flex items-center gap-4">
+        <div>
           <input
             type="file"
-            name={item.field_name}
+            accept=".jpeg,.jpg,.pdf"
             // placeholder={item.placeholder}
+            onChange={handleUpload}
             className="py-2 px-2 border border-gray-300 rounded-md w-full"
           />
-          <div>
-            <PrimaryButton>upload</PrimaryButton>
-          </div>
         </div>
       )}
     </>

@@ -14,8 +14,18 @@ import IconButton from "../../components/IconButton";
 import PaperPlaneTilt from "../../icon/PaperPlaneTilt";
 import { PiUsersThree } from "react-icons/pi";
 import { BiPlusCircle } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function UserDashboard() {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
   const data = [
     {
       label: "Personal Loan",

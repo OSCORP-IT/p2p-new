@@ -1,8 +1,18 @@
+import { useSelector } from "react-redux";
 import Heading2 from "../../components/Heading2";
 import Text from "../../components/Text";
 import DashboardLayout from "../user-dashboard/DashboardLayout";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Transaction() {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
   const transaction = [
     {
       Date: "2024-06-22",

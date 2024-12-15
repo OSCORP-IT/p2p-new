@@ -5,8 +5,18 @@ import { PiPencilSimple } from "react-icons/pi";
 import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
 import Datepicker from "../login/Datepicker";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Profile() {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
   return (
     <DashboardLayout active={"profile"}>
       <div className="bg-white rounded-md px-4 tab:px-8 py-6 w-full">
