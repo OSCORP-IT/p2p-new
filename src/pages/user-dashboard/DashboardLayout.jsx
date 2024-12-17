@@ -224,9 +224,12 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import SidebarToggle from "../../icon/SidebarToggle";
 import Disbursement from "../../icon/Disbursement";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../features/authentication/authSlice";
 
 function DashboardLayout({ active, children }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const handleToggle = () => {
     setSidebarOpen((prevState) => !prevState); // Toggles the value
@@ -435,7 +438,7 @@ function DashboardLayout({ active, children }) {
               </Text>
               <button
                 className="bg-accent/20 px-8 w-max m-auto py-2 rounded-md flex items-center justify-center gap-2"
-                onClick={() => console.log("Logout")}
+                onClick={() => dispatch(logOut())}
               >
                 <LogOut />
                 <Text padding={`py-0`} color={`accent`} font={`font-semibold`}>

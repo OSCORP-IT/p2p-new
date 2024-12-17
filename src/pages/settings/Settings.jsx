@@ -6,6 +6,8 @@ import SubHeading from "../../components/SubHeading";
 import PrimaryButton from "../../components/PrimaryButton";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { updatePassword } from "../../services/passwordChange";
+import Text from "../../components/Text";
 
 function Settings() {
   const user = useSelector((state) => state.auth);
@@ -20,6 +22,32 @@ function Settings() {
     useState(false);
   const [isSMSNotificationEnabled, setIsSMSNotificationEnabled] =
     useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [message, setMessage] = useState(null);
+  const showMessage = (type, text) => {
+    setMessage({ type: type, text: text });
+    setTimeout(() => {
+      setMessage(null);
+    }, 3000); // Message will disappear after 3 seconds
+  };
+  async function handlePasswordChange() {
+    try {
+      const result = await updatePassword(user.userToken, {
+        old_password: oldPassword,
+        password: newPassword,
+        password_confirmation: confirmNewPassword,
+      });
+      console.log(result);
+      showMessage("success", result.message);
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmNewPassword("");
+    } catch (err) {
+      showMessage("failed", err.message);
+    }
+  }
 
   return (
     <DashboardLayout active={`settings`}>
@@ -57,27 +85,44 @@ function Settings() {
             <input
               type="password"
               name="current"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
               placeholder="Current Password"
-              className="p-2 text-textColor4 rounded-md"
+              className="w-full p-2 text-textColor4 rounded-md"
             />
           </div>
           <div className="border border-textColor3 rounded-md">
             <input
               type="password"
               name="new"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
               placeholder="New Password"
-              className="p-2 text-textColor4 rounded-md"
+              className="w-full p-2 text-textColor4 rounded-md"
             />
           </div>
           <div className="border border-textColor3 rounded-md my-2.5">
             <input
               type="password"
               name="confirm"
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
               placeholder="Confirm New Password"
-              className="p-2 text-textColor4 rounded-md"
+              className="w-full p-2 text-textColor4 rounded-md"
             />
           </div>
-          <div className="pt-2">
+          {message && (
+            <div
+              className={`w-full ${
+                message.type === "success" ? "bg-green-500" : "bg-red-500"
+              } text-white px-6 py-3 rounded-md`}
+            >
+              <Text font={`font-semibold`} align={`text-center`}>
+                {message.text}
+              </Text>
+            </div>
+          )}
+          <div className="pt-2" onClick={handlePasswordChange}>
             <PrimaryButton noIcon={true} bg={`accent`} padding={`py-3 px-10`}>
               update password
             </PrimaryButton>
