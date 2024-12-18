@@ -22,6 +22,9 @@ export async function updatePassword(token, password) {
       if (response.status === 403) {
         throw new Error("Old Password is incorrect.");
       }
+      if (response.status === 422) {
+        throw new Error("Password didn't match.");
+      }
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
     const result = await response.json();

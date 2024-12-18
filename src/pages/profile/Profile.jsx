@@ -1,6 +1,5 @@
 import Heading2 from "../../components/Heading2";
 import DashboardLayout from "../user-dashboard/DashboardLayout";
-import profile from "../../assets/profile.jpg";
 import { PiPencilSimple } from "react-icons/pi";
 import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
@@ -13,6 +12,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BiError } from "react-icons/bi";
 import Title from "../../components/Title";
+import { MdOutlineVerified } from "react-icons/md";
 
 function Profile() {
   const user = useSelector((state) => state.auth);
@@ -40,8 +40,8 @@ function Profile() {
             email: data.result.client.email,
             phone: data.result.client.mobile_number,
             dob: data.result.client.date_of_birth,
-            profession: data.result.client.identification_type,
-            designation: data.result.client.identification_number,
+            profession: data.result.client.profession,
+            designation: data.result.client.designation,
             address: data.result.client.permanent_address,
             profilePhoto: data.result.client.profile_image,
           });
@@ -63,7 +63,7 @@ function Profile() {
         {isloading && (
           <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
             <div className="w-1/5 my-4">
-              <Skeleton count={3} />
+              <Skeleton circle={true} />
             </div>
             <div className="grid grid-cols-2 gap-8">
               <Skeleton count={6} />
@@ -91,7 +91,10 @@ function Profile() {
                 </div>
               </div>
               <div>
-                <SubTitle padding={`py-0`}>{userData.fullName}</SubTitle>
+                <div className="flex gap-2 items-center">
+                  <SubTitle padding={`py-0`}>{userData.fullName}</SubTitle>
+                  <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                </div>
                 <Text color={`textColor3`} padding={`py-0`}>
                   {userData.email}
                 </Text>
@@ -144,7 +147,11 @@ function Profile() {
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 mt-2 ">
               <div className="w-full sm:w-1/2">
                 <Text font={`font-semibold`}>Profession</Text>
-                <select className="p-2 border text-textColor4 border-textColor3 rounded-md w-full">
+                <select
+                  value={userData.profession}
+                  className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
+                >
+                  <option value="">Select Profession</option>
                   <option value="employment">Employment</option>
                   <option value="business">Business</option>
                   <option value="retired">Retired</option>
@@ -154,7 +161,7 @@ function Profile() {
                 <Text font={`font-semibold`}>Designation</Text>
                 <input
                   type="text"
-                  defaultValue={`Software Developer`}
+                  value={userData.designation}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>

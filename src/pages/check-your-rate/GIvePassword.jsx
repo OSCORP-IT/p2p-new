@@ -27,6 +27,7 @@ function GivePassword({ setPage, data }) {
           logIn({
             name: response.result.client.first_name,
             token: response.result.token,
+            profileImage: response.result.profile_image,
           })
         );
         setPage(4);

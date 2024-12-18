@@ -30,6 +30,7 @@ function LogIn() {
           logIn({
             name: response.result.client.first_name,
             token: response.result.token,
+            profileImage: response.result.client.profile_image,
           })
         );
         navigate(-1);

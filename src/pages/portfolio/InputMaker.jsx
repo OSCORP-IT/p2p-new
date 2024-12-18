@@ -68,15 +68,15 @@ function InputMaker({ item, index, data, setData }) {
         />
       )}
       {item.field_type === "radio" && (
-        <div className="flex w-full items-center justify-between px-6">
-          {item.options.map((option, index) => (
-            <div key={index} className="flex items-center gap-2">
+        <div className="flex w-full items-center gap-10 px-6">
+          {item.options.map((option, ind) => (
+            <div key={ind} className="flex items-center gap-2">
               <input
                 type="radio"
                 id={option}
                 value={option}
                 checked={data.response_answers[index].answer_text === option}
-                onChange={(e) => handleInputChange(e.target.value)}
+                onChange={() => handleInputChange(option)}
                 name={item.field_name}
                 className=" cursor-pointer border checked:border-accent"
               />

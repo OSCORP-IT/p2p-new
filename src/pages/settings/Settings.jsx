@@ -8,15 +8,11 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updatePassword } from "../../services/passwordChange";
 import Text from "../../components/Text";
+import SmallText from "../../components/SmallText";
 
 function Settings() {
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!user.isLoggedIn) {
-      navigate("/auth/login");
-    }
-  }, [user.isLoggedIn, navigate]);
   const [is2FAEnabled, setIs2FAEnabled] = useState(false);
   const [isEmailNotificationEnabled, setIsEmailNotificationEnabled] =
     useState(false);
@@ -26,6 +22,30 @@ function Settings() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [message, setMessage] = useState(null);
+  const [instruction, setInstruction] = useState(false);
+  const [validate, setValidate] = useState({
+    lengthValid: false,
+    noWhitespace: false,
+    hasNumber: false,
+    hasUppercase: false,
+    hasLowercase: false,
+    hasSpecialChar: false,
+  });
+  useEffect(() => {
+    if (!user.isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [user.isLoggedIn, navigate]);
+  useEffect(() => {
+    setValidate({
+      lengthValid: newPassword.length >= 8 && newPassword.length <= 16,
+      noWhitespace: !/\s/.test(newPassword),
+      hasNumber: /\d/.test(newPassword),
+      hasUppercase: /[A-Z]/.test(newPassword),
+      hasLowercase: /[a-z]/.test(newPassword),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword),
+    });
+  }, [newPassword]);
   const showMessage = (type, text) => {
     setMessage({ type: type, text: text });
     setTimeout(() => {
@@ -33,19 +53,23 @@ function Settings() {
     }, 3000); // Message will disappear after 3 seconds
   };
   async function handlePasswordChange() {
-    try {
-      const result = await updatePassword(user.userToken, {
-        old_password: oldPassword,
-        password: newPassword,
-        password_confirmation: confirmNewPassword,
-      });
-      console.log(result);
-      showMessage("success", result.message);
-      setOldPassword("");
-      setNewPassword("");
-      setConfirmNewPassword("");
-    } catch (err) {
-      showMessage("failed", err.message);
+    if (Object.values(validate).every((value) => value === true)) {
+      try {
+        const result = await updatePassword(user.userToken, {
+          old_password: oldPassword,
+          password: newPassword,
+          password_confirmation: confirmNewPassword,
+        });
+        console.log(result);
+        showMessage("success", result.message);
+        setOldPassword("");
+        setNewPassword("");
+        setConfirmNewPassword("");
+      } catch (err) {
+        showMessage("failed", err.message);
+      }
+    } else {
+      showMessage("failed", "Invalid Password!!");
     }
   }
 
@@ -95,12 +119,22 @@ function Settings() {
             <input
               type="password"
               name="new"
+              onFocus={() => setInstruction(true)}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="New Password"
               className="w-full p-2 text-textColor4 rounded-md"
             />
           </div>
+          {instruction && (
+            <div className="w-full rounded-md p-2 bg-gray-200 mt-2">
+              <SmallText>
+                Password should conatin 8 to 16 character and must contain an
+                uppercase letter, a lowercase letter, a number, a special
+                character (@,#,$,&) and should not have any whitespace
+              </SmallText>
+            </div>
+          )}
           <div className="border border-textColor3 rounded-md my-2.5">
             <input
               type="password"
@@ -117,7 +151,11 @@ function Settings() {
                 message.type === "success" ? "bg-green-500" : "bg-red-500"
               } text-white px-6 py-3 rounded-md`}
             >
-              <Text font={`font-semibold`} align={`text-center`}>
+              <Text
+                font={`font-semibold`}
+                align={`text-center`}
+                color={`white`}
+              >
                 {message.text}
               </Text>
             </div>

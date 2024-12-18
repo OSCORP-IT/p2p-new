@@ -26,6 +26,7 @@ const loadStateFromLocalStorage = () => {
     userToken: "",
     userName: "",
     inTime: "",
+    profileImage: "",
   };
 };
 
@@ -39,6 +40,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.userToken = action.payload.token;
       state.userName = action.payload.name;
+      state.profileImage = action.payload.profileImage;
       state.inTime = new Date().getTime();
 
       // Save login state and time to localStorage

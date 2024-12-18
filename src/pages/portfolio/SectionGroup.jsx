@@ -213,7 +213,7 @@ function SectionGroup({ inputItem, dataIndex, data, setData }) {
                 />
               )}
               {option.field_type === "radio" && (
-                <div className="flex w-full options-center justify-between px-6">
+                <div className="flex w-full options-center gap-10 px-6">
                   {option.options.map((entity, idx) => (
                     <div key={idx} className="flex options-center gap-2">
                       <input

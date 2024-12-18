@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function MyLoans() {
   const [activeTab, setActiveTab] = useState("1");
+
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -65,10 +66,10 @@ function MyLoans() {
             Closed Loans
           </Tab>
         </div>
-        {activeTab == 1 && <ActiveLoans />}
-        {activeTab == 2 && <PendingLoans />}
-        {activeTab == 3 && <IncompleteApplication />}
-        {activeTab == 4 && <ClosedLoans />}
+        {activeTab == 1 && <ActiveLoans user={user} />}
+        {activeTab == 2 && <PendingLoans user={user} />}
+        {activeTab == 3 && <IncompleteApplication user={user} />}
+        {activeTab == 4 && <ClosedLoans user={user} />}
       </div>
     </DashboardLayout>
   );

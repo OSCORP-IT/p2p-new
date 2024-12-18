@@ -23,6 +23,8 @@ const initialState = {
 };
 
 function FormContainer({ portfolio_id, expanded }) {
+  const [allPages, setAllPages] = useState(initialState);
+  const [allTotalPages, setAllTotalPages] = useState(1);
   const [formState, setFormState] = useState(initialState);
   const [formPage, setFormPage] = useState(initialState);
   const [currentFormPage, setCurrentFormPage] = useState(0);
@@ -39,11 +41,17 @@ function FormContainer({ portfolio_id, expanded }) {
     const fetchFormPages = async () => {
       try {
         const data = await showForm(user.userToken, portfolio_id);
+        setAllPages({
+          data: data.result.form_response_all_pages,
+          loading: false,
+          error: null,
+        });
         setFormState({
           data: data.result.form_responses[currentForm],
           loading: false,
           error: null,
         });
+        setAllTotalPages(data.result.form_response_all_pages.length);
         setTotalPage(data.result.form_responses[currentForm].form.total_pages);
         setTotalForm(data.result.form_responses.length);
         setCurrentFormId(data.result.form_responses[currentForm].form.id);
@@ -180,7 +188,7 @@ function FormContainer({ portfolio_id, expanded }) {
         {formState.data && (
           <>
             <div className="block sm:w-[30%] bg-white rounded-md sm:p-[15px]">
-              {formState.data.form.form_pages.map((item, index) => (
+              {allPages.data.map((item, index) => (
                 <div key={item.id}>
                   <div className="flex items-center gap-2">
                     <div
@@ -209,7 +217,7 @@ function FormContainer({ portfolio_id, expanded }) {
                       </Text>
                     </div>
                   </div>
-                  {formState.data.form.total_pages !== index + 1 && (
+                  {allTotalPages !== index + 1 && (
                     <div
                       className={`h-[15px] w-[15px] border-r-2 border-accent ${
                         index + 1 < currentFormPage
@@ -226,7 +234,7 @@ function FormContainer({ portfolio_id, expanded }) {
                 expanded ? "w-5/6 pl-2" : "w-1/6"
               } transition-all duration-500 ease-in-out bg-white rounded-lg`}
             >
-              {formState.data.form.form_pages.map((item, index) => (
+              {allPages.data.map((item, index) => (
                 <div key={item.id}>
                   <div className="flex items-center gap-2 py-1">
                     <div
@@ -255,7 +263,7 @@ function FormContainer({ portfolio_id, expanded }) {
                       </Text>
                     </div>
                   </div>
-                  {formState.data.form.total_pages !== index + 1 && (
+                  {allTotalPages !== index + 1 && (
                     <div
                       className={`${
                         expanded ? "w-[15px] h-[20px]" : "w-[5px] h-[15px]"

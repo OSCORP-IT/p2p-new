@@ -4,32 +4,17 @@ import Text from "../../components/Text";
 import PaperPlaneTilt from "../../icon/PaperPlaneTilt";
 import DetailListFormat from "./DetailListFormat";
 import SubTitle from "../../components/SubTitle";
-function ActiveLoans() {
-  const activeLoans = [
-    {
-      loanID: "01",
-      loanType: "Car Loan (Personal)",
-      amount: 500000,
-      nextPayment: { amount: 30000, dueInDays: 5 },
-      repaymentDate: "2024-06-22",
-    },
-    {
-      loanID: "02",
-      loanType: "Business Loan",
-      amount: 100000,
-      nextPayment: { amount: 20000, dueInDays: 3 },
-      repaymentDate: "2024-06-20",
-    },
-    {
-      loanID: "03",
-      loanType: "Marriage Loan (Personal)",
-      amount: 50000,
-      nextPayment: { amount: 9000, dueInDays: 7 },
-      repaymentDate: "2024-06-24",
-    },
-  ];
+import { getActiveLoans } from "../../services/loansPortfolio";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { BiError } from "react-icons/bi";
+import SubHeading from "../../components/SubHeading";
+function ActiveLoans({ user }) {
+  const [activeLoans, setActiveLoans] = useState(null);
   const middleRef = useRef(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [isloading, setIsloading] = useState(false);
+  const [isError, setIsError] = useState(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (middleRef.current && !middleRef.current.contains(event.target)) {
@@ -45,6 +30,23 @@ function ActiveLoans() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setShowDetails]);
+  useEffect(() => {
+    async function fetchActiveLoans() {
+      if (user.isLoggedIn) {
+        try {
+          setIsloading(true);
+          const data = await getActiveLoans(user.userToken);
+          setActiveLoans(data.result.active_applied_loan_portfolios);
+          setIsloading(false);
+        } catch (error) {
+          setIsError(true);
+          setIsloading(false);
+          console.log(error);
+        }
+      }
+    }
+    fetchActiveLoans();
+  }, [user.isLoggedIn, user.userToken]);
   return (
     <div className="overflow-x-scroll sm:overflow-x-hidden">
       {showDetails && (
@@ -152,60 +154,82 @@ function ActiveLoans() {
           Action
         </Text>
       </div>
-      {activeLoans.map((item, index) => (
-        <div
-          key={index}
-          className="w-[200%] sm:w-full flex px-2 items-center border-b border-b-textColor3 py-1"
-        >
-          <Text
-            font={`font-semibold`}
-            color={`textColor3`}
-            align={`text-left w-[10%]`}
-          >
-            {item.loanID}
-          </Text>
-          <Text
-            font={`font-semibold`}
-            color={`textColor3`}
-            align={`text-left w-[25%]`}
-          >
-            {item.loanType}
-          </Text>
-          <Text
-            font={`font-semibold`}
-            color={`textColor3`}
-            align={`text-left w-[15%]`}
-          >
-            ৳ {item.amount}
-          </Text>
-          <Text
-            font={`font-semibold`}
-            color={`textColor3`}
-            align={`text-left w-[22%]`}
-          >
-            {`৳ ${item.nextPayment.amount} (Due in ${item.nextPayment.dueInDays} days)`}
-          </Text>
-          <Text
-            font={`font-semibold`}
-            color={`textColor3`}
-            align={`text-left w-[16%]`}
-          >
-            {item.repaymentDate}
-          </Text>
-          <Text
-            font={`font-semibold`}
-            color={`textColor3`}
-            align={`text-left w-[12%]`}
-          >
-            <button
-              onClick={() => setShowDetails(true)}
-              className="py-1 px-2 border border-textColor3 rounded-sm hover:bg-accent/20"
-            >
-              <Text color={`textcolor3`}>View Details</Text>
-            </button>
-          </Text>
+      {isloading && (
+        <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
+          <div className="w-full my-4">
+            <Skeleton count={3} />
+          </div>
+        </SkeletonTheme>
+      )}
+      {isError && (
+        <div className="flex gap-2 animate-pulse items-center m-auto w-max h-max">
+          <BiError className="text-red-900 text-3xl" />
+          <SubHeading>Error Loading Data</SubHeading>
         </div>
-      ))}
+      )}
+      {activeLoans &&
+        (activeLoans.length === 0 ? (
+          <div className="mt-4">
+            <SubHeading color={`secondary`} align={`text-center`}>
+              No Active Loans!!
+            </SubHeading>
+          </div>
+        ) : (
+          activeLoans.map((item, index) => (
+            <div
+              key={index}
+              className="w-[200%] sm:w-full flex px-2 items-center border-b border-b-textColor3 py-1"
+            >
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[10%]`}
+              >
+                {item.loanID}
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[25%]`}
+              >
+                {item.loanType}
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[15%]`}
+              >
+                ৳ {item.amount}
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[22%]`}
+              >
+                {`৳ ${item.nextPayment.amount} (Due in ${item.nextPayment.dueInDays} days)`}
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[16%]`}
+              >
+                {item.repaymentDate}
+              </Text>
+              <Text
+                font={`font-semibold`}
+                color={`textColor3`}
+                align={`text-left w-[12%]`}
+              >
+                <button
+                  onClick={() => setShowDetails(true)}
+                  className="py-1 px-2 border border-textColor3 rounded-sm hover:bg-accent/20"
+                >
+                  <Text color={`textcolor3`}>View Details</Text>
+                </button>
+              </Text>
+            </div>
+          ))
+        ))}
     </div>
   );
 }

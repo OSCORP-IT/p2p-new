@@ -127,7 +127,7 @@ function ContactSchedule() {
           <div className="mt-2 tab:mt-3">
             <Text font={`font-semibold`}>Preferred Date</Text>
             <Datepicker
-              dateFormat={`dd/MM/YYYY`}
+              dateFormat={`dd/MM/yyyy`}
               rounded={true}
               placeholder={`DD/MM/YYYY`}
               date={response.preferred_date}
