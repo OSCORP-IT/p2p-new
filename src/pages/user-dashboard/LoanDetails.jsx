@@ -112,7 +112,12 @@ function LoanDetails({ user }) {
           </Heading2>
         )}
         <SmallText padding={`pb-1`} color={`textColor3`}>
-          {isloading ? <Skeleton count={1} /> : `due in ${data.due_days}`} days
+          {isloading ? (
+            <Skeleton count={1} />
+          ) : (
+            `due in ${data.due_days ? data.due_days : "0"}`
+          )}{" "}
+          days
         </SmallText>
       </div>
     </div>

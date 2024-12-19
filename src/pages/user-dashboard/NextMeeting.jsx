@@ -46,14 +46,14 @@ function NextMeeting({ user }) {
         "Error!"
       ) : (
         <Heading2 font={`font-bold font-poppins`}>
-          {formatDate(data.next_meeting_date)}
+          {data ? formatDate(data.next_meeting_date) : "No Meeting"}
         </Heading2>
       )}
       {isloading ? (
         <Skeleton count={1} />
       ) : (
         <SmallText padding={`pb-1`} color={`textColor3`}>
-          {data.next_meeting_day}
+          {data ? data.next_meeting_day : "No Schedule Yet!"}
         </SmallText>
       )}
     </div>

@@ -17,7 +17,7 @@ function ClosedLoans({ user }) {
         try {
           setIsloading(true);
           const data = await getClosedLoans(user.userToken);
-          setClosedLoans(data.result.pending_applied_loan_portfolios);
+          setClosedLoans(data.result.closed_applied_loan_portfolios);
           setIsloading(false);
         } catch (error) {
           setIsError(true);
@@ -97,7 +97,7 @@ function ClosedLoans({ user }) {
                 color={`textColor3`}
                 align={`text-left w-[20%]`}
               >
-                {item.loanType}
+                {item.loan_type_name}
               </Text>
               <Text
                 font={`font-semibold`}
@@ -111,11 +111,11 @@ function ClosedLoans({ user }) {
                 color={`textColor3`}
                 align={`text-left w-[20%]`}
               >
-                {item.closeDate}
+                {item.closure_date}
               </Text>
               <Text
                 font={`font-semibold capitalize`}
-                color={item.status === "canceled" ? `red-600` : `primary`}
+                color={item.status === "Canceled" ? `red-600` : `islamic`}
                 align={`text-left w-[20%]`}
               >
                 {item.status}

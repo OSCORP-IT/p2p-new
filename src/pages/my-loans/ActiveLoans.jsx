@@ -185,14 +185,14 @@ function ActiveLoans({ user }) {
                 color={`textColor3`}
                 align={`text-left w-[10%]`}
               >
-                {item.loanID}
+                {item.loan_portfolio_id}
               </Text>
               <Text
                 font={`font-semibold`}
                 color={`textColor3`}
                 align={`text-left w-[25%]`}
               >
-                {item.loanType}
+                {item.loan_type_name}
               </Text>
               <Text
                 font={`font-semibold`}
@@ -206,14 +206,14 @@ function ActiveLoans({ user }) {
                 color={`textColor3`}
                 align={`text-left w-[22%]`}
               >
-                {`৳ ${item.nextPayment.amount} (Due in ${item.nextPayment.dueInDays} days)`}
+                {`৳ ${item.next_payment}`}
               </Text>
               <Text
                 font={`font-semibold`}
                 color={`textColor3`}
                 align={`text-left w-[16%]`}
               >
-                {item.repaymentDate}
+                {item.repayment_date}
               </Text>
               <Text
                 font={`font-semibold`}

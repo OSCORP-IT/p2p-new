@@ -100,8 +100,8 @@ function LogIn() {
                 className="absolute right-2 top-[35%] w-max"
                 onClick={() => setSee(!see)}
               >
-                {see && <RiEyeLine className="text-xl" />}
-                {!see && <RiEyeCloseLine className="text-xl" />}
+                {!see && <RiEyeLine className="text-xl" />}
+                {see && <RiEyeCloseLine className="text-xl" />}
               </div>
             </div>
             <div className="cursor-pointer flex gap-1 items-center justify-end w-full sm:w-3/4 tab:w-1/2 m-auto">
@@ -109,7 +109,7 @@ function LogIn() {
               <Text color={`textColor3`}>Forgot Password</Text>
             </div>
             {floatingNote.state && (
-              <div className="bg-red-200 p-2 mt-2 rounded-md">
+              <div className="bg-red-200 p-2 mt-2 rounded-md w-full sm:w-1/2 m-auto">
                 <Text>{floatingNote.msg}</Text>
               </div>
             )}
