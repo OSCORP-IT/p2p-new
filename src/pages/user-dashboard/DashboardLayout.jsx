@@ -23,7 +23,6 @@ function DashboardLayout({ active, children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
-  console.log(user);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const handleToggle = () => {
     setSidebarOpen((prevState) => !prevState); // Toggles the value
@@ -59,160 +58,164 @@ function DashboardLayout({ active, children }) {
           <div className="hidden tab:block h-[10%] w-max m-auto pb-2">
             <img onClick={() => navigate("/")} src={Logo} alt="logo" />
           </div>
-          <div className="h-[65%] py-2 overflow-y-scroll no-scrollbar relative">
-            {/* Sidebar Links */}
-            <FaAngleDoubleDown className="hidden smLap:block laptop:hidden animate-bounce absolute text-textColor3/40 bottom-4 right-0" />
-            <div
-              onClick={() => navigate("/user/dashboard")}
-              className={`cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "dashboard" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
+          <div className="h-[65%] py-2 relative">
+            <div className="h-full w-full overflow-y-scroll no-scrollbar">
+              {/* Sidebar Links */}
+              <FaAngleDoubleDown className="hidden smLap:block laptop:hidden animate-bounce absolute text-textColor3/40 bottom-4 right-0" />
               <div
-                className={`w-[90%] ${
-                  active === "dashboard" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/dashboard")}
+                className={`cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "dashboard" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Dashboard active={active === "dashboard"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "dashboard" ? `accent` : `textColor3`}
-                  >
-                    Dashboard
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "dashboard" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Dashboard active={active === "dashboard"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={active === "dashboard" ? `accent` : `textColor3`}
+                    >
+                      Dashboard
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/user/my-loans")}
-              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "loan" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
               <div
-                className={`w-[90%] ${
-                  active === "loan" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/my-loans")}
+                className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "loan" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Loans active={active === "loan"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "loan" ? `accent` : `textColor3`}
-                  >
-                    My Loans
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "loan" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Loans active={active === "loan"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={active === "loan" ? `accent` : `textColor3`}
+                    >
+                      My Loans
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/user/disbursement")}
-              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "disbursement" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
               <div
-                className={`w-[90%] ${
-                  active === "disbursement" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/disbursement")}
+                className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "disbursement" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Disbursement active={active === "disbursement"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "disbursement" ? `accent` : `textColor3`}
-                  >
-                    Disbursement
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "disbursement" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Disbursement active={active === "disbursement"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={
+                        active === "disbursement" ? `accent` : `textColor3`
+                      }
+                    >
+                      Disbursement
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/user/transaction")}
-              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "transaction" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
               <div
-                className={`w-[90%] ${
-                  active === "transaction" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/transaction")}
+                className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "transaction" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Transaction active={active === "transaction"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "transaction" ? `accent` : `textColor3`}
-                  >
-                    Transaction
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "transaction" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Transaction active={active === "transaction"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={active === "transaction" ? `accent` : `textColor3`}
+                    >
+                      Transaction
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/user/admin-contact")}
-              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "admin" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
               <div
-                className={`w-[90%] ${
-                  active === "admin" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/admin-contact")}
+                className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "admin" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Admin active={active === "admin"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "admin" ? `accent` : `textColor3`}
-                  >
-                    Admin Contact
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "admin" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Admin active={active === "admin"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={active === "admin" ? `accent` : `textColor3`}
+                    >
+                      Admin Contact
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/user/settings")}
-              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "settings" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
               <div
-                className={`w-[90%] ${
-                  active === "settings" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/settings")}
+                className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "settings" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Setting active={active === "settings"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "settings" ? `accent` : `textColor3`}
-                  >
-                    Settings
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "settings" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Setting active={active === "settings"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={active === "settings" ? `accent` : `textColor3`}
+                    >
+                      Settings
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/user/profile")}
-              className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                active === "profile" ? "border-l-4 border-l-accent" : ""
-              } flex items-center justify-end`}
-            >
               <div
-                className={`w-[90%] ${
-                  active === "profile" ? "shadow-md" : ""
-                } hover:shadow-md py-2 rounded-md`}
+                onClick={() => navigate("/user/profile")}
+                className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
+                  active === "profile" ? "border-l-4 border-l-accent" : ""
+                } flex items-center justify-end`}
               >
-                <div className="flex gap-2 items-center px-8 m-auto">
-                  <Profile active={active === "profile"} />
-                  <Text
-                    font={`font-semibold`}
-                    color={active === "profile" ? `accent` : `textColor3`}
-                  >
-                    Profile
-                  </Text>
+                <div
+                  className={`w-[90%] ${
+                    active === "profile" ? "shadow-md" : ""
+                  } hover:shadow-md py-2 rounded-md`}
+                >
+                  <div className="flex gap-2 items-center px-8 m-auto">
+                    <Profile active={active === "profile"} />
+                    <Text
+                      font={`font-semibold`}
+                      color={active === "profile" ? `accent` : `textColor3`}
+                    >
+                      Profile
+                    </Text>
+                  </div>
                 </div>
               </div>
             </div>

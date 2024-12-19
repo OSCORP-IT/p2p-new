@@ -1,13 +1,8 @@
-import Small from "../../components/Small";
 import Heading2 from "../../components/Heading2";
 import DashboardLayout from "./DashboardLayout";
 import SmallText from "../../components/SmallText";
-import Bank from "../../assets/Bank.svg";
 import PaperPlane from "../../assets/PaperPlane.svg";
 import ArrRight from "../../assets/ArrRight.svg";
-import CreditCard from "../../assets/CreditCard.svg";
-import Wallet from "../../assets/Wallet.svg";
-import CalendarDots from "../../assets/CalendarDots.svg";
 import DounutChart from "./DounutChart";
 import Text from "../../components/Text";
 import IconButton from "../../components/IconButton";
@@ -17,6 +12,8 @@ import { BiPlusCircle } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import LoanDetails from "./LoanDetails";
+import NextMeeting from "./NextMeeting";
 
 function UserDashboard() {
   const user = useSelector((state) => state.auth);
@@ -117,68 +114,8 @@ function UserDashboard() {
     <>
       <DashboardLayout active={"dashboard"}>
         <div className="flex flex-wrap sm:flex-nowrap w-full items-center gap-2 tab:gap-3">
-          <div className="w-full sm:w-3/4 tab:w-2/3 flex flex-wrap sm:flex-nowrap items-center gap-2 tab:gap-3">
-            <div className="w-[48%] sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
-              <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-accent/20 rounded-full"></div>
-              <div className="flex items-center justify-between">
-                <Small padding={`py-0`} color={`textColor3`}>
-                  Total Loan Balance
-                </Small>
-                <div className="p-1 bg-accent rounded-[5px]">
-                  <img src={Bank} alt="bank" />
-                </div>
-              </div>
-              <Heading2 font={`font-bold font-poppins`}>৳ 50,000,000</Heading2>
-              <SmallText padding={`pb-1`} color={`textColor3`}>
-                <span className="text-[#0da500]">+20.1%</span> from last month
-              </SmallText>
-            </div>
-            <div className="w-[48%] sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
-              <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-purple-800/20 rounded-full"></div>
-              <div className="flex items-center justify-between">
-                <Small padding={`py-0`} color={`textColor3`}>
-                  Active Loans
-                </Small>
-                <div className="p-1 bg-purple-800 rounded-[5px]">
-                  <img src={CreditCard} alt="CreditCard" />
-                </div>
-              </div>
-              <Heading2 font={`font-bold font-poppins`}>03</Heading2>
-              <SmallText padding={`pb-1`} color={`textColor3`}>
-                2 pending for approval
-              </SmallText>
-            </div>
-            <div className="hidden sm:block sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
-              <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-[#0da500]/20 rounded-full"></div>
-              <div className="flex items-center justify-between">
-                <Small padding={`py-0`} color={`textColor3`}>
-                  Next Payment Due
-                </Small>
-                <div className="p-1 bg-[#0da500] rounded-[5px]">
-                  <img src={Wallet} alt="wallet" />
-                </div>
-              </div>
-              <Heading2 font={`font-bold font-poppins`}>৳ 50,000</Heading2>
-              <SmallText padding={`pb-1`} color={`textColor3`}>
-                due in 5 days
-              </SmallText>
-            </div>
-          </div>
-          <div className="w-full sm:w-1/4 tab:w-1/3 shadow-md bg-white p-[10px] rounded-md relative overflow-hidden">
-            <div className=" absolute -top-8 -right-6 w-[100px] h-[100px] bg-primary/20 rounded-full"></div>
-            <div className="flex items-center justify-between">
-              <Small padding={`py-0`} color={`textColor3`}>
-                Next Meeting
-              </Small>
-              <div className="p-1 bg-primary rounded-[5px]">
-                <img src={CalendarDots} alt="CalendarDots" />
-              </div>
-            </div>
-            <Heading2 font={`font-bold font-poppins`}>January 5,2025</Heading2>
-            <SmallText padding={`pb-1`} color={`textColor3`}>
-              Wednesday
-            </SmallText>
-          </div>
+          <LoanDetails user={user} />
+          <NextMeeting user={user} />
         </div>
         <div className="mt-3 w-full flex flex-wrap sm:flex-nowrap items-start gap-2 tab:gap-3 sm:h-[270px]">
           <div className="h-auto sm:h-full w-full sm:w-1/2 tab:w-[40%] bg-white  rounded-md shadow-md px-5 py-4">

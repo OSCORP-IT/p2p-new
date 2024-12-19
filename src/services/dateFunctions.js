@@ -7,4 +7,11 @@ export function formatDateToYYYYMMDD(date) {
   return `${year}-${month}-${day}`;
 }
 
+export function formatDate(dateString) {
+  const date = new Date(dateString);
+
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
+}
+
 // All date/time fields are converted to yyyy-mm-dd format

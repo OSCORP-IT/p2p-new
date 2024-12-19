@@ -178,19 +178,19 @@ function RecentCommunication({
               >
                 <div>
                   <h2 className="text-base sm:text-lg font-semibold">
-                    {item.Type}: {item.Subject}
+                    {item.type}: {item.subject}
                   </h2>
                   <Text color={`textColor3`} padding={`py-0`}>
-                    {item.Date}
+                    {item.date}
                   </Text>
                 </div>
                 <div>
                   <h2
                     className={`text-base sm:text-lg font-semibold ${
-                      item.Status === "Pending" ? "bg-accent" : "bg-islamic"
+                      item.status === "Pending" ? "bg-accent" : "bg-islamic"
                     } text-white rounded-md px-3 py-0.5`}
                   >
-                    {item.Status}
+                    {item.status}
                   </h2>
                 </div>
               </div>

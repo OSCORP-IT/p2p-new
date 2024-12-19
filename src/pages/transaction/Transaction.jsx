@@ -3,66 +3,40 @@ import Heading2 from "../../components/Heading2";
 import Text from "../../components/Text";
 import DashboardLayout from "../user-dashboard/DashboardLayout";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getTransactions } from "../../services/loansPortfolio";
+import { BiError } from "react-icons/bi";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import SubHeading from "../../components/SubHeading";
 
 function Transaction() {
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const [transaction, setTransaction] = useState(null);
+  const [isloading, setIsloading] = useState(false);
+  const [isError, setIsError] = useState(false);
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
     }
   }, [user.isLoggedIn, navigate]);
-  const transaction = [
-    {
-      Date: "2024-06-22",
-      Description: "Loan Repayment",
-      Amount: 500000,
-      TrxID: "B7e38jasKl",
-      Type: "Debit",
-      Status: "Completed",
-    },
-    {
-      Date: "2024-06-22",
-      Description: "Loan Repayment",
-      Amount: 100000,
-      TrxID: "Nsjhh763jlk",
-      Type: "Debit",
-      Status: "Completed",
-    },
-    {
-      Date: "2024-06-22",
-      Description: "Loan Disbursement",
-      Amount: 5000000,
-      TrxID: "sdfue4kK8f",
-      Type: "Credit",
-      Status: "Completed",
-    },
-    {
-      Date: "2024-06-22",
-      Description: "Loan Repayment",
-      Amount: 800000,
-      TrxID: "Xsedifo63jl",
-      Type: "Debit",
-      Status: "Late",
-    },
-    {
-      Date: "2024-06-22",
-      Description: "Loan Disbursement",
-      Amount: 200000,
-      TrxID: "IksaieJHL87",
-      Type: "Credit",
-      Status: "Completed",
-    },
-    {
-      Date: "2024-06-22",
-      Description: "Loan Repayment",
-      Amount: 70000,
-      TrxID: "faserfo32r9",
-      Type: "Debit",
-      Status: "Completed",
-    },
-  ];
+  useEffect(() => {
+    async function fetchTransactions() {
+      if (user.isLoggedIn) {
+        try {
+          setIsloading(true);
+          const data = await getTransactions(user.userToken);
+          setTransaction(data.result.transactions);
+          setIsloading(false);
+        } catch (error) {
+          setIsError(true);
+          setIsloading(false);
+        }
+      }
+    }
+    fetchTransactions();
+  }, [user.userToken, user.isLoggedIn]);
 
   return (
     <DashboardLayout active={"transaction"}>
@@ -113,65 +87,104 @@ function Transaction() {
               Status
             </Text>
           </div>
-          {transaction.map((item, index) => (
-            <div
-              key={index}
-              className="w-[180%] sm:w-full flex px-2 items-center border-b border-b-textColor3 py-1"
-            >
-              <Text
-                font={`font-semibold`}
-                color={`textColor3`}
-                align={`text-left w-[20%]`}
-              >
-                {item.Date}
-              </Text>
-              <Text
-                font={`font-semibold`}
-                color={`textColor3`}
-                align={`text-left w-[25%]`}
-              >
-                {item.Description}
-              </Text>
-              <Text
-                font={`font-semibold`}
-                color={`textColor3`}
-                align={`text-left w-[15%]`}
-              >
-                {item.Amount}
-              </Text>
-              <Text
-                font={`font-semibold`}
-                color={`textColor3`}
-                align={`text-left w-[15%]`}
-              >
-                {item.TrxID}
-              </Text>
-              <Text
-                font={`font-semibold`}
-                color={`textColor3`}
-                align={`text-left w-[10%]`}
-              >
-                {item.Type}
-              </Text>
-              <Text
-                font={`font-semibold`}
-                color={`textColor3`}
-                align={`text-left w-[15%]`}
-              >
-                <span
-                  className={`${
-                    item.Status === "Late"
-                      ? "text-red-600"
-                      : item.Type === "Debit"
-                      ? "text-islamic"
-                      : "text-blueText"
-                  }`}
-                >
-                  {item.Status}
-                </span>
-              </Text>
+          {isloading && (
+            <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
+              <div className="w-[180%] sm:w-full flex px-2 items-center py-1 gap-2">
+                <div className="w-[20%]">
+                  <Skeleton count={2} />
+                </div>
+                <div className="w-[25%]">
+                  <Skeleton count={2} />
+                </div>
+                <div className="w-[15%]">
+                  <Skeleton count={2} />
+                </div>
+                <div className="w-[15%]">
+                  <Skeleton count={2} />
+                </div>
+                <div className="w-[10%]]">
+                  <Skeleton count={2} />
+                </div>
+                <div className="w-[15%]">
+                  <Skeleton count={2} />
+                </div>
+              </div>
+            </SkeletonTheme>
+          )}
+          {isError && (
+            <div className="flex gap-2 animate-pulse items-center m-auto w-max h-max">
+              <BiError className="text-red-900 text-3xl" />
+              <SubHeading>Error Loading Data</SubHeading>
             </div>
-          ))}
+          )}
+          {transaction &&
+            (transaction.length === 0 ? (
+              <div className="mt-4">
+                <SubHeading color={`secondary`} align={`text-center`}>
+                  No Transactons Yet!!
+                </SubHeading>
+              </div>
+            ) : (
+              transaction.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-[180%] sm:w-full flex px-2 items-center border-b border-b-textColor3 py-1"
+                >
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[20%]`}
+                  >
+                    {item.Date}
+                  </Text>
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[25%]`}
+                  >
+                    {item.Description}
+                  </Text>
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[15%]`}
+                  >
+                    {item.Amount}
+                  </Text>
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[15%]`}
+                  >
+                    {item.TrxID}
+                  </Text>
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[10%]`}
+                  >
+                    {item.Type}
+                  </Text>
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[15%]`}
+                  >
+                    <span
+                      className={`${
+                        item.Status === "Late"
+                          ? "text-red-600"
+                          : item.Type === "Debit"
+                          ? "text-islamic"
+                          : "text-blueText"
+                      }`}
+                    >
+                      {item.Status}
+                    </span>
+                  </Text>
+                </div>
+              ))
+            ))}
         </div>
       </div>
     </DashboardLayout>
