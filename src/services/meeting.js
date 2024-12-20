@@ -73,3 +73,45 @@ export async function getRecentCommunication(token) {
     throw error;
   }
 }
+export async function getDetailSupportTicket(token, id) {
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      `https://admin-p2p.alzakati.com/api/client-panel/dashboard/tickets/${id}/show`,
+      requestOptions
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+export async function getDetailMeetingSchedule(token, id) {
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      `https://admin-p2p.alzakati.com/api/client-panel/dashboard/meetings/${id}/show`,
+      requestOptions
+    );
+    const result = await response.text();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

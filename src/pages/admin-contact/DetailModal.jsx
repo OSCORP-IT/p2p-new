@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Ticket from "../../assets/Ticket.svg";
 import User from "../../assets/profile.jpg";
 import Admin from "../../assets/Admin.jpg";
@@ -8,7 +8,33 @@ import { GrReturn } from "react-icons/gr";
 import SubHeading from "../../components/SubHeading";
 import Text from "../../components/Text";
 import SmallText from "../../components/SmallText";
-function DetailModal({ setShowDetails }) {
+import { getDetailSupportTicket } from "../../services/meeting";
+function DetailModal({ setShowDetails, item, userToken }) {
+  const [meetingData, setMeetingData] = useState(null);
+  const [ticketData, setTicketData] = useState(null);
+  const [isloading, setIsloading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  useEffect(() => {
+    async function fetchIincompleteLoans() {
+      try {
+        setIsloading(true);
+        if (item.type === "Message") {
+          const data = await getDetailSupportTicket(userToken, item.id);
+          setTicketData(data.result);
+          setIsloading(false);
+        } else {
+          const data = await getDetailSupportTicket(userToken, item.id);
+          setMeetingData(data.result);
+          setIsloading(false);
+        }
+      } catch (error) {
+        setIsError(true);
+        setIsloading(false);
+      }
+    }
+
+    fetchIincompleteLoans();
+  }, [item.id, item.type, userToken]);
   const middleRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {

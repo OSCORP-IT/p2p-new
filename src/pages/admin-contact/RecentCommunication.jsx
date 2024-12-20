@@ -13,7 +13,12 @@ function RecentCommunication({
   setSearchString,
   isError,
   isloading,
+  setCurrentItem,
 }) {
+  function handleDetail(item) {
+    setCurrentItem(item);
+    setShowDetails(true);
+  }
   return (
     <div className="mt-3 bg-white rounded-md shadow-md p-5">
       <div className="flex flex-col sm:flex-row justify-between items-center">
@@ -151,7 +156,7 @@ function RecentCommunication({
                   align={`text-center w-[10%]`}
                 >
                   <span
-                    onClick={() => setShowDetails(true)}
+                    onClick={handleDetail(item)}
                     className="text-textColor4 border-textColor4 rounded-md cursor-pointer font-semibold border py-1 px-4"
                   >
                     Details

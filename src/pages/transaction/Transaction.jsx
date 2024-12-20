@@ -9,6 +9,7 @@ import { BiError } from "react-icons/bi";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import SubHeading from "../../components/SubHeading";
+import { formatDateToYYYYMMDD } from "../../services/dateFunctions";
 
 function Transaction() {
   const user = useSelector((state) => state.auth);
@@ -54,7 +55,7 @@ function Transaction() {
             <Text
               font={`font-semibold`}
               color={`textColor3`}
-              align={`text-left w-[25%]`}
+              align={`text-left w-[20%]`}
             >
               Description
             </Text>
@@ -75,7 +76,7 @@ function Transaction() {
             <Text
               font={`font-semibold`}
               color={`textColor3`}
-              align={`text-left w-[10%]`}
+              align={`text-left w-[15%]`}
             >
               Type
             </Text>
@@ -135,35 +136,35 @@ function Transaction() {
                     color={`textColor3`}
                     align={`text-left w-[20%]`}
                   >
-                    {item.Date}
+                    {formatDateToYYYYMMDD(item.date)}
                   </Text>
                   <Text
                     font={`font-semibold`}
                     color={`textColor3`}
-                    align={`text-left w-[25%]`}
+                    align={`text-left w-[20%]`}
                   >
-                    {item.Description}
-                  </Text>
-                  <Text
-                    font={`font-semibold`}
-                    color={`textColor3`}
-                    align={`text-left w-[15%]`}
-                  >
-                    {item.Amount}
+                    {item.loan_type_name}
                   </Text>
                   <Text
                     font={`font-semibold`}
                     color={`textColor3`}
                     align={`text-left w-[15%]`}
                   >
-                    {item.TrxID}
+                    {item.amount}
                   </Text>
                   <Text
                     font={`font-semibold`}
                     color={`textColor3`}
-                    align={`text-left w-[10%]`}
+                    align={`text-left w-[15%]`}
                   >
-                    {item.Type}
+                    {item.transaction_id}
+                  </Text>
+                  <Text
+                    font={`font-semibold`}
+                    color={`textColor3`}
+                    align={`text-left w-[15%]`}
+                  >
+                    {item.type}
                   </Text>
                   <Text
                     font={`font-semibold`}
@@ -172,14 +173,14 @@ function Transaction() {
                   >
                     <span
                       className={`${
-                        item.Status === "Late"
+                        item.status === "Late"
                           ? "text-red-600"
-                          : item.Type === "Debit"
+                          : item.type === "Debit"
                           ? "text-islamic"
                           : "text-blueText"
                       }`}
                     >
-                      {item.Status}
+                      {item.status}
                     </span>
                   </Text>
                 </div>

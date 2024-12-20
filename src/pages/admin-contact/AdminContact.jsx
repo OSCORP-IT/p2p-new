@@ -17,6 +17,7 @@ function AdminContact() {
     }
   }, [user.isLoggedIn, navigate]);
   const [showDetails, setShowDetails] = useState(false);
+  const [currentItem, setCurrentItem] = useState("");
   const [data, setData] = useState(null);
   const [searchString, setSearchString] = useState("");
   const [filteredData, setFilteredData] = useState(data);
@@ -57,9 +58,16 @@ function AdminContact() {
 
   return (
     <DashboardLayout active={"admin"}>
-      {showDetails && <DetailModal setShowDetails={setShowDetails} />}
+      {showDetails && (
+        <DetailModal
+          setShowDetails={setShowDetails}
+          item={currentItem}
+          userToken={user.userToken}
+        />
+      )}
       <ContactSchedule />
       <RecentCommunication
+        setCurrentItem={setCurrentItem}
         setSearchString={setSearchString}
         filteredData={filteredData}
         setShowDetails={setShowDetails}
