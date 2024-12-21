@@ -23,7 +23,6 @@ function AdminContact() {
   const [filteredData, setFilteredData] = useState(data);
   const [isloading, setIsloading] = useState(false);
   const [isError, setIsError] = useState(false);
-
   useEffect(() => {
     async function fetchIincompleteLoans() {
       if (user.isLoggedIn) {

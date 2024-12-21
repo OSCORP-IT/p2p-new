@@ -156,7 +156,7 @@ function RecentCommunication({
                   align={`text-center w-[10%]`}
                 >
                   <span
-                    onClick={handleDetail(item)}
+                    onClick={() => handleDetail(item)}
                     className="text-textColor4 border-textColor4 rounded-md cursor-pointer font-semibold border py-1 px-4"
                   >
                     Details

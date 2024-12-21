@@ -75,7 +75,7 @@ export async function getRecentCommunication(token) {
 }
 export async function getDetailSupportTicket(token, id) {
   myHeaders.append("Authorization", `Bearer ${token}`);
-
+  console.log(id);
   const requestOptions = {
     method: "GET",
     headers: myHeaders,
@@ -108,7 +108,7 @@ export async function getDetailMeetingSchedule(token, id) {
       `https://admin-p2p.alzakati.com/api/client-panel/dashboard/meetings/${id}/show`,
       requestOptions
     );
-    const result = await response.text();
+    const result = await response.json();
     return result;
   } catch (error) {
     console.error(error);
