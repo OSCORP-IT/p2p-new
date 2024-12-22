@@ -177,7 +177,7 @@ function RecentCommunication({
           ) : (
             filteredData.map((item, index) => (
               <div
-                onClick={() => setShowDetails(true)}
+                onClick={() => handleDetail(item)}
                 key={index}
                 className="py-2 border-b border-textColor3 flex items-center justify-between"
               >

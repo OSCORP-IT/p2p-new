@@ -115,3 +115,29 @@ export async function getDetailMeetingSchedule(token, id) {
     throw error;
   }
 }
+
+export async function postTicketComment(token, id, comment) {
+  myHeaders.append("Authorization", `Bearer ${token}`);
+  const formdata = JSON.stringify(comment);
+
+  console.log(comment);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      `https://admin-p2p.alzakati.com/api/client-panel/dashboard/tickets/${id}/comments/submit`,
+      requestOptions
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
