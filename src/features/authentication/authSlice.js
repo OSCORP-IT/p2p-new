@@ -47,6 +47,12 @@ const authSlice = createSlice({
       localStorage.setItem("authState", JSON.stringify(state));
       localStorage.setItem("lastActivityTime", state.inTime);
     },
+    profileImageChange: (state, action) => {
+      state.profileImage = action.payload;
+      state.inTime = new Date().getTime();
+      localStorage.setItem("authState", JSON.stringify(state));
+      localStorage.setItem("lastActivityTime", state.inTime);
+    },
     logOut: (state) => {
       state.isLoggedIn = false;
       state.userToken = "";
@@ -58,5 +64,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logIn, logOut } = authSlice.actions;
+export const { logIn, logOut, profileImageChange } = authSlice.actions;
 export default authSlice.reducer;

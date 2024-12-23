@@ -31,3 +31,33 @@ export async function uploadFileToServer(file) {
     throw error; // Re-throw error for handling in the calling component
   }
 }
+// api.js
+
+export const updateProfileImage = async (token, file) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const formdata = new FormData();
+  formdata.append("profile_image", file);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      "https://admin-p2p.alzakati.com/api/client-panel/dashboard/profile-image-update",
+      requestOptions
+    );
+    const result = await response.json(); // Use `.json()` if the API returns JSON
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Error updating profile image:", error);
+    throw error; // Re-throw the error for the calling code to handle
+  }
+};

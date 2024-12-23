@@ -1,31 +1,35 @@
 import SideBg from "../../assets/logInBg.jpeg";
 import Logo from "../../assets/BlackLogo.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiEyeCloseLine, RiEyeLine, RiLockPasswordLine } from "react-icons/ri";
 import { BiEnvelope } from "react-icons/bi";
 import SubTitle from "../../components/SubTitle";
 import { HiLockClosed } from "react-icons/hi2";
 import Text from "../../components/Text";
 import { PiPhoneCall } from "react-icons/pi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../../services/Authentication";
 import { logIn } from "../../features/authentication/authSlice";
 
 function LogIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth);
   const [password, setPassword] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [see, setSee] = useState(false);
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      navigate("/");
+    }
+  }, [user.isLoggedIn, navigate]);
   const handleLogin = async () => {
-    // console.log(password);
     try {
       const response = await loginRequest(emailOrPhone, password);
 
       if (response && response.success) {
-        // Dispatch the logIn action with the user data
         dispatch(
           logIn({
             name: response.result.client.first_name,

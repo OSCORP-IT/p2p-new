@@ -39,9 +39,9 @@ function DashboardLayout({ active, children }) {
           <img onClick={() => navigate("/")} src={Logo} alt="logo" />
         </div>
         <div className="flex items-center gap-4">
-          <div className="p-2 bg-gray-200 rounded-full">
+          {/* <div className="p-2 bg-gray-200 rounded-full">
             <RiMessengerLine className="text-xl" />
-          </div>
+          </div> */}
           <div className="p-2 bg-gray-200 rounded-full">
             <IoMdNotificationsOutline className="text-xl" />
           </div>
@@ -255,9 +255,9 @@ function DashboardLayout({ active, children }) {
               <PrimaryButton bg={`gradient-to-r from-[#ff6b00] to-[#803600]`}>
                 apply for new loan
               </PrimaryButton>
-              <div className="p-2 bg-white rounded-full">
+              {/* <div className="p-2 bg-white rounded-full">
                 <RiMessengerLine className="text-xl" />
-              </div>
+              </div> */}
               <div className="p-2 bg-white rounded-full">
                 <IoMdNotificationsOutline className="text-xl" />
               </div>

@@ -13,14 +13,16 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { BiError } from "react-icons/bi";
 import Title from "../../components/Title";
 import { MdOutlineVerified } from "react-icons/md";
+import ProfileChangeModal from "./ProfileChangeModal";
 
 function Profile() {
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [showPrifileChange, setShowProfileChange] = useState(false);
   const [isloading, setIsloading] = useState(false);
   const [isError, setIsError] = useState(false);
-
+  console.log(userData);
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
@@ -32,19 +34,7 @@ function Profile() {
         try {
           setIsloading(true);
           const data = await getProfileData(user.userToken);
-          setUserData({
-            fullName:
-              data.result.client.first_name +
-              " " +
-              data.result.client.last_name,
-            email: data.result.client.email,
-            phone: data.result.client.mobile_number,
-            dob: data.result.client.date_of_birth,
-            profession: data.result.client.profession,
-            designation: data.result.client.designation,
-            address: data.result.client.permanent_address,
-            profilePhoto: data.result.client.profile_image,
-          });
+          setUserData(data.result.client);
           setIsloading(false);
         } catch (error) {
           setIsError(true);
@@ -58,6 +48,14 @@ function Profile() {
 
   return (
     <DashboardLayout active={"profile"}>
+      {showPrifileChange && (
+        <ProfileChangeModal
+          setShowProfileChange={setShowProfileChange}
+          user={user}
+          userData={userData}
+          setUserData={setUserData}
+        />
+      )}
       <div className="bg-white rounded-md px-4 tab:px-8 py-6 w-full">
         <Heading2 font={`font-bold font-poppins`}>User Profile</Heading2>
         {isloading && (
@@ -82,17 +80,22 @@ function Profile() {
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-5 mt-5 ">
               <div className="relative">
                 <img
-                  src={userData.profilePhoto}
+                  src={userData.profile_image}
                   alt="profile photo"
                   className="w-[100px] h-[100px] rounded-full"
                 />
-                <div className="absolute cursor-pointer bottom-0 right-1 bg-white border-[1px] border-textColor3 rounded-full p-0.5">
+                <div
+                  onClick={() => setShowProfileChange(true)}
+                  className="absolute cursor-pointer bottom-0 right-1 bg-white border-[1px] border-textColor3 rounded-full p-0.5"
+                >
                   <PiPencilSimple className="text-xl" />
                 </div>
               </div>
               <div>
                 <div className="flex gap-2 items-center">
-                  <SubTitle padding={`py-0`}>{userData.fullName}</SubTitle>
+                  <SubTitle padding={`py-0`}>
+                    {userData.first_name + " " + userData.last_name}
+                  </SubTitle>
                   <MdOutlineVerified className="text-secondary text-xl font-bold" />
                 </div>
                 <Text color={`textColor3`} padding={`py-0`}>
@@ -103,7 +106,7 @@ function Profile() {
                   color={`textColor4`}
                   font={`font-semibold`}
                 >
-                  Software Developer
+                  {userData.designation}
                 </Text>
               </div>
             </div>
@@ -112,7 +115,7 @@ function Profile() {
                 <Text font={`font-semibold`}>Full Name</Text>
                 <input
                   type="text"
-                  value={userData.fullName}
+                  value={userData.first_name + " " + userData.last_name}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
@@ -130,7 +133,7 @@ function Profile() {
                 <Text font={`font-semibold`}>Phone Number</Text>
                 <input
                   type="text"
-                  value={userData.phone}
+                  value={userData.mobile_number}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
@@ -139,7 +142,7 @@ function Profile() {
                 <Datepicker
                   rounded={true}
                   dateFormat={`dd/MM/YYYY`}
-                  date={userData.dob}
+                  date={userData.date_of_birth}
                   textColor={`text-textColor4`}
                 />
               </div>
@@ -170,7 +173,7 @@ function Profile() {
               <Text font={`font-semibold`}>Address</Text>
               <input
                 type="text"
-                value={userData.address}
+                value={userData.permanent_address}
                 className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
               />
             </div>

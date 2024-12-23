@@ -69,6 +69,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
         ...prevData,
         ticket_comments: [...prevData.ticket_comments, result.comment],
       }));
+      setComment("");
 
       setCommentIsLoading(false);
     } catch (err) {
@@ -101,7 +102,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
             meetingData
               ? "w-full sm:w-[70%] tab:w-1/2"
               : "w-full sm:w-4/5 tab:w-2/3 p-3 tab:p-6 overflow-y-scroll"
-          } rounded-md bg-white border-2 border-gray-300  max-h-[90%]`}
+          } rounded-md bg-white border-2 border-gray-300  max-h-[90%] relative`}
         >
           {isloading && (
             <div className="flex items-center justify-center gap-4">
@@ -111,7 +112,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
           )}
           {isError && (
             <div className="flex items-center justify-center gap-4">
-              <BiError className="animate-spin text-xl text-primary" />
+              <BiError className="animate-pulse text-xl text-primary" />
               <Heading2>Problem Loading Data</Heading2>
             </div>
           )}
@@ -142,6 +143,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   type="text"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
+                  disabled={commentIsLoading}
                   placeholder="Your Comment Here.."
                   name="comment"
                   className="resize-none w-[90%] py-2 tab:py-2.5 px-2 border border-textColor3 rounded-md"
@@ -156,6 +158,11 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   <PaperPlaneTilt />
                 </div>
               </div>
+              {commentError && (
+                <div className="p-2 w-max mx-auto bg-red-200 rounded-md mt-2">
+                  <Text align={`text-center`}>{commentError}</Text>
+                </div>
+              )}
               <div className="w-max m-auto flex items-center gap-3 mt-3">
                 <img src={WeChatLogo} alt="we chat logo" />
                 <Text font={`font-semibold`}>Message Replies</Text>

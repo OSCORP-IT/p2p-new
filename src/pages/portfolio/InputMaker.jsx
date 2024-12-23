@@ -155,7 +155,7 @@ function InputMaker({ item, index, data, setData }) {
         <div>
           <input
             type="file"
-            accept=".jpeg,.jpg,.pdf"
+            accept=".jpeg,.jpg,.pdf,.png,.svg"
             // placeholder={item.placeholder}
             onChange={handleUpload}
             className="py-2 px-2 border border-gray-300 rounded-md w-full"
