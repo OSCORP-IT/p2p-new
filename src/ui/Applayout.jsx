@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 function Applayout() {
   // const nav = useNavigate();
@@ -29,7 +30,7 @@ function Applayout() {
       <div className="h-min-screen">
         <Outlet />
       </div>
-      <div className=" bg-gray-400 h-[100px] shadow-md pl-4">Footer</div>
+      <Footer />
     </div>
   );
 }

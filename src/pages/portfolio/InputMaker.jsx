@@ -152,14 +152,32 @@ function InputMaker({ item, index, data, setData }) {
         />
       )}
       {item.field_type === "file" && (
-        <div>
+        <div className="flex items-center gap-2">
           <input
             type="file"
             accept=".jpeg,.jpg,.pdf,.png,.svg"
             // placeholder={item.placeholder}
             onChange={handleUpload}
-            className="py-2 px-2 border border-gray-300 rounded-md w-full"
+            className="py-2 px-2 border border-gray-300 rounded-md w-1/2"
           />
+          {data.response_answers[index].answer_text !== "" &&
+            !data.response_answers[index].answer_text.includes(".pdf") && (
+              <img
+                src={data.response_answers[index].answer_text}
+                alt="uploaded photo"
+                className="w-20 h-20 m-auto"
+              />
+            )}
+          {data.response_answers[index].answer_text !== "" &&
+            data.response_answers[index].answer_text.includes(".pdf") && (
+              <iframe
+                src={data.response_answers[index].answer_text}
+                width="50%"
+                height="75px"
+                title="PDF Viewer"
+                className=""
+              ></iframe>
+            )}
         </div>
       )}
     </>

@@ -277,7 +277,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                           ? "text-accent"
                           : meetingData.meeting.status === "Cancelled"
                           ? "text-red-500"
-                          : "text-primary"
+                          : "text-islamic"
                       }`}
                     >
                       {meetingData.meeting.status}

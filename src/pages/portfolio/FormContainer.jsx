@@ -93,6 +93,7 @@ function FormContainer({ portfolio_id, expanded }) {
           {
             data && setFormResponse(() => buildFromResponse(data));
           }
+          console.log(data);
           setFormPage({
             data: data.result,
             loading: false,
@@ -123,20 +124,31 @@ function FormContainer({ portfolio_id, expanded }) {
       } else {
         try {
           const data = await submitPortfolioResponse(
+            portfolio_id,
+            currentFormId,
+            currentFormPageId,
+            currentResponseId,
             formResponse,
             user.userToken
           );
-          console.log(data);
           if (data.success) {
             setCurrentForm((cf) => cf + 1);
           } else throw new Error();
         } catch (error) {
-          console.log(error);
+          setFormPage({
+            data: null,
+            loading: false,
+            error: "Error fetching form pages",
+          });
         }
       }
     } else {
       try {
         const data = await submitPortfolioResponse(
+          portfolio_id,
+          currentFormId,
+          currentFormPageId,
+          currentResponseId,
           formResponse,
           user.userToken
         );
@@ -148,7 +160,11 @@ function FormContainer({ portfolio_id, expanded }) {
           );
         } else throw new Error();
       } catch (error) {
-        console.log(error);
+        setFormPage({
+          data: null,
+          loading: false,
+          error: "Error fetching form pages",
+        });
       }
     }
   }

@@ -6,18 +6,6 @@ myHeaders.append("Content-Type", "application/json");
 // myHeaders.append("Authorization", "2|LHMO0jUVdq2CNwljQ34ZDqBWoNq25pmLMPvtp044");
 
 export async function showForm(token, loanPortfolioId) {
-  // const requestOptions = {
-  //   method: "GET",
-  //   headers: myHeaders,
-  //   redirect: "follow",
-  // };
-  // const response = await fetch(
-  //   `${BASE_URL}/client-panel/dashboard/loan-types/${loanTypes}/forms/${formId}`,
-  //   requestOptions
-  // );
-  // if (!response.ok) throw Error("Failed getting menu");
-  // const data = await response.json();
-  // return data;
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const requestOptions = {
@@ -64,10 +52,18 @@ export async function showFormPage(
   }
 }
 
-export async function submitPortfolioResponse(response, token) {
+export async function submitPortfolioResponse(
+  loanPortfolioId,
+  formId,
+  formPageId,
+  formResponseId,
+  responseData,
+  token
+) {
   myHeaders.append("Authorization", `Bearer ${token}`);
+  console.log(token, responseData);
 
-  const raw = JSON.stringify(response);
+  const raw = JSON.stringify(responseData);
 
   const requestOptions = {
     method: "PUT",
@@ -78,7 +74,7 @@ export async function submitPortfolioResponse(response, token) {
 
   try {
     const response = await fetch(
-      `${BASE_URL}/dashboard/applied-loan-portfolios/1/forms/1/form-pages/1/form-responses/14/submit`,
+      `${BASE_URL}/dashboard/applied-loan-portfolios/${loanPortfolioId}/forms/${formId}/form-pages/${formPageId}/form-responses/${formResponseId}/submit`,
       requestOptions
     );
     const result = await response.json();

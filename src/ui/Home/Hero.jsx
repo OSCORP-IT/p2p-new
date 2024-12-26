@@ -3,7 +3,9 @@ import PrimaryButton from "../../components/PrimaryButton";
 import Title from "../../components/Title";
 import HeroImg from "../../assets/MainHero.png";
 import HeroCards from "./HeroCards";
+import { useNavigate } from "react-router-dom";
 function Hero() {
+  const naviagte = useNavigate();
   return (
     <div className="w-full relative">
       <div className="absolute -top-20 -left-16 -z-50 blur-[150px] bg-secondary/60 rounded-full w-[380px] h-[380px]  overflow-hidden"></div>
@@ -16,7 +18,7 @@ function Hero() {
           <SubHeading font={"normal"}>
             Smart, simple tools for borrowing, saving & earning
           </SubHeading>
-          <div className="py-4">
+          <div className="py-4" onClick={() => naviagte("/check-rate")}>
             <PrimaryButton>Get Started With Your Preferred Loan</PrimaryButton>
           </div>
         </div>
