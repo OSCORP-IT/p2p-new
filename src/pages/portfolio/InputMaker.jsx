@@ -165,7 +165,7 @@ function InputMaker({ item, index, data, setData }) {
               <img
                 src={data.response_answers[index].answer_text}
                 alt="uploaded photo"
-                className="w-20 h-20 m-auto"
+                className="w-1/2 h-20 m-auto"
               />
             )}
           {data.response_answers[index].answer_text !== "" &&
@@ -173,7 +173,7 @@ function InputMaker({ item, index, data, setData }) {
               <iframe
                 src={data.response_answers[index].answer_text}
                 width="50%"
-                height="75px"
+                height="80px"
                 title="PDF Viewer"
                 className=""
               ></iframe>

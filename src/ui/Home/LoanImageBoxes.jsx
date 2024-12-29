@@ -9,7 +9,9 @@ import HomeLoan from "../../assets/HomeLoan.png";
 import Invest from "../../assets/Investment.png";
 import SectionLayout from "../SectionLayout";
 import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 function LoanImageBoxes() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <div className="w-11/12 tab:w-3/5 laptop:w-1/2 m-auto">
@@ -51,7 +53,10 @@ function LoanImageBoxes() {
               <Checks />
               <Text>No pre-payment penalty</Text>
             </div>
-            <div className="py-2 w-max m-auto sm:m-0">
+            <div
+              className="py-2 w-max m-auto sm:m-0"
+              onClick={() => navigate("pl/overview")}
+            >
               <Button>Explore</Button>
             </div>
           </div>
@@ -67,7 +72,7 @@ function LoanImageBoxes() {
           <div className="hidden sm:block w-1/2 bg-white shadow-allSide shadow-dropShadow rounded-md tab:px-2 tab:pt-2">
             <img
               src={CreditCard}
-              alt="Personal Loan"
+              alt="Credit Card"
               className="w-full max-w-xs md:max-w-full h-auto rounded-md"
             />
           </div>
@@ -104,7 +109,10 @@ function LoanImageBoxes() {
                 <Checks />
                 <Text>No security deposit required</Text>
               </div>
-              <div className="py-2 w-max m-auto sm:m-0">
+              <div
+                className="py-2 w-max m-auto sm:m-0"
+                onClick={() => navigate("pl/overview")}
+              >
                 <Button>Explore</Button>
               </div>
             </div>
@@ -143,7 +151,10 @@ function LoanImageBoxes() {
               <Checks />
               <Text>Apply in minutes</Text>
             </div>
-            <div className="py-2 w-max m-auto sm:m-0">
+            <div
+              className="py-2 w-max m-auto sm:m-0"
+              onClick={() => navigate("/pl/home-improvement")}
+            >
               <Button>Explore</Button>
             </div>
           </div>
@@ -196,7 +207,10 @@ function LoanImageBoxes() {
                 <Checks />
                 <Text>Empower real people</Text>
               </div>
-              <div className="py-2 w-max m-auto sm:m-0">
+              <div
+                className="py-2 w-max m-auto sm:m-0"
+                onClick={() => navigate("/investment")}
+              >
                 <Button>Explore</Button>
               </div>
             </div>

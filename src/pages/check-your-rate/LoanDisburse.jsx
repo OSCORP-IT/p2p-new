@@ -34,7 +34,11 @@ function LoanDisburse({ data, setPage }) {
         <SubHeading>Loans:</SubHeading>
         <div className="bg-primary/10 rounded-md p-[10px]">
           <Title color={`text-textColor3`}>
-            ৳<span className="font-normal font-abel text-primary"> 20000</span>
+            ৳
+            <span className="font-normal font-abel text-primary">
+              {" "}
+              {data.borrow_amount}
+            </span>
           </Title>
         </div>
       </div>

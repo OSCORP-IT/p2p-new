@@ -15,6 +15,7 @@ import AccentButton from "../../components/AccentButton";
 import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
 import { buildFromResponse } from "./BuildFromResponse";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   data: null,
@@ -24,16 +25,10 @@ const initialState = {
 
 function FormContainer({ portfolio_id, expanded }) {
   const [allPages, setAllPages] = useState(initialState);
-  const [allTotalPages, setAllTotalPages] = useState(1);
-  const [formState, setFormState] = useState(initialState);
+  const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [formPage, setFormPage] = useState(initialState);
-  const [currentFormPage, setCurrentFormPage] = useState(0);
-  const [currentResponseId, setCurrentResponseId] = useState(null);
-  const [currentFormId, setCurrentFormId] = useState(null);
-  const [currentFormPageId, setCurrentFormPageId] = useState(null);
-  const [currentForm, setCurrentForm] = useState(0);
-  const [totalForm, setTotalForm] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [formResponse, setFormResponse] = useState({});
   const user = useSelector((state) => state.auth);
 
@@ -46,25 +41,9 @@ function FormContainer({ portfolio_id, expanded }) {
           loading: false,
           error: null,
         });
-        setFormState({
-          data: data.result.form_responses[currentForm],
-          loading: false,
-          error: null,
-        });
-        setAllTotalPages(data.result.form_response_all_pages.length);
-        setTotalPage(data.result.form_responses[currentForm].form.total_pages);
-        setTotalForm(data.result.form_responses.length);
-        setCurrentFormId(data.result.form_responses[currentForm].form.id);
-        setCurrentResponseId(
-          data.result.form_responses[currentForm].form_response_id
-        );
-        setCurrentFormPageId(
-          data.result.form_responses[currentForm].form.form_pages[
-            currentFormPage
-          ].id
-        );
+        setTotalPages(data.result.form_response_all_pages.length);
       } catch (error) {
-        setFormState({
+        setAllPages({
           data: null,
           loading: false,
           error: "Error fetching form pages",
@@ -72,7 +51,7 @@ function FormContainer({ portfolio_id, expanded }) {
       }
     };
     fetchFormPages();
-  }, [portfolio_id, user.userToken, currentForm, currentFormPage]);
+  }, [portfolio_id, user.userToken]);
   useEffect(() => {
     setFormPage({
       data: null,
@@ -80,13 +59,13 @@ function FormContainer({ portfolio_id, expanded }) {
       error: null,
     });
     const fetchPageFields = async () => {
-      if (formState.data) {
+      if (allPages.data) {
         try {
           const data = await showFormPage(
             portfolio_id,
-            currentFormId,
-            currentFormPageId,
-            currentResponseId,
+            allPages.data[currentIndex].form_id, // currentFormId,
+            allPages.data[currentIndex].id, // currentFormPageId,
+            allPages.data[currentIndex].form_response_id, // currentResponseId,
             user.userToken
           );
           // console.log("Fetched page fields data:", data); // Check the page fields data structure
@@ -109,91 +88,65 @@ function FormContainer({ portfolio_id, expanded }) {
       }
     };
     fetchPageFields();
-  }, [
-    portfolio_id,
-    user.userToken,
-    formState.data,
-    currentFormPageId,
-    currentFormId,
-    currentResponseId,
-  ]);
+  }, [user.userToken, portfolio_id, allPages.data, currentIndex]);
   async function handleNextData() {
-    if (totalPage === currentFormPage + 1) {
-      if (totalForm === currentForm + 1) {
-        return;
-      } else {
-        try {
-          const data = await submitPortfolioResponse(
-            portfolio_id,
-            currentFormId,
-            currentFormPageId,
-            currentResponseId,
-            formResponse,
-            user.userToken
-          );
-          if (data.success) {
-            setCurrentForm((cf) => cf + 1);
-          } else throw new Error();
-        } catch (error) {
-          setFormPage({
-            data: null,
-            loading: false,
-            error: "Error fetching form pages",
-          });
-        }
-      }
-    } else {
-      try {
-        const data = await submitPortfolioResponse(
-          portfolio_id,
-          currentFormId,
-          currentFormPageId,
-          currentResponseId,
-          formResponse,
-          user.userToken
-        );
-        if (data.success) {
-          setCurrentFormPage((cp) => cp + 1);
-          setCurrentFormId(() => formState.data.form.id);
-          setCurrentFormPageId(
-            () => formState.data.form.form_pages[currentFormPage].id
-          );
-        } else throw new Error();
-      } catch (error) {
-        setFormPage({
-          data: null,
-          loading: false,
-          error: "Error fetching form pages",
-        });
-      }
+    try {
+      const data = await submitPortfolioResponse(
+        portfolio_id,
+        allPages.data[currentIndex].form_id, // currentFormId,
+        allPages.data[currentIndex].id, // currentFormPageId,
+        allPages.data[currentIndex].form_response_id, // currentResponseId,
+        formResponse,
+        user.userToken
+      );
+      if (data.success) {
+        setCurrentIndex(currentIndex + 1);
+      } else throw new Error();
+    } catch (error) {
+      setFormPage({
+        data: null,
+        loading: false,
+        error: "Error fetching form pages",
+      });
     }
   }
-  async function handlePrevData() {
-    if (totalPage === currentFormPage + 1) {
-      if (totalPage === 1) {
-        if (currentForm > 0) {
-          setCurrentForm((cf) => cf - 1);
-        }
-      }
-      setCurrentFormPage((cp) => cp - 1);
-    } else {
-      if (currentFormPage === 0) {
-        if (currentForm > 0) {
-          setCurrentForm((cf) => cf - 1);
-        } else return;
-      } else {
-        setCurrentFormPage((cp) => cp - 1);
-      }
+  async function handleSubmit() {
+    try {
+      const data = await submitPortfolioResponse(
+        portfolio_id,
+        allPages.data[currentIndex].form_id, // currentFormId,
+        allPages.data[currentIndex].id, // currentFormPageId,
+        allPages.data[currentIndex].form_response_id, // currentResponseId,
+        formResponse,
+        user.userToken
+      );
+      if (data.success) {
+        navigate("/user/my-loans");
+      } else throw new Error();
+    } catch (error) {
+      setFormPage({
+        data: null,
+        loading: false,
+        error: "Error fetching form pages",
+      });
     }
+  }
+  function handlePrevData() {
+    setCurrentIndex(currentIndex - 1);
   }
   return (
     <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
-      {formState.loading && (
-        <div className="w-1/5">
-          <Skeleton count={3} />
+      {allPages.loading && (
+        <div className="flex items-star gap-8">
+          <div className="w-1/5">
+            <Skeleton count={4} />
+          </div>
+          <div className="w-4/5">
+            <Skeleton count={10} />
+          </div>
         </div>
       )}
-      {formState.error && (
+      {allPages.error && (
         <div className="flex gap-2 animate-pulse items-center m-auto w-max h-max">
           <BiError className="text-red-900 text-3xl" />
           <Title>Error Loading Form</Title>
@@ -201,7 +154,7 @@ function FormContainer({ portfolio_id, expanded }) {
       )}
 
       <div className="relative flex items-start gap-5 sm:px-5">
-        {formState.data && (
+        {allPages.data && (
           <>
             <div className="block sm:w-[30%] bg-white rounded-md sm:p-[15px]">
               {allPages.data.map((item, index) => (
@@ -209,18 +162,18 @@ function FormContainer({ portfolio_id, expanded }) {
                   <div className="flex items-center gap-2">
                     <div
                       className={`p-2 border-2 ${
-                        index < currentFormPage
+                        index < currentIndex
                           ? "border-accent bg-accent"
-                          : index > currentFormPage
+                          : index > currentIndex
                           ? "border-textColor3/50 bg-white"
                           : "border-accent bg-white"
                       } rounded-full m-auto sm:m-0`}
                     >
                       <FaCircle
                         className={`text-[6px] ${
-                          index + 1 < currentFormPage
+                          index < currentIndex
                             ? "text-white"
-                            : index + 1 > currentFormPage
+                            : index > currentIndex
                             ? "text-textColor3/50"
                             : "text-accent"
                         }`}
@@ -233,12 +186,10 @@ function FormContainer({ portfolio_id, expanded }) {
                       </Text>
                     </div>
                   </div>
-                  {allTotalPages !== index + 1 && (
+                  {totalPages !== index + 1 && (
                     <div
                       className={`h-[15px] w-[15px] border-r-2 border-accent ${
-                        index + 1 < currentFormPage
-                          ? "border-accent"
-                          : "border-textColor3/50"
+                        index + 1 < 1 ? "border-accent" : "border-textColor3/50"
                       }`}
                     ></div>
                   )}
@@ -255,18 +206,18 @@ function FormContainer({ portfolio_id, expanded }) {
                   <div className="flex items-center gap-2 py-1">
                     <div
                       className={`p-2 border-2 ${
-                        index < currentFormPage
+                        index < currentIndex
                           ? "border-accent bg-accent"
-                          : index > currentFormPage
+                          : index > currentIndex
                           ? "border-textColor3/50 bg-white"
                           : "border-accent bg-white"
                       } rounded-full ${expanded ? "" : "m-auto"}`}
                     >
                       <FaCircle
                         className={`text-[6px] ${
-                          index + 1 < currentFormPage
+                          index + 1 < 1
                             ? "text-white"
-                            : index + 1 > currentFormPage
+                            : index + 1 > 1
                             ? "text-textColor3/50"
                             : "text-accent"
                         }`}
@@ -279,16 +230,14 @@ function FormContainer({ portfolio_id, expanded }) {
                       </Text>
                     </div>
                   </div>
-                  {allTotalPages !== index + 1 && (
+                  {totalPages !== index + 1 && (
                     <div
                       className={`${
                         expanded ? "w-[15px] h-[20px]" : "w-[5px] h-[15px]"
                       } ${
                         expanded ? "m-0" : "m-auto"
                       } border-r-2 border-accent ${
-                        index + 1 < currentFormPage
-                          ? "border-accent"
-                          : "border-textColor3/50"
+                        index + 1 < 1 ? "border-accent" : "border-textColor3/50"
                       }`}
                     ></div>
                   )}
@@ -297,7 +246,7 @@ function FormContainer({ portfolio_id, expanded }) {
             </div>
           </>
         )}
-        {formPage.loading && (
+        {!allPages.loading && formPage.loading && (
           <div className="w-4/5">
             <Skeleton count={10} />
           </div>
@@ -316,32 +265,23 @@ function FormContainer({ portfolio_id, expanded }) {
                   />
                 </div>
               ))}
-
-              {currentFormPage < totalPage && (
-                <div className="flex items-center gap-4">
-                  {(currentFormPage !== 0 || currentForm !== 0) && (
-                    <div className="w-max m-auto pt-8" onClick={handlePrevData}>
-                      <AccentButton leftIcon={true}>Previous Page</AccentButton>
-                    </div>
-                  )}
+              <div className="flex items-center gap-4">
+                {currentIndex > 0 && (
+                  <div className="w-max m-auto pt-8" onClick={handlePrevData}>
+                    <AccentButton leftIcon={true}>Previous Page</AccentButton>
+                  </div>
+                )}
+                {currentIndex + 1 < totalPages && (
                   <div className="w-max m-auto pt-8" onClick={handleNextData}>
                     <AccentButton>Next Page</AccentButton>
                   </div>
-                </div>
-              )}
-              {currentFormPage == totalPage && (
-                <div className="flex items-center gap-4">
-                  <div
-                    className="w-max m-auto pt-8"
-                    onClick={() => setCurrentFormPage(currentFormPage - 1)}
-                  >
-                    <AccentButton leftIcon={true}>Previous Page</AccentButton>
-                  </div>
-                  <div className="w-max m-auto pt-8">
+                )}
+                {currentIndex + 1 === totalPages && (
+                  <div className="w-max m-auto pt-8" onClick={handleSubmit}>
                     <AccentButton>Submit</AccentButton>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </>
         )}

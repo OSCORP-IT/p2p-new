@@ -97,13 +97,7 @@ function CheckYourRate() {
             setPage={setPage}
           />
         )}
-        {page === 8 && (
-          <LoanDisburse
-            data={portfolioData}
-            setData={setPortfolioData}
-            setPage={setPage}
-          />
-        )}
+        {page === 8 && <LoanDisburse data={portfolioData} setPage={setPage} />}
         {page === 9 && (
           <SetPassword
             data={userData}
