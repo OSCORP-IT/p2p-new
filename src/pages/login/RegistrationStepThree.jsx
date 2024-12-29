@@ -71,6 +71,7 @@ function RegistrationStepThree({ setPage, data, setData }) {
               logIn({
                 token: response.result.token,
                 name: response.result.client.first_name,
+                profileImage: response.result.client.profile_image,
               })
             );
             navigate("/");
