@@ -34,11 +34,13 @@ import Transaction from "./pages/transaction/Transaction";
 import AdminContact from "./pages/admin-contact/AdminContact";
 import Settings from "./pages/settings/Settings";
 import Profile from "./pages/profile/Profile";
+import Error from "./ui/Error";
 import Disbursement from "./pages/disbursement/Disbursement";
 
 const router = createBrowserRouter([
   {
     element: <Applayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -137,46 +139,57 @@ const router = createBrowserRouter([
   {
     path: "/check-rate",
     element: <CheckYourRate />,
+    errorElement: <Error />,
   },
   {
     path: "/auth/login",
     element: <LogIn />,
+    errorElement: <Error />,
   },
   {
     path: "/auth/registration",
     element: <Registration />,
+    errorElement: <Error />,
   },
   {
     path: "/form/:portfolio_id",
     element: <Form />,
+    errorElement: <Error />,
   },
   {
     path: "/user/dashboard",
     element: <UserDashboard />,
+    errorElement: <Error />,
   },
   {
     path: "/user/my-loans",
     element: <MyLoans />,
+    errorElement: <Error />,
   },
   {
     path: "/user/transaction",
     element: <Transaction />,
+    errorElement: <Error />,
   },
   {
     path: "/user/admin-contact",
     element: <AdminContact />,
+    errorElement: <Error />,
   },
   {
     path: "/user/settings",
     element: <Settings />,
+    errorElement: <Error />,
   },
   {
     path: "/user/profile",
     element: <Profile />,
+    errorElement: <Error />,
   },
   {
     path: "/user/disbursement",
     element: <Disbursement />,
+    errorElement: <Error />,
   },
 ]);
 function App() {

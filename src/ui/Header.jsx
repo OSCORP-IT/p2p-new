@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Text from "../components/Text";
 import SmallText from "../components/SmallText";
@@ -7,6 +7,10 @@ import Logo from "../assets/WhiteLogo.png";
 import { FiLogIn } from "react-icons/fi";
 import Small from "../components/Small";
 import EN from "../assets/EN.svg";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { CgProfile } from "react-icons/cg";
+import { BiLogOut } from "react-icons/bi";
+import { logOut } from "../features/authentication/authSlice";
 
 const menuItems = [
   {
@@ -66,9 +70,27 @@ const menuItems = [
 const Header = () => {
   const nav = useNavigate();
   const user = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [stickyMenu, setStickyMenu] = useState(false);
+  const middleRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (middleRef.current && !middleRef.current.contains(event.target)) {
+        setIsProfileOpen(false); // Call the function passed via props
+      }
+    };
+
+    // Attach event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup event listener on unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsProfileOpen]);
   useEffect(() => {
     const handleScroll = () => {
       setStickyMenu(window.scrollY > 100); // Adjust the scroll value as needed
@@ -155,16 +177,64 @@ const Header = () => {
                   </button>
                 )}
                 {user.isLoggedIn && (
-                  <div
-                    onClick={() => nav("/user/dashboard")}
-                    className="flex items-center gap-2 cursor-pointer p-1 hover hover:bg-secondary/20"
-                  >
-                    <img
-                      src="https://www.admin-p2p.alzakati.com/assets/images/avator.png"
-                      alt="profile image"
-                      className="w-10 h-10 rounded-full object-center"
-                    />
-                    <Text color={`white`}>{user.userName}</Text>
+                  <div className="relative">
+                    <div
+                      onClick={() => setIsProfileOpen(true)}
+                      className="flex items-center gap-2 cursor-pointer p-1"
+                    >
+                      <img
+                        src="https://www.admin-p2p.alzakati.com/assets/images/avator.png"
+                        alt="profile image"
+                        className="w-10 h-10 rounded-full object-center"
+                      />
+                      <Text color={`white`}>{user.userName}</Text>
+                    </div>
+                    {isProfileOpen && (
+                      <div
+                        ref={middleRef}
+                        className="p-2 absolute z-10 top-12 bg-primary rounded-md w-full"
+                      >
+                        <div
+                          onClick={() => nav(`/user/dashboard`)}
+                          className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
+                        >
+                          <LuLayoutDashboard className="text-white text-xl" />
+                          <Text
+                            color={`white`}
+                            padding={`py-0`}
+                            font={`font-semibold`}
+                          >
+                            Dashboard
+                          </Text>
+                        </div>
+                        <div
+                          onClick={() => nav(`/user/profile`)}
+                          className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
+                        >
+                          <CgProfile className="text-white text-xl" />
+                          <Text
+                            color={`white`}
+                            padding={`py-0`}
+                            font={`font-semibold`}
+                          >
+                            Profile
+                          </Text>
+                        </div>
+                        <div
+                          onClick={() => dispatch(logOut())}
+                          className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer "
+                        >
+                          <BiLogOut className="text-white text-xl" />
+                          <Text
+                            color={`white`}
+                            padding={`py-0`}
+                            font={`font-semibold`}
+                          >
+                            Log Out
+                          </Text>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </>
@@ -214,18 +284,66 @@ const Header = () => {
             </button>
           )}
           {user.isLoggedIn && (
-            <div
-              onClick={() => nav("/user/dashboard")}
-              className="flex items-center gap-2 cursor-pointer  rounded-md p-1 hover hover:bg-secondary/20"
-            >
-              <img
-                src="https://www.admin-p2p.alzakati.com/assets/images/avator.png"
-                alt="profile image"
-                className="w-10 h-10 rounded-full object-center"
-              />
-              <Text color={`white`} font={`font-semibold`}>
-                {user.userName}
-              </Text>
+            <div className="relative">
+              <div
+                onClick={() => setIsProfileOpen(true)}
+                className="flex items-center gap-2 cursor-pointer  rounded-md p-1 hover hover:bg-secondary/20"
+              >
+                <img
+                  src="https://www.admin-p2p.alzakati.com/assets/images/avator.png"
+                  alt="profile image"
+                  className="w-10 h-10 rounded-full object-center"
+                />
+                <Text color={`white`} font={`font-semibold`}>
+                  {user.userName}
+                </Text>
+              </div>
+              {isProfileOpen && (
+                <div
+                  ref={middleRef}
+                  className="p-2 absolute z-10 top-12 bg-primary rounded-md w-full"
+                >
+                  <div
+                    onClick={() => nav(`/user/dashboard`)}
+                    className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
+                  >
+                    <LuLayoutDashboard className="text-white text-xl" />
+                    <Text
+                      color={`white`}
+                      padding={`py-0`}
+                      font={`font-semibold`}
+                    >
+                      Dashboard
+                    </Text>
+                  </div>
+                  <div
+                    onClick={() => nav(`/user/profile`)}
+                    className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
+                  >
+                    <CgProfile className="text-white text-xl" />
+                    <Text
+                      color={`white`}
+                      padding={`py-0`}
+                      font={`font-semibold`}
+                    >
+                      Profile
+                    </Text>
+                  </div>
+                  <div
+                    onClick={() => dispatch(logOut())}
+                    className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer "
+                  >
+                    <BiLogOut className="text-white text-xl" />
+                    <Text
+                      color={`white`}
+                      padding={`py-0`}
+                      font={`font-semibold`}
+                    >
+                      Log Out
+                    </Text>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
