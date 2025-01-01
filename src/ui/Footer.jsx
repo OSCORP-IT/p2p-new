@@ -10,7 +10,7 @@ import PhoneCall from "../assets/PhoneCall.svg";
 import Mail from "../assets/Mail.svg";
 function Footer() {
   return (
-    <div className="bg-primary mt-12 sm:mt-16 py-5 px-4 sm:px-0">
+    <div className="bg-primary mt-12 sm:mt-[100px] py-5 px-4 sm:px-0">
       <div
         className="sm:mx-4 tab:mx-auto  tab:w-11/12 laptop:w-5/6 bg-cover bg-no-repeat  z-50  rounded-md -mt-16 sm:-mt-[100px] mb-6"
         style={{ backgroundImage: `url(${newsLetterBg})` }}

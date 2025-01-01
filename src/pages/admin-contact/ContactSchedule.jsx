@@ -9,7 +9,7 @@ const initialMeetingData = {
   type: "",
   preferred_date: "",
   preferred_time: "",
-  notes: "ehgfbkdfsfvbkjsdffbvjksdfjvb",
+  notes: "A generic note",
 };
 const initialTicketData = {
   subject: "",

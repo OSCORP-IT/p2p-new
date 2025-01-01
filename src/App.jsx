@@ -36,6 +36,8 @@ import Settings from "./pages/settings/Settings";
 import Profile from "./pages/profile/Profile";
 import Error from "./ui/Error";
 import Disbursement from "./pages/disbursement/Disbursement";
+import AboutUs from "./pages/about/AboutUs";
+import ContactUs from "./pages/contact/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
       },
       {
         path: "/investment",

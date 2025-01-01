@@ -52,12 +52,12 @@ const menuItems = [
   },
   {
     name: "About Us",
-    path: "/",
+    path: "/about-us",
     subItems: [],
   },
   {
     name: "Contact",
-    path: "/",
+    path: "/contact-us",
     subItems: [],
   },
   {
@@ -71,6 +71,8 @@ const Header = () => {
   const nav = useNavigate();
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(window.location.pathname);
+  console.log(currentPage);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
@@ -102,7 +104,10 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const handleClickMenu = (location) => {
+    setCurrentPage(location);
+    nav(location);
+  };
   const handleSubMenuToggle = (index) => {
     setActiveSubMenu(activeSubMenu === index ? null : index);
   };
@@ -113,7 +118,7 @@ const Header = () => {
         <div className="hidden tab:block">
           <div className="w-full bg-primary py-3 border-b border-b-gray-400">
             <div className="flex justify-between px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto">
-              <img src={Logo} alt="logo" onClick={() => nav("/")} />
+              <img src={Logo} alt="logo" onClick={() => handleClickMenu("/")} />
               <div className="flex items-center gap-8 divide-x">
                 <div>
                   <Small align={`text-center`} padding={`py-0`} color={`white`}>
@@ -152,10 +157,12 @@ const Header = () => {
                   <div key={index} className="relative group z-50">
                     <button
                       className="hover:bg-secondary/30 rounded-md px-3 py-2"
-                      onClick={() => nav(menu.path)}
+                      onClick={() => handleClickMenu(menu.path)}
                     >
                       <SmallText
-                        color={`white uppercase`}
+                        color={`${
+                          currentPage === menu.path ? "accent" : "white"
+                        } uppercase`}
                         font={`font-semibold tracking-wider`}
                       >
                         {menu.name}
