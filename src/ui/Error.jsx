@@ -8,7 +8,7 @@ function Error() {
   return (
     <div className="h-screen">
       <Header />
-      <div className="px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto leading-none py-8">
+      <div className="px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto leading-none py-[100px]">
         <div className="w-max m-auto">
           <h1 className="text-[70px] text-center font-bold font-poppins text-secondary/40 z-10">
             Error
@@ -30,7 +30,9 @@ function Error() {
           </SubHeading>
         </div>
       </div>
-      <Footer />
+      <div className="pt-20">
+        <Footer />
+      </div>
     </div>
   );
 }

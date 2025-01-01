@@ -111,7 +111,7 @@ const Header = () => {
     <header>
       <nav className="">
         <div className="hidden tab:block">
-          <div className="w-full bg-primary py-3 border-b border-b-white">
+          <div className="w-full bg-primary py-3 border-b border-b-gray-400">
             <div className="flex justify-between px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto">
               <img src={Logo} alt="logo" onClick={() => nav("/")} />
               <div className="flex items-center gap-8 divide-x">
