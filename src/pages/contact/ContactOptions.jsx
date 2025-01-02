@@ -1,7 +1,7 @@
 import Heading1 from "../../components/Heading1";
 import Text from "../../components/Text";
 import SubHeading from "../../components/SubHeading";
-import AccentButton from "../../components/AccentButton";
+import PrimaryButton from "../../components/PrimaryButton";
 import SectionLayout from "../../ui/SectionLayout";
 
 import {
@@ -13,9 +13,9 @@ import { ImLocation } from "react-icons/im";
 function ContactOptions() {
   return (
     <SectionLayout>
-      <div className="flex flex-col sm:flex-row relative p-10 items-start gap-6 overflow-hidden rounded-md shadow-allSide shadow-secondary/20">
+      <div className="flex flex-col sm:flex-row relative p-10 items-start overflow-hidden rounded-md shadow-allSide shadow-secondary/20">
         <div className="w-[120px] h-[120px] tab:w-[180px] tab:h-[180px] bg-primary/80 blur-[130px] rounded-full absolute -top-14 am:-top-12 -right-4 sm:-right-6 tab:-right-4"></div>
-        <div className="w-full sm:w-1/2">
+        <div className="w-full sm:w-1/2 px-3 tab:px-6">
           <Heading1 padding={`py-2`} font={`font-semibold font-poppins`}>
             Meet Us
           </Heading1>
@@ -47,12 +47,12 @@ function ContactOptions() {
               <ImLocation className="text-2xl" />
               <SubHeading font={`font-normal`} padding={"py-0"}>
                 <span className="font-semibold">Location:</span> House#32,
-                Road#19 Banani, Dhaka-1213
+                Road#19, Banani, Dhaka-1213
               </SubHeading>
             </div>
           </div>
         </div>
-        <div className="w-full sm:w-1/2 ">
+        <div className="w-full sm:w-1/2 px-3 tab:px-6 border-l border-l-gray-400">
           <Heading1 padding={`py-2`} font={`font-semibold font-poppins`}>
             Write Us
           </Heading1>
@@ -75,7 +75,9 @@ function ContactOptions() {
               className="w-full border-2 border-gray-400 rounded-md p-2 resize-none"
             />
             <div className="mt-2 w-max m-auto">
-              <AccentButton>Submit</AccentButton>
+              <PrimaryButton bg={`accent`} noIcon={true}>
+                Submit
+              </PrimaryButton>
             </div>
           </div>
         </div>
