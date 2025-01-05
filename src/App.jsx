@@ -29,6 +29,7 @@ import Registration from "./pages/login/Registration";
 import useAutoLogout from "./useAutoLogOut";
 import Form from "./pages/portfolio/Form";
 import UserDashboard from "./pages/user-dashboard/UserDashboard";
+import InvestmentDashboard from "./pages/investment-dashboard/InvestmentDashboard";
 import MyLoans from "./pages/my-loans/MyLoans";
 import Transaction from "./pages/transaction/Transaction";
 import AdminContact from "./pages/admin-contact/AdminContact";
@@ -199,6 +200,11 @@ const router = createBrowserRouter([
   {
     path: "/user/disbursement",
     element: <Disbursement />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/investment/dashboard",
+    element: <InvestmentDashboard />,
     errorElement: <Error />,
   },
 ]);
