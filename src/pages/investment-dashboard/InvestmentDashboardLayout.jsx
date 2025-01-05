@@ -81,7 +81,7 @@ function DashboardLayout({ active, children }) {
                 </div>
               </div>
               <div
-                onClick={() => navigate("/investment/my-loans")}
+                onClick={() => navigate("/investment/my-investments")}
                 className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
                   active === "loan" ? "border-l-4 border-l-accent" : ""
                 } flex items-center justify-end`}

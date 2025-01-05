@@ -39,6 +39,7 @@ import Error from "./ui/Error";
 import Disbursement from "./pages/disbursement/Disbursement";
 import AboutUs from "./pages/about/AboutUs";
 import ContactUs from "./pages/contact/ContactUs";
+import MyInvestment from "./pages/my-investments/MyInvestment";
 
 const router = createBrowserRouter([
   {
@@ -205,6 +206,11 @@ const router = createBrowserRouter([
   {
     path: "/investment/dashboard",
     element: <InvestmentDashboard />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/investment/my-investments",
+    element: <MyInvestment />,
     errorElement: <Error />,
   },
 ]);
