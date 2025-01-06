@@ -7,7 +7,10 @@ import SmallText from "../../components/SmallText";
 function MyInvestment() {
   const [invests, setInvests] = useState([1]);
   return (
-    <InvestmentDashboardLayout>
+    <InvestmentDashboardLayout
+      active={"investment"}
+      pageTitle={`My Investments`}
+    >
       <div className="tab:h-full bg-white rounded-md px-4 tab:px-8 py-6 w-full overflow-x-hidden">
         <Heading2 font={`font-bold font-poppins`}>
           Investment Portfolio

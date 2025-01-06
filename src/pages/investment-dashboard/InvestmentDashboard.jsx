@@ -25,7 +25,10 @@ function InvestmentDashboard() {
 
   return (
     <>
-      <InvestmentDashboardLayout active={"dashboard"}>
+      <InvestmentDashboardLayout
+        active={"dashboard"}
+        pageTitle={`Investment Dashboard`}
+      >
         <InitialOverviews />
         <div className="mt-3 w-full flex flex-wrap sm:flex-nowrap items-start gap-2 tab:gap-3">
           <InvestmentFields />

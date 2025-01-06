@@ -16,7 +16,7 @@ import SidebarToggle from "../../icon/SidebarToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../features/authentication/authSlice";
 
-function DashboardLayout({ active, children }) {
+function InvestmentDashboardLayout({ active, children, pageTitle }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
@@ -45,7 +45,7 @@ function DashboardLayout({ active, children }) {
         </div>
       </div>
       <div className="h-[50px] tab:hidden"></div>
-      <div className="flex items-start bg-gray-200">
+      <div className="flex items-start bg-gray-100">
         {/* Sidebar */}
         <div
           className={`fixed tab:relative h-screen z-40 bg-white w-4/6 sm:w-1/3 tab:w-1/5 py-3 tab:py-5 pr-3 tab:pr-5 transition-transform transform ${
@@ -83,19 +83,19 @@ function DashboardLayout({ active, children }) {
               <div
                 onClick={() => navigate("/investment/my-investments")}
                 className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                  active === "loan" ? "border-l-4 border-l-accent" : ""
+                  active === "investment" ? "border-l-4 border-l-accent" : ""
                 } flex items-center justify-end`}
               >
                 <div
                   className={`w-[90%] ${
-                    active === "loan" ? "shadow-md" : ""
+                    active === "investment" ? "shadow-md" : ""
                   } hover:shadow-md py-2 rounded-md`}
                 >
                   <div className="flex gap-2 items-center px-8 m-auto">
-                    <Loans active={active === "loan"} />
+                    <Loans active={active === "investment"} />
                     <Text
                       font={`font-semibold`}
-                      color={active === "loan" ? `accent` : `textColor3`}
+                      color={active === "investment" ? `accent` : `textColor3`}
                     >
                       Investments
                     </Text>
@@ -103,21 +103,21 @@ function DashboardLayout({ active, children }) {
                 </div>
               </div>
               <div
-                onClick={() => navigate("/investment/transaction")}
+                onClick={() => navigate("/investment/performance")}
                 className={`mt-[8px] cursor-pointer  w-full hover:border-l-4 hover:border-l-accent ${
-                  active === "transaction" ? "border-l-4 border-l-accent" : ""
+                  active === "performance" ? "border-l-4 border-l-accent" : ""
                 } flex items-center justify-end`}
               >
                 <div
                   className={`w-[90%] ${
-                    active === "transaction" ? "shadow-md" : ""
+                    active === "performance" ? "shadow-md" : ""
                   } hover:shadow-md py-2 rounded-md`}
                 >
                   <div className="flex gap-2 items-center px-8 m-auto">
-                    <Transaction active={active === "transaction"} />
+                    <Transaction active={active === "performance"} />
                     <Text
                       font={`font-semibold`}
-                      color={active === "transaction" ? `accent` : `textColor3`}
+                      color={active === "performance" ? `accent` : `textColor3`}
                     >
                       Performance
                     </Text>
@@ -222,10 +222,10 @@ function DashboardLayout({ active, children }) {
         {/* Main Content */}
         <div className="w-full tab:w-4/5 tab:pt-4 px-2 tab:px-4 overflow-y-scroll h-screen">
           <div className="hidden tab:flex items-center justify-between pl-2 bg-white tab:bg-transparent">
-            <SubTitle font={`bold`}>Investment Dashboard</SubTitle>
+            <SubTitle font={`bold`}>{pageTitle}</SubTitle>
             <div className="flex items-center gap-4">
               <PrimaryButton bg={`gradient-to-r from-[#ff6b00] to-[#803600]`}>
-                apply for new loan
+                Invest Now
               </PrimaryButton>
               {/* <div className="p-2 bg-white rounded-full">
                 <RiMessengerLine className="text-xl" />
@@ -251,4 +251,4 @@ function DashboardLayout({ active, children }) {
   );
 }
 
-export default DashboardLayout;
+export default InvestmentDashboardLayout;

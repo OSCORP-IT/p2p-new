@@ -40,6 +40,9 @@ import Disbursement from "./pages/disbursement/Disbursement";
 import AboutUs from "./pages/about/AboutUs";
 import ContactUs from "./pages/contact/ContactUs";
 import MyInvestment from "./pages/my-investments/MyInvestment";
+import Performance from "./pages/performance/Performance";
+import InvestmentAdminContact from "./pages/invest-admin-contact/InvestmentAdminContact";
+import InvestmentSettings from "./pages/investment-settings/InvestmentSettings";
 
 const router = createBrowserRouter([
   {
@@ -211,6 +214,21 @@ const router = createBrowserRouter([
   {
     path: "/investment/my-investments",
     element: <MyInvestment />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/investment/performance",
+    element: <Performance />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/investment/admin-contact",
+    element: <InvestmentAdminContact />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/investment/settings",
+    element: <InvestmentSettings />,
     errorElement: <Error />,
   },
 ]);
