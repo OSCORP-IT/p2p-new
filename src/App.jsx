@@ -43,6 +43,8 @@ import MyInvestment from "./pages/my-investments/MyInvestment";
 import Performance from "./pages/performance/Performance";
 import InvestmentAdminContact from "./pages/invest-admin-contact/InvestmentAdminContact";
 import InvestmentSettings from "./pages/investment-settings/InvestmentSettings";
+import ForgotPassword from "./pages/forgot-password/ForgotPassword";
+import InvestmentProfile from "./pages/invest-profile/InvestmentProfile";
 
 const router = createBrowserRouter([
   {
@@ -167,6 +169,11 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
+    path: "/auth/forgot-password",
+    element: <ForgotPassword />,
+    errorElement: <Error />,
+  },
+  {
     path: "/form/:portfolio_id",
     element: <Form />,
     errorElement: <Error />,
@@ -199,6 +206,11 @@ const router = createBrowserRouter([
   {
     path: "/user/profile",
     element: <Profile />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/investment/profile",
+    element: <InvestmentProfile />,
     errorElement: <Error />,
   },
   {

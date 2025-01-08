@@ -108,7 +108,10 @@ function LogIn() {
                 {see && <RiEyeCloseLine className="text-xl" />}
               </div>
             </div>
-            <div className="cursor-pointer flex gap-1 items-center justify-end w-full sm:w-3/4 tab:w-1/2 m-auto">
+            <div
+              onClick={() => navigate("/auth/forgot-password")}
+              className="cursor-pointer flex gap-1 items-center justify-end w-full sm:w-3/4 tab:w-1/2 m-auto"
+            >
               <HiLockClosed className="text-textColor3" />
               <Text color={`textColor3`}>Forgot Password</Text>
             </div>

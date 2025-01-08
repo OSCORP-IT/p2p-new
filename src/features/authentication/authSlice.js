@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const FIVE_MINUTES = 20 * 60 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
 
 // Load initial state from localStorage if session is still valid
 const loadStateFromLocalStorage = () => {
@@ -23,6 +23,7 @@ const loadStateFromLocalStorage = () => {
   // Return default state if session is invalid or expired
   return {
     isLoggedIn: false,
+    accountAs: "loan",
     userToken: "",
     userName: "",
     inTime: "",
@@ -56,6 +57,7 @@ const authSlice = createSlice({
     logOut: (state) => {
       state.isLoggedIn = false;
       state.userToken = "";
+      state.accountAs = "";
       state.userName = "";
       state.inTime = "";
       localStorage.removeItem("authState");

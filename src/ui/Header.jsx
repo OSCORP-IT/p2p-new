@@ -72,7 +72,6 @@ const Header = () => {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(window.location.pathname);
-  console.log(currentPage);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
@@ -307,7 +306,7 @@ const Header = () => {
               </div>
               {isProfileOpen && (
                 <div
-                  ref={middleRef}
+                  // ref={middleRef}
                   className="p-2 absolute z-10 top-12 bg-primary rounded-md w-full"
                 >
                   <div
