@@ -6,7 +6,27 @@ import Title from "../../components/Title";
 import SectionLayout from "../SectionLayout";
 import Contact from "../../assets/contact.png";
 import FAQContainer from "./FAQContainer";
+
+import { useEffect, useState } from "react";
+import { getFaq } from "../../services/FAQ";
 function ContactFAQ() {
+  const [faq, setFaq] = useState({
+    data: null,
+    isLoading: false,
+    isError: false,
+  });
+  useEffect(() => {
+    async function getFAQ() {
+      setFaq({ ...faq, isLoading: true });
+      try {
+        const result = await getFaq("Landing Page");
+        setFaq({ ...faq, data: result.result.faqs, isLoading: false });
+      } catch (error) {
+        setFaq({ ...faq, isError: true, isLoading: false });
+      }
+    }
+    getFAQ();
+  }, []);
   return (
     <SectionLayout>
       <div className="flex flex-wrap tab:flex-nowrap items-center justify-center w-full px-4">
@@ -34,7 +54,7 @@ function ContactFAQ() {
           </div>
         </div>
         <div className="w-full tab:w-1/2 ">
-          <FAQContainer />
+          <FAQContainer faq={faq} />
         </div>
       </div>
     </SectionLayout>

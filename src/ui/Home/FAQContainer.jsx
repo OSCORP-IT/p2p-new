@@ -29,9 +29,8 @@ const faqItems = [
   },
 ];
 
-const FAQContainer = ({ bg, color }) => {
+const FAQContainer = ({ bg, color, faq }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
   const handleToggle = (index) => {
     if (activeIndex === index) {
       setActiveIndex(null); // Close the active item if clicked again
@@ -42,48 +41,51 @@ const FAQContainer = ({ bg, color }) => {
 
   return (
     <div className="p-4 w-full mx-auto bg-white rounded-xl shadow-allSide shadow-gray-200 space-y-4">
-      {faqItems.map((item, index) => (
-        <div key={index}>
-          {/* Question Section */}
-          <div
-            className={`flex rounded-t border-b border-gray-300 px-4 justify-between items-center py-2 cursor-pointer ${
-              activeIndex === index
-                ? `${
-                    bg
-                      ? bg
-                      : `${
-                          color
-                            ? `text-${color} bg-primary`
-                            : "text-white bg-primary"
-                        }`
-                  }`
-                : "bg-white"
-            }
+      {faq.data &&
+        faqItems.map((item, index) => (
+          <div key={index}>
+            {/* Question Section */}
+            <div
+              className={`flex rounded-t border-b border-gray-300 px-4 justify-between items-center py-2 cursor-pointer ${
+                activeIndex === index
+                  ? `${
+                      bg
+                        ? bg
+                        : `${
+                            color
+                              ? `text-${color} bg-primary`
+                              : "text-white bg-primary"
+                          }`
+                    }`
+                  : "bg-white"
+              }
               `}
-            onClick={() => handleToggle(index)}
-          >
-            {activeIndex === index ? (
-              <Text color={`${color ? color : "white"}`}>{item.question}</Text>
-            ) : (
-              <Text>{item.question}</Text>
-            )}
-            <span className="text-2xl pl-2">
-              {activeIndex === index ? "−" : "+"}
-            </span>
-          </div>
+              onClick={() => handleToggle(index)}
+            >
+              {activeIndex === index ? (
+                <Text color={`${color ? color : "white"}`}>
+                  {item.question}
+                </Text>
+              ) : (
+                <Text>{item.question}</Text>
+              )}
+              <span className="text-2xl pl-2">
+                {activeIndex === index ? "−" : "+"}
+              </span>
+            </div>
 
-          {/* Answer Section */}
-          <div
-            className={`overflow-hidden px-4 rounded-b ${
-              bg ? bg : "bg-primary/10"
-            } transition-[max-height] duration-500 ease-in-out ${
-              activeIndex === index ? "max-h-40 py-2" : "max-h-0"
-            }`}
-          >
-            <Text color={"gray-600"}>{item.answer}</Text>
+            {/* Answer Section */}
+            <div
+              className={`overflow-hidden px-4 rounded-b ${
+                bg ? bg : "bg-primary/10"
+              } transition-[max-height] duration-500 ease-in-out ${
+                activeIndex === index ? "max-h-40 py-2" : "max-h-0"
+              }`}
+            >
+              <Text color={"gray-600"}>{item.answer}</Text>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
