@@ -8,7 +8,51 @@ import newsLetterBg from "../assets/NoisyGradients.png";
 import House from "../assets/House.svg";
 import PhoneCall from "../assets/PhoneCall.svg";
 import Mail from "../assets/Mail.svg";
+import { useState } from "react";
+import { subcribeNewletter } from "../services/Newsletter";
+import Heading2 from "../components/Heading2";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 function Footer() {
+  const [floatingNote, setFloatingNote] = useState({
+    state: false,
+    msg: "",
+    flag: "",
+  });
+  const [subsribeData, setSubsribeData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+  });
+  const [isLoading, setIsloading] = useState(false);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setIsloading(true);
+    try {
+      const data = await subcribeNewletter(subsribeData);
+      if (data.success) {
+        setFloatingNote({
+          state: true,
+          msg: "Thank you! You have successfully subscribed our newsletter",
+          flag: "success",
+        });
+        setTimeout(() => {
+          setFloatingNote({ state: false, msg: null });
+        }, 3000);
+        setSubsribeData({
+          first_name: "",
+          last_name: "",
+          email: "",
+        });
+        setIsloading(false);
+      }
+    } catch (err) {
+      setFloatingNote({ state: true, msg: err.message, flag: "failed" });
+      setTimeout(() => {
+        setFloatingNote({ state: false, msg: null });
+      }, 3000);
+      setIsloading(false);
+    }
+  }
   return (
     <div className="bg-primary mt-12 sm:mt-[100px] py-5 px-4 sm:px-0">
       <div
@@ -16,38 +60,85 @@ function Footer() {
         style={{ backgroundImage: `url(${newsLetterBg})` }}
       >
         <div className="bg-primary/70 pt-8 pb-10 px-2 sm:px-16 rounded-md">
-          <Heading1
-            color={`text-white`}
-            align={`text-center`}
-            font={`font-semibold font-poppins leading-tight`}
-            padding={`pb-4`}
-          >
-            Sign up for our newsletter
-          </Heading1>
-          <div className="flex flex-col sm:flex-row items-center gap-2 pt-1 w-full">
-            <div className="w-full sm:w-3/4">
-              <div className="flex flex-col sm:flex-row items-center gap-2">
-                <input
-                  type="text"
-                  className="p-2 rounded-md w-full sm:w-1/2"
-                  placeholder="First Name"
-                />
-                <input
-                  type="text"
-                  className="p-2 rounded-md w-full sm:w-1/2"
-                  placeholder="Last Name"
-                />
-              </div>
-              <input
-                type="email"
-                className="p-2 rounded-md w-full mt-2"
-                placeholder="Email Address"
-              />
-            </div>
-            <button className="w-1/2 m-auto sm:m-0 sm:w-1/4 h-full flex-1 bg-gradient-to-l from-[#ffa412] to-[#7cc600] capitalize rounded-md px-4 py-2 sm:px-6 sm:py-8 text-base font-semibold text-textColor1 text-center">
-              subscribe
-            </button>
-          </div>
+          {!floatingNote.state && (
+            <>
+              <Heading1
+                color={`text-white`}
+                align={`text-center`}
+                font={`font-semibold font-poppins leading-tight`}
+                padding={`pb-4`}
+              >
+                Sign up for our newsletter
+              </Heading1>
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-col sm:flex-row items-center gap-2 pt-1 w-full">
+                  <div className="w-full sm:w-3/4">
+                    <div className="flex flex-col sm:flex-row items-center gap-2">
+                      <input
+                        type="text"
+                        className="p-2 rounded-md w-full sm:w-1/2"
+                        placeholder="First Name"
+                        required
+                        value={subsribeData.first_name}
+                        onChange={(e) =>
+                          setSubsribeData({
+                            ...subsribeData,
+                            first_name: e.target.value,
+                          })
+                        }
+                      />
+                      <input
+                        type="text"
+                        className="p-2 rounded-md w-full sm:w-1/2"
+                        placeholder="Last Name"
+                        required
+                        value={subsribeData.last_name}
+                        onChange={(e) =>
+                          setSubsribeData({
+                            ...subsribeData,
+                            last_name: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                    <input
+                      type="email"
+                      className="p-2 rounded-md w-full mt-2"
+                      placeholder="Email Address"
+                      required
+                      value={subsribeData.email}
+                      onChange={(e) =>
+                        setSubsribeData({
+                          ...subsribeData,
+                          email: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-1/2 m-auto sm:m-0 sm:w-1/4 h-full flex-1 bg-gradient-to-l from-[#ffa412] to-[#7cc600] capitalize rounded-md px-4 py-2 sm:px-6 sm:py-8 text-base font-semibold text-textColor1 text-center"
+                  >
+                    {isLoading ? (
+                      <AiOutlineLoading3Quarters className="animate-spin font-bold text-2xl w-max m-auto" />
+                    ) : (
+                      "subscribe"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
+          {floatingNote.state && (
+            <Heading2
+              align={`text-center`}
+              color={`${
+                floatingNote.flag === "failed" ? "text-accent" : "text-white"
+              }`}
+            >
+              {floatingNote.msg}
+            </Heading2>
+          )}
         </div>
       </div>
       <div>

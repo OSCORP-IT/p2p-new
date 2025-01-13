@@ -10,7 +10,6 @@ import LogOut from "../../icon/LogOut";
 import Text from "../../components/Text";
 import SubTitle from "../../components/SubTitle";
 import PrimaryButton from "../../components/PrimaryButton";
-import { RiMessengerLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import SidebarToggle from "../../icon/SidebarToggle";
@@ -18,11 +17,51 @@ import Disbursement from "../../icon/Disbursement";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../features/authentication/authSlice";
 import { FaAngleDoubleDown } from "react-icons/fa";
+import Heading2 from "../../components/Heading2";
+import { RxCross2 } from "react-icons/rx";
+import { RiCircleFill } from "react-icons/ri";
+const notification = [
+  {
+    title: "Personal Loan Update",
+    message:
+      "Your personal loan application (ID: PL12345) has been approved. Disbursement will occur within 24 hours.",
+    date: "January 01, 2025",
+    status: "unread",
+  },
+  {
+    title: "Payment Reminder",
+    message:
+      "Your monthly payment of $500 for Loan ID: BL56789 is due on Jan 15, 2025.",
+    date: "December 24, 2024",
+    status: "unread",
+  },
+  {
+    title: "General Announcements",
+    message:
+      "We’re introducing flexible repayment options! Check out our new plans now.",
+    date: "December 10, 2024",
+    status: "read",
+  },
+  {
+    title: "Loan Offer",
+    message:
+      "Get a 10% discount on the processing fee for your next education loan! Offer valid until Feb 1, 2025.",
+    date: "December 10, 2024",
+    status: "read",
+  },
+  {
+    title: "General Announcements",
+    message: "Our privacy policy has been updated. Please review the changes.",
+    date: "December 10, 2024",
+    status: "read",
+  },
+];
 
 function DashboardLayout({ active, children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
+  const [notificationIsOpen, setNotificationIsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const handleToggle = () => {
     setSidebarOpen((prevState) => !prevState); // Toggles the value
@@ -42,7 +81,10 @@ function DashboardLayout({ active, children }) {
           {/* <div className="p-2 bg-gray-200 rounded-full">
             <RiMessengerLine className="text-xl" />
           </div> */}
-          <div className="p-2 bg-gray-200 rounded-full">
+          <div
+            className="p-2 bg-gray-200 rounded-full"
+            onClick={() => setNotificationIsOpen(true)}
+          >
             <IoMdNotificationsOutline className="text-xl" />
           </div>
         </div>
@@ -248,7 +290,7 @@ function DashboardLayout({ active, children }) {
         </div>
 
         {/* Main Content */}
-        <div className="w-full tab:w-4/5 tab:pt-4 px-2 tab:px-4 overflow-y-scroll h-screen">
+        <div className="w-full tab:w-4/5 tab:pt-4 px-2 tab:px-4 overflow-y-scroll h-screen relative">
           <div className="hidden tab:flex items-center justify-between pl-2 bg-white tab:bg-transparent">
             <SubTitle font={`bold`}>Dashboard</SubTitle>
             <div className="flex items-center gap-4">
@@ -258,7 +300,10 @@ function DashboardLayout({ active, children }) {
               {/* <div className="p-2 bg-white rounded-full">
                 <RiMessengerLine className="text-xl" />
               </div> */}
-              <div className="p-2 bg-white rounded-full">
+              <div
+                className="p-2 bg-white rounded-full"
+                onClick={() => setNotificationIsOpen(true)}
+              >
                 <IoMdNotificationsOutline className="text-xl" />
               </div>
             </div>
@@ -273,6 +318,53 @@ function DashboardLayout({ active, children }) {
             className="fixed left-0 top-4 z-30 lg:hidden inset-0 bg-black/50"
             onClick={() => setSidebarOpen(false)}
           ></div>
+        )}
+        {notificationIsOpen && (
+          <div className="absolute w-1/3 bg-white z-50 shadow-allSide p-[10px] shadow-gray-300 rounded-md top-2 right-[75px] h-[95%]">
+            <div className="flex justify-between items-center px-[10px]">
+              <Heading2>Notifications</Heading2>
+              <RxCross2
+                className="text-red-600 font-bold text-2xl"
+                onClick={() => setNotificationIsOpen(false)}
+              />
+            </div>
+            {notification.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-left gap-4 border-b border-textColor3"
+              >
+                <div className="p-[10px] w-5/6">
+                  <Text
+                    font={`font-semibold`}
+                    color={`${
+                      item.status === "unread" ? "textColor4" : "textColor3"
+                    }`}
+                  >
+                    {item.title}
+                  </Text>
+                  <h6
+                    className={`${
+                      item.status === "unread"
+                        ? "font-semibold text-textColor4"
+                        : "font-normal text-textColor3"
+                    } text-[11px]`}
+                  >
+                    {item.message}
+                  </h6>
+                  <h6
+                    className={`${
+                      item.status === "unread" ? "font-semibold" : "font-normal"
+                    } text-[11px] text-textColor3`}
+                  >
+                    {item.date}
+                  </h6>
+                </div>
+                {item.status === "unread" && (
+                  <RiCircleFill className="text-xs text-accent" />
+                )}
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </>
