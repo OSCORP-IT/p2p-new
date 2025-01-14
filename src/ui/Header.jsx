@@ -61,8 +61,13 @@ const menuItems = [
     subItems: [],
   },
   {
+    name: "FAQ",
+    path: "/faq",
+    subItems: [],
+  },
+  {
     name: "Blog",
-    path: "/",
+    path: "/blog",
     subItems: [],
   },
 ];

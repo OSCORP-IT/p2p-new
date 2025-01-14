@@ -45,6 +45,8 @@ import InvestmentAdminContact from "./pages/invest-admin-contact/InvestmentAdmin
 import InvestmentSettings from "./pages/investment-settings/InvestmentSettings";
 import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 import InvestmentProfile from "./pages/invest-profile/InvestmentProfile";
+import GetFundReferralForm from "./pages/getfund-referral/GetFundReferralForm";
+import FAQPage from "./pages/faq/FAQPage";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +102,10 @@ const router = createBrowserRouter([
         element: <GetFundReferral />,
       },
       {
+        path: "/get-fund/referral/form",
+        element: <GetFundReferralForm />,
+      },
+      {
         path: "/pl/overview",
         element: <PLOverview />,
       },
@@ -150,6 +156,10 @@ const router = createBrowserRouter([
       {
         path: "/calculator/home-equity",
         element: <HomeEquityCalculator />,
+      },
+      {
+        path: "/faq",
+        element: <FAQPage />,
       },
     ],
   },

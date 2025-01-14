@@ -29,7 +29,7 @@ const faqItems = [
   },
 ];
 
-const FAQContainer = ({ bg, color, faq }) => {
+const FAQContainer = ({ bg, color, faq, noShadow }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const handleToggle = (index) => {
     if (activeIndex === index) {
@@ -40,7 +40,11 @@ const FAQContainer = ({ bg, color, faq }) => {
   };
 
   return (
-    <div className="p-4 w-full mx-auto bg-white rounded-xl shadow-allSide shadow-gray-200 space-y-4">
+    <div
+      className={`p-4 w-full mx-auto bg-white rounded-xl ${
+        noShadow ? "" : "shadow-allSide shadow-gray-200"
+      } space-y-4`}
+    >
       {faq.data &&
         faqItems.map((item, index) => (
           <div key={index}>

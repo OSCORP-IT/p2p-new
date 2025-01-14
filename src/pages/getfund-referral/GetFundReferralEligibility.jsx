@@ -5,7 +5,9 @@ import SectionLayout from "../../ui/SectionLayout";
 import Phone from "../../assets/Phone.png";
 import IconButton from "../../components/IconButton";
 import UsersThree from "../../icon/UsersThree";
+import { useNavigate } from "react-router-dom";
 function GetFundReferralEligibility() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <Title align={`text-center`}>Eligibility</Title>
@@ -35,7 +37,10 @@ function GetFundReferralEligibility() {
               Not in liquidation or insolvent
             </SubHeading>
           </div>
-          <div className="pt-6 w-max m-auto sm:m-0">
+          <div
+            className="pt-6 w-max m-auto sm:m-0"
+            onClick={() => navigate("/get-fund/referral/form")}
+          >
             <IconButton bg={`accent`} text={`start referring`}>
               <UsersThree color={`white`} />
             </IconButton>
