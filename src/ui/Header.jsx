@@ -11,8 +11,22 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { BiLogOut } from "react-icons/bi";
 import { logOut } from "../features/authentication/authSlice";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 
 const menuItems = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "Personal Loans",
+    path: "/pl/overview",
+    subItems: [
+      { name: "Debt", path: "/pl/debt" },
+      { name: "Home Improvement", path: "/pl/home-improvement" },
+      { name: "Special Occasion", path: "/pl/special-occasion" },
+    ],
+  },
   {
     name: "Investment",
     path: "/investment",
@@ -42,33 +56,22 @@ const menuItems = [
     ],
   },
   {
-    name: "Personal Loan (PL)",
-    path: "/pl/overview",
-    subItems: [
-      { name: "Debt", path: "/pl/debt" },
-      { name: "Home Improvement", path: "/pl/home-improvement" },
-      { name: "Special Occasion", path: "/pl/special-occasion" },
-    ],
-  },
-  {
-    name: "About Us",
+    name: "About Company",
     path: "/about-us",
-    subItems: [],
-  },
-  {
-    name: "Contact",
-    path: "/contact-us",
-    subItems: [],
-  },
-  {
-    name: "FAQ",
-    path: "/faq",
-    subItems: [],
-  },
-  {
-    name: "Blog",
-    path: "/blog",
-    subItems: [],
+    subItems: [
+      {
+        name: "Contact Us",
+        path: "/contact-us",
+      },
+      {
+        name: "FAQ",
+        path: "/faq",
+      },
+      {
+        name: "Blog",
+        path: "/blog",
+      },
+    ],
   },
 ];
 
@@ -79,9 +82,10 @@ const Header = () => {
   const [currentPage, setCurrentPage] = useState(window.location.pathname);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [activeSubMenu, setActiveSubMenu] = useState(null);
+  const [subItemShow, setSubItemShow] = useState("");
   const [stickyMenu, setStickyMenu] = useState(false);
   const middleRef = useRef(null);
+  const menuRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (middleRef.current && !middleRef.current.contains(event.target)) {
@@ -98,6 +102,21 @@ const Header = () => {
     };
   }, [setIsProfileOpen]);
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false); // Call the function passed via props
+      }
+    };
+
+    // Attach event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup event listener on unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsMobileMenuOpen]);
+  useEffect(() => {
     const handleScroll = () => {
       setStickyMenu(window.scrollY > 100); // Adjust the scroll value as needed
     };
@@ -108,12 +127,21 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  function handleMobileMenuDropDown(index) {
+    subItemShow !== ""
+      ? subItemShow !== index
+        ? setSubItemShow(index)
+        : setSubItemShow("")
+      : setSubItemShow(index);
+  }
   const handleClickMenu = (location) => {
     setCurrentPage(location);
     nav(location);
   };
-  const handleSubMenuToggle = (index) => {
-    setActiveSubMenu(activeSubMenu === index ? null : index);
+  const handleClickMenuMobile = (location) => {
+    setCurrentPage(location);
+    nav(location);
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -158,8 +186,17 @@ const Header = () => {
               {/* Desktop Menu */}
               <div className="hidden md:flex items-center space-x-4">
                 {menuItems.map((menu, index) => (
-                  <div key={index} className="relative group z-50">
-                    <button
+                  <div
+                    key={index}
+                    className="relative group z-50"
+                    onMouseEnter={() =>
+                      menu.subItems ? setSubItemShow(index) : ""
+                    }
+                    onMouseLeave={() =>
+                      menu.subItems ? setSubItemShow("") : ""
+                    }
+                  >
+                    <div
                       className="hover:bg-secondary/30 rounded-md px-3 py-2"
                       onClick={() => handleClickMenu(menu.path)}
                     >
@@ -171,7 +208,29 @@ const Header = () => {
                       >
                         {menu.name}
                       </SmallText>
-                    </button>
+                    </div>
+                    {subItemShow === index && (
+                      <div className="w-max absolute top-10 left-0 bg-primary p-2 rounded-md">
+                        {menu.subItems.map((subItem, subIndex) => (
+                          <div
+                            key={subIndex}
+                            className="hover:bg-secondary/30 rounded-md px-3 py-2"
+                            onClick={() => handleClickMenu(subItem.path)}
+                          >
+                            <SmallText
+                              font={`font-semibold tracking-wider`}
+                              color={`${
+                                currentPage === subItem.path
+                                  ? "accent"
+                                  : "white"
+                              } uppercase`}
+                            >
+                              {subItem.name}
+                            </SmallText>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -359,36 +418,76 @@ const Header = () => {
           )}
         </div>
         {isMobileMenuOpen && (
-          <div className="tab:hidden pt-4 z-50 sm:pt-4 space-y-2 border-b-2 border-primary fixed top-[55px] sm:top-[65px] w-1/2 h-screen bg-white">
+          <div
+            ref={menuRef}
+            className={`tab:hidden pt-4 z-50 sm:pt-4 space-y-2 border-b-2 border-primary fixed top-[55px] sm:top-[60px] w-2/3 sm:w-[40%] h-screen bg-primary 
+            transition-all duration-300 ease-in-out ${
+              isMobileMenuOpen
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-full"
+            }
+  `}
+          >
             {menuItems.map((menu, index) => (
-              <div key={index} className="space-y-1">
-                {/* Toggle only sub-menu open/close on mobile */}
-                <button
-                  className="w-full text-left px-4 py-2 bg-gray-100 rounded-md text-sm font-medium"
-                  onClick={() => {
-                    handleSubMenuToggle(index);
-                  }}
-                >
-                  {menu.name}
-                </button>
-
-                {/* Conditionally render sub-menus on mobile */}
-                {activeSubMenu === index && menu.subItems.length > 0 && (
-                  <div className="pl-4 space-y-1">
-                    {menu.subItems.map((subItem, subIndex) => (
-                      <button
-                        key={subIndex}
-                        className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 rounded-md"
-                        onClick={() => {
-                          nav(subItem.path);
-                          setIsMobileMenuOpen(false); // Close mobile menu
-                          setActiveSubMenu(null); // Close sub-menu
-                        }}
-                      >
-                        {subItem.name}
-                      </button>
-                    ))}
+              <div
+                key={index}
+                className="flex justify-between items-start pr-2 sm:pr-6"
+                onClick={() =>
+                  menu.subItems
+                    ? handleMobileMenuDropDown(index)
+                    : handleClickMenuMobile(`${menu.path}`)
+                }
+              >
+                <div className="w-full group z-50">
+                  <div className="hover:bg-secondary/30 rounded-md px-3 py-2">
+                    <SmallText
+                      color={`${
+                        currentPage === menu.path ? "accent" : "white"
+                      } uppercase`}
+                      font={`font-semibold tracking-wider`}
+                    >
+                      {menu.name}
+                    </SmallText>
                   </div>
+                  {subItemShow === index && (
+                    <div className="w-max top-10 left-0 bg-primary p-2 rounded-md ml-2">
+                      <div
+                        className="hover:bg-secondary/30 rounded-md px-3 py-2"
+                        onClick={() => handleClickMenuMobile(menu.path)}
+                      >
+                        <SmallText
+                          font={`font-semibold tracking-wider`}
+                          color={`${
+                            currentPage === menu.path ? "accent" : "white"
+                          } uppercase`}
+                        >
+                          {menu.name}
+                        </SmallText>
+                      </div>
+                      {menu.subItems.map((subItem, subIndex) => (
+                        <div
+                          key={subIndex}
+                          className="hover:bg-secondary/30 rounded-md px-3 py-2"
+                          onClick={() => handleClickMenuMobile(subItem.path)}
+                        >
+                          <SmallText
+                            font={`font-semibold tracking-wider`}
+                            color={`${
+                              currentPage === subItem.path ? "accent" : "white"
+                            } uppercase`}
+                          >
+                            {subItem.name}
+                          </SmallText>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {menu.subItems && subItemShow === index && (
+                  <MdArrowDropUp className="text-xl text-white mt-2" />
+                )}
+                {menu.subItems && subItemShow !== index && (
+                  <MdArrowDropDown className="text-xl text-white mt-2" />
                 )}
               </div>
             ))}
