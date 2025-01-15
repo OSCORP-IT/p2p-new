@@ -45,7 +45,8 @@ const FAQContainer = ({ bg, color, faq, noShadow }) => {
         noShadow ? "" : "shadow-allSide shadow-gray-200"
       } space-y-4`}
     >
-      {faq.data &&
+      {
+        // faq.data &&
         faqItems.map((item, index) => (
           <div key={index}>
             {/* Question Section */}
@@ -89,7 +90,8 @@ const FAQContainer = ({ bg, color, faq, noShadow }) => {
               <Text color={"gray-600"}>{item.answer}</Text>
             </div>
           </div>
-        ))}
+        ))
+      }
     </div>
   );
 };

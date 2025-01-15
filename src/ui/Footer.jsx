@@ -12,7 +12,9 @@ import { useState } from "react";
 import { subcribeNewletter } from "../services/Newsletter";
 import Heading2 from "../components/Heading2";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 function Footer() {
+  const navigate = useNavigate();
   const [floatingNote, setFloatingNote] = useState({
     state: false,
     msg: "",
@@ -181,18 +183,26 @@ function Footer() {
               Loans
             </SmallText>
             <div className="pt-1">
-              <SmallText color={`white cursor-pointer`}>
-                Personal Loan
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Debt Consolidation Loan
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Home Improvement Loan
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Special Occasion Loan
-              </SmallText>
+              <div onClick={() => navigate("/pl/overview")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Personal Loan
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/pl/debt")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Debt Consolidation Loan
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/pl/home-improvement")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Home Improvement Loan
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/pl/special-occasion")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Special Occasion Loan
+                </SmallText>
+              </div>
             </div>
           </div>
           <div className="w-[45%] sm:w-max pr-4">
@@ -203,14 +213,26 @@ function Footer() {
               Invest
             </SmallText>
             <div className="pt-1">
-              <SmallText color={`white cursor-pointer`}>Fintech P2P</SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Fintech Islamic
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Fintech Assure
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>Fintech Plus</SmallText>
+              <div onClick={() => navigate("/investment")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Fintech P2P
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/investment/islamic")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Fintech Islamic
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/investment/assure")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Fintech Assure
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/investment/plus")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Fintech Plus
+                </SmallText>
+              </div>
             </div>
           </div>
           <div className="w-[45%] sm:w-max pr-4">
@@ -221,16 +243,26 @@ function Footer() {
               Financing
             </SmallText>
             <div className="pt-1">
-              <SmallText color={`white cursor-pointer`}>
-                Conventional Financing
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Collateral Banked Financing
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Islamic Financing
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>SME Referral</SmallText>
+              <div onClick={() => navigate("/get-fund/conventional")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Conventional Financing
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/get-fund/collateral")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Collateral Banked Financing
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/get-fund/islamic")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Islamic Financing
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/get-fund/referral")}>
+                <SmallText color={`white cursor-pointer`}>
+                  SME Referral
+                </SmallText>
+              </div>
             </div>
           </div>
           <div className="w-[45%] sm:w-max pr-4">
@@ -241,15 +273,21 @@ function Footer() {
               Resources
             </SmallText>
             <div className="pt-1">
-              <SmallText color={`white cursor-pointer`}>
-                Personal Loan Calculator
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Debt Consolidation Calculator
-              </SmallText>
-              <SmallText color={`white cursor-pointer`}>
-                Home Equity Calculator
-              </SmallText>
+              <div onClick={() => navigate("/calculator/personal")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Personal Loan Calculator
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/calculator/debt")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Debt Consolidation Calculator
+                </SmallText>
+              </div>
+              <div onClick={() => navigate("/calculator/home-equity")}>
+                <SmallText color={`white cursor-pointer`}>
+                  Home Equity Calculator
+                </SmallText>
+              </div>
             </div>
           </div>
           <div className="w-[45%] sm:w-max pr-4">
@@ -260,10 +298,18 @@ function Footer() {
               about fintech
             </SmallText>
             <div className="pt-1">
-              <SmallText color={`white cursor-pointer`}>Blog</SmallText>
-              <SmallText color={`white cursor-pointer`}>FAQ</SmallText>
-              <SmallText color={`white cursor-pointer`}>About Us</SmallText>
-              <SmallText color={`white cursor-pointer`}>Contact Us</SmallText>
+              <div onClick={() => navigate("/blog")}>
+                <SmallText color={`white cursor-pointer`}>Blog</SmallText>
+              </div>
+              <div onClick={() => navigate("/faq")}>
+                <SmallText color={`white cursor-pointer`}>FAQ</SmallText>
+              </div>
+              <div onClick={() => navigate("/about-us")}>
+                <SmallText color={`white cursor-pointer`}>About Us</SmallText>
+              </div>
+              <div onClick={() => navigate("/contact-us")}>
+                <SmallText color={`white cursor-pointer`}>Contact Us</SmallText>
+              </div>
             </div>
           </div>
           {/* <div className="w-[35%] hidden tab:block">

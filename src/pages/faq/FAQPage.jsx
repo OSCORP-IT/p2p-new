@@ -1,10 +1,14 @@
 import SectionLayout from "../../ui/SectionLayout";
 import Heading1 from "../../components/Heading1";
-import Heading2 from "../../components/Heading2";
 import FAQ from "../../assets/FAQ.png";
 import Text from "../../components/Text";
-import FAQContainer from "../../ui/Home/FAQContainer";
 import { useState } from "react";
+import PersonalFAQ from "./PersonalFAQ";
+import BusinessFAQ from "./BusinessFAQ";
+import FinanceFAQ from "./FinanceFAQ";
+import IslamicFAQ from "./IslamicFAQ";
+import InvestmentFAQ from "./InvestmentFAQ";
+
 function FAQPage() {
   const [currentPage, setCurrentPage] = useState(null);
   return (
@@ -32,7 +36,7 @@ function FAQPage() {
               </div>
               <div
                 className="cursor-pointer"
-                onClick={() => setCurrentPage("pl")}
+                onClick={() => setCurrentPage("bl")}
               >
                 <Text color={`accent underline`} font={`font-semibold`}>
                   Business Loan
@@ -42,7 +46,7 @@ function FAQPage() {
             <div className="py-2 flex justify-between items-center w-3/4">
               <div
                 className="cursor-pointer"
-                onClick={() => setCurrentPage("pl")}
+                onClick={() => setCurrentPage("fi")}
               >
                 <Text color={`accent underline`} font={`font-semibold`}>
                   Financing
@@ -50,7 +54,7 @@ function FAQPage() {
               </div>
               <div
                 className="cursor-pointer"
-                onClick={() => setCurrentPage("pl")}
+                onClick={() => setCurrentPage("isf")}
               >
                 <Text color={`accent underline`} font={`font-semibold`}>
                   Islamic Financing
@@ -60,7 +64,7 @@ function FAQPage() {
             <div className=" flex justify-between items-center w-3/4">
               <div
                 className=" cursor-pointer"
-                onClick={() => setCurrentPage("pl")}
+                onClick={() => setCurrentPage("inv")}
               >
                 <Text color={`accent underline`} font={`font-semibold`}>
                   Investment
@@ -70,32 +74,12 @@ function FAQPage() {
           </div>
         </div>
       )}
-      {currentPage === "pl" && (
-        <>
-          <Heading1 align={`text-center`}>FAQ for Personal Loan</Heading1>
-          <div className="py-4">
-            <Heading2 color={`text-accent`} padding={`pt-1 pb-4`}>
-              General Enquiries
-            </Heading2>
-            <FAQContainer
-              faq={{ data: [] }}
-              bg={`bg-accent/10`}
-              color={`textColor4`}
-              noShadow={true}
-            />
-          </div>
-          <div className="py-4">
-            <Heading2 color={`text-accent`} padding={`pt-1 pb-4`}>
-              Fintech Platinum
-            </Heading2>
-            <FAQContainer
-              faq={{ data: [] }}
-              bg={`bg-accent/10`}
-              color={`textColor4`}
-              noShadow={true}
-            />
-          </div>
-        </>
+      {currentPage === "pl" && <PersonalFAQ setCurrentPage={setCurrentPage} />}
+      {currentPage === "bl" && <BusinessFAQ setCurrentPage={setCurrentPage} />}
+      {currentPage === "fi" && <FinanceFAQ setCurrentPage={setCurrentPage} />}
+      {currentPage === "isf" && <IslamicFAQ setCurrentPage={setCurrentPage} />}
+      {currentPage === "inv" && (
+        <InvestmentFAQ setCurrentPage={setCurrentPage} />
       )}
     </SectionLayout>
   );
