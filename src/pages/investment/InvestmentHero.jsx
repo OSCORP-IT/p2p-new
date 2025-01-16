@@ -5,7 +5,9 @@ import PrimaryButton from "../../components/PrimaryButton";
 import SmallText from "../../components/SmallText";
 import Title from "../../components/Title";
 import Sheild from "../../icon/Sheild";
+import { useNavigate } from "react-router-dom";
 function InvestmentHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative overflow-hidden pt-8 flex items-end">
       <div className="absolute -top-20 -left-2 -z-50 blur-[150px] bg-secondary/60 rounded-full w-[450px] h-[450px]  overflow-hidden"></div>
@@ -19,7 +21,10 @@ function InvestmentHero() {
           </div>
           <div className="flex gap-4 py-6 items-center w-max m-auto">
             <PrimaryButton>invest now</PrimaryButton>
-            <IconButton text={"contact us"}>
+            <IconButton
+              text={"contact us"}
+              onClick={() => navigate("/contact-us")}
+            >
               <TbHeadset className="font-semibold text-lg" />
             </IconButton>
           </div>

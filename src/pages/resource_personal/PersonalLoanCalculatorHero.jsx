@@ -8,9 +8,19 @@ import BorrowScreen from "./BorrowScreen";
 import IncomeScreen from "./IncomeScreen";
 import PreTaxScreen from "./PreTaxScreen";
 import HaveHomeScreen from "./HaveHomeScreen";
+import CalculationResult from "./CalculationResult";
 
 function PersonalLoanCalculatorHero() {
   const [page, setPage] = useState(1);
+  const [data, setData] = useState({
+    credit_score_min: "680",
+    credit_score_max: "700",
+    borrow_amount: "12000",
+    income_source: "",
+    estimated_annual_pre_tax_income: "100000",
+    home_ownership: "",
+    year: "3",
+  });
 
   return (
     <div className="w-full relative overflow-hidden">
@@ -46,11 +56,30 @@ function PersonalLoanCalculatorHero() {
         <div className="w-full tab:w-[50%] p-6 my-6 tab:m-0">
           <div className="w-full shadow-allSide shadow-accent/60 rounded-md">
             <div className="bg-primary -rotate-[8deg] rounded-[15px]">
-              {page === 1 && <CreditScoreScreen setPage={setPage} />}
-              {page === 2 && <BorrowScreen setPage={setPage} />}
-              {page === 3 && <IncomeScreen setPage={setPage} />}
-              {page === 4 && <PreTaxScreen setPage={setPage} />}
-              {page === 5 && <HaveHomeScreen setPage={setPage} />}
+              {page === 1 && (
+                <CreditScoreScreen
+                  setPage={setPage}
+                  data={data}
+                  setData={setData}
+                />
+              )}
+              {page === 2 && (
+                <BorrowScreen setPage={setPage} data={data} setData={setData} />
+              )}
+              {page === 3 && (
+                <IncomeScreen setPage={setPage} data={data} setData={setData} />
+              )}
+              {page === 4 && (
+                <PreTaxScreen setPage={setPage} data={data} setData={setData} />
+              )}
+              {page === 5 && (
+                <HaveHomeScreen
+                  setPage={setPage}
+                  data={data}
+                  setData={setData}
+                />
+              )}
+              {page === 6 && <CalculationResult data={data} />}
             </div>
           </div>
         </div>

@@ -1,12 +1,10 @@
 import SubHeading from "../../components/SubHeading";
-import { useState } from "react";
 import Text from "../../components/Text";
 import Heading2 from "../../components/Heading2";
-function HaveHomeScreen({ setPage }) {
-  const [haveHome, setHaveHome] = useState(true);
+function HaveHomeScreen({ setPage, data, setData }) {
   function handleclick(value) {
-    setHaveHome(value);
-    setPage(5);
+    setData({ ...data, home_ownership: value });
+    setPage(6);
   }
   return (
     <div className="bg-white rotate-[8deg] rounded-[15px] p-[20px]">
@@ -23,17 +21,17 @@ function HaveHomeScreen({ setPage }) {
       <div className="p-4">
         <div
           className={`w-[90%] m-auto p-3 rounded-md ${
-            haveHome ? "bg-primary/20" : "bg-accent/20"
+            data.home_ownership === "own" ? "bg-primary/20" : "bg-accent/20"
           } cursor-pointer hover:bg-primary/20`}
-          onClick={() => handleclick(true)}
+          onClick={() => handleclick("own")}
         >
           <SubHeading align={`text-center`}>Own</SubHeading>
         </div>
         <div
           className={`w-[90%] mt-6 m-auto p-3 rounded-md ${
-            !haveHome ? "bg-primary/20" : "bg-accent/20"
+            data.home_ownership === "rent" ? "bg-primary/20" : "bg-accent/20"
           } cursor-pointer hover:bg-primary/20`}
-          onClick={() => handleclick(false)}
+          onClick={() => handleclick("rent")}
         >
           <SubHeading align={`text-center`}>Rent</SubHeading>
         </div>

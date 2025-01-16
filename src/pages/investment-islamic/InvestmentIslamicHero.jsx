@@ -8,7 +8,9 @@ import Title from "../../components/Title";
 import Sheild from "../../icon/Sheild";
 import SectionLayout from "../../ui/SectionLayout";
 import SubTitle from "../../components/SubTitle";
+import { useNavigate } from "react-router-dom";
 function InvestmentIslamicHero() {
+  const navigate = useNavigate();
   return (
     <div
       className="bg-cover bg-right w-full tab:h-[450px]"
@@ -34,7 +36,11 @@ function InvestmentIslamicHero() {
         </div>
         <div className="flex gap-4 py-6 items-center">
           <PrimaryButton bg={`accent`}>invest now</PrimaryButton>
-          <IconButton text={"contact us"} bg={`accent`}>
+          <IconButton
+            text={"contact us"}
+            bg={`accent`}
+            onClick={() => navigate("/contact-us")}
+          >
             <TbHeadset className="font-semibold text-lg" />
           </IconButton>
         </div>

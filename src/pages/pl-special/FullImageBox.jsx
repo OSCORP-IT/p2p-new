@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import AccentButton from "../../components/AccentButton";
 import Heading2 from "../../components/Heading2";
 import SubHeading from "../../components/SubHeading";
@@ -9,6 +10,7 @@ function FullImageBox({
   text,
   rowReverese,
 }) {
+  const navigate = useNavigate();
   return (
     <div
       className={`w-full flex ${
@@ -35,7 +37,10 @@ function FullImageBox({
               >
                 {text}
               </SubHeading>
-              <div className="w-max m-auto sm:m-0 pt-2 tab:pt-4">
+              <div
+                className="w-max m-auto sm:m-0 pt-2 tab:pt-4"
+                onClick={() => navigate("/check-rate")}
+              >
                 <AccentButton noIcon={true}>check your rate</AccentButton>
               </div>
             </div>
@@ -59,7 +64,10 @@ function FullImageBox({
               >
                 {text}
               </SubHeading>
-              <div className="w-max m-auto sm:m-0 pt-2 tab:pt-4">
+              <div
+                className="w-max m-auto sm:m-0 pt-2 tab:pt-4"
+                onClick={() => navigate("/check-rate")}
+              >
                 <AccentButton noIcon={true}>check your rate</AccentButton>
               </div>
             </div>

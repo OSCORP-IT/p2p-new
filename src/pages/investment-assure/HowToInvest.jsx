@@ -6,7 +6,9 @@ import SubHeading from "../../components/SubHeading";
 import CursorClick from "../../icon/CursorClick";
 import IconButton from "../../components/IconButton";
 import { TbHeadset } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 function HowToInvest() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <div className="w-11/12 tab:w-3/5 laptop:w-1/2 m-auto">
@@ -73,7 +75,11 @@ function HowToInvest() {
         </div>
       </div>
       <div className="w-max m-auto py-4">
-        <IconButton text={"contact us"} bg={`accent`}>
+        <IconButton
+          text={"contact us"}
+          bg={`accent`}
+          onClick={() => navigate("/contact-us")}
+        >
           <TbHeadset className="font-semibold text-lg" />
         </IconButton>
       </div>

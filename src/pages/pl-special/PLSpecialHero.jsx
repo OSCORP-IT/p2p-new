@@ -2,7 +2,9 @@ import HeroImg from "../../assets/PlSpecial.png";
 import PrimaryButton from "../../components/PrimaryButton";
 import Title from "../../components/Title";
 import Text from "../../components/Text";
+import { useNavigate } from "react-router-dom";
 function PLSpecialHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative overflow-hidden">
       <div className="hidden sm:block absolute -top-10 tab:-top-20 left-0 -z-50 blur-[130px] bg-primary/40 rounded-full w-[250px] tab:w-[450px] h-[180px] tab:h-[300px]"></div>
@@ -22,7 +24,7 @@ function PLSpecialHero() {
             Make your special day unforgettable with financing through Prosper-
             be it a wedding, retirement bash, or any cherished celebration.
           </Text>
-          <div className="pt-8 pb-4">
+          <div className="pt-8 pb-4" onClick={() => navigate("/check-rate")}>
             <PrimaryButton>check your rate</PrimaryButton>
           </div>
         </div>
@@ -47,7 +49,10 @@ function PLSpecialHero() {
             Make your special day unforgettable with financing through Prosper-
             be it a wedding, retirement bash, or any cherished celebration.
           </Text>
-          <div className="pt-8 pb-4 w-max m-auto">
+          <div
+            className="pt-8 pb-4 w-max m-auto"
+            onClick={() => navigate("/check-rate")}
+          >
             <PrimaryButton>check your rate</PrimaryButton>
           </div>
         </div>

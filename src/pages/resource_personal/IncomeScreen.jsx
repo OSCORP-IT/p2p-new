@@ -1,11 +1,9 @@
 import SubHeading from "../../components/SubHeading";
-import { useState } from "react";
 import Text from "../../components/Text";
 import Heading2 from "../../components/Heading2";
-function IncomeScreen({ setPage }) {
-  const [incomeSource, setIncomeSource] = useState("");
+function IncomeScreen({ setPage, data, setData }) {
   function handleclick(value) {
-    setIncomeSource(value);
+    setData({ ...data, income_source: value });
     setPage(4);
   }
   return (
@@ -19,33 +17,35 @@ function IncomeScreen({ setPage }) {
       <div className="p-4 flex items-center gap-4 flex-wrap">
         <div
           className={`w-[48%] p-3 rounded-md ${
-            incomeSource === "employed" ? "bg-primary/20" : "bg-accent/20"
+            data.income_source === "Employed" ? "bg-primary/20" : "bg-accent/20"
           } cursor-pointer hover:bg-primary/20`}
-          onClick={() => handleclick("employed")}
+          onClick={() => handleclick("Employed")}
         >
           <SubHeading align={`text-center`}>Employed</SubHeading>
         </div>
         <div
           className={`w-[48%] p-3 rounded-md ${
-            incomeSource === "self" ? "bg-primary/20" : "bg-accent/20"
+            data.income_source === "Self-Employed"
+              ? "bg-primary/20"
+              : "bg-accent/20"
           } cursor-pointer hover:bg-primary/20`}
-          onClick={() => handleclick("self")}
+          onClick={() => handleclick("Self-Employed")}
         >
           <SubHeading align={`text-center`}>Self-Employed</SubHeading>
         </div>
         <div
           className={`w-[48%] p-3 rounded-md ${
-            incomeSource === "retired" ? "bg-primary/20" : "bg-accent/20"
+            data.income_source === "Retired" ? "bg-primary/20" : "bg-accent/20"
           } cursor-pointer hover:bg-primary/20`}
-          onClick={() => handleclick("retired")}
+          onClick={() => handleclick("Retired")}
         >
           <SubHeading align={`text-center`}>Retired</SubHeading>
         </div>
         <div
           className={`w-[48%] p-3 rounded-md ${
-            incomeSource === "others" ? "bg-primary/20" : "bg-accent/20"
+            data.income_source === "Other" ? "bg-primary/20" : "bg-accent/20"
           } cursor-pointer hover:bg-primary/20`}
-          onClick={() => handleclick("others")}
+          onClick={() => handleclick("Other")}
         >
           <SubHeading align={`text-center`}>Others</SubHeading>
         </div>

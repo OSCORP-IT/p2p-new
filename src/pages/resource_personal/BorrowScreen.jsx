@@ -2,10 +2,8 @@ import Heading2 from "../../components/Heading2";
 import Heading1 from "../../components/Heading1";
 import SmallText from "../../components/SmallText";
 import PrimaryButton from "../../components/PrimaryButton";
-import { useState } from "react";
 import Text from "../../components/Text";
-function BorrowScreen({ setPage }) {
-  const [sliderValue, setSliderValue] = useState(12000);
+function BorrowScreen({ setPage, data, setData }) {
   return (
     <div className="bg-white rotate-[8deg] rounded-[15px] p-[20px]">
       <Text align={`text-center`} color={`accent`} padding={`pb-2`}>
@@ -18,7 +16,7 @@ function BorrowScreen({ setPage }) {
         You can choose up to $40,000.
       </Text>
       <Heading1 align={`text-center`} font={`font-normal`}>
-        ${sliderValue}
+        ${data.borrow_amount}
       </Heading1>
       <div className="w-full flex gap-2 items-center py-4">
         <SmallText color={`textColor3`}>2000</SmallText>
@@ -27,8 +25,8 @@ function BorrowScreen({ setPage }) {
           className="w-full h-1"
           min={2000}
           max={40000}
-          value={sliderValue}
-          onChange={(e) => setSliderValue(e.target.value)}
+          value={data.borrow_amount}
+          onChange={(e) => setData({ ...data, borrow_amount: e.target.value })}
           step={1000}
         />
         <SmallText color={`textColor3`}>40000</SmallText>

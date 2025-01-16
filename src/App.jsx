@@ -19,7 +19,7 @@ import PLDentalLoan from "./pages/pl-dental/PLDentalLoan";
 import PLBariatric from "./pages/pl-weightloss/PLBariatric";
 import PersonalLoanCalculator from "./pages/resource_personal/PersonalLoanCalculator";
 import DebtColidationCalculator from "./pages/resouce-debt/DebtColidationCalculator";
-import HomeEquityCalculator from "./pages/resourse-homeEquity/HomeEquityCalculator";
+import HomeEquityCalculator from "./pages/resource-homeEquity/HomeEquityCalculator";
 import FertilityTreatment from "./pages/pl-fertility/FertilityTreatment";
 import PlasticSurgery from "./pages/pl-plasricSurgery/PlasticSurgery";
 import MentalHealth from "./pages/pl-mentalHealth/MentalHealth";

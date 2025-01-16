@@ -1,6 +1,15 @@
-function IconButton({ children, text, bg, border, borderColor, textColor }) {
+function IconButton({
+  children,
+  text,
+  bg,
+  border,
+  borderColor,
+  textColor,
+  onClick,
+}) {
   return (
     <button
+      onClick={onClick || (() => {})}
       className={`capitalize flex gap-2 items-center justify-center py-2 px-8 ${
         textColor ? textColor : "text-white"
       } ${

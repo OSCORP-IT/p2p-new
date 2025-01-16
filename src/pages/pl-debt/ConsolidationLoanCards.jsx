@@ -7,7 +7,9 @@ import Heading1 from "../../components/Heading1";
 import SubHeading from "../../components/SubHeading";
 import SealCheck from "../../icon/SealCheck";
 import SlidersHorizontal from "../../icon/SlidersHorizontal";
+import { useNavigate } from "react-router-dom";
 function ConsolidationLoanCards() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <div className="w-11/12 tab:w-3/5 m-auto">
@@ -64,7 +66,7 @@ function ConsolidationLoanCards() {
           </div>
         </IconBox>
       </div>
-      <div className="w-max m-auto">
+      <div className="w-max m-auto" onClick={() => navigate("/check-rate")}>
         <PrimaryButton>check your rate</PrimaryButton>
       </div>
       <div className="w-full sm:w-1/2 tab:w-1/3 m-auto">

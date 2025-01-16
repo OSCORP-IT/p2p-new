@@ -6,7 +6,9 @@ import Coins from "../../icon/Coins";
 import SectionLayout from "../../ui/SectionLayout";
 import SmallText from "../../components/SmallText";
 import Heading1 from "../../components/Heading1";
+import { useNavigate } from "react-router-dom";
 function ThreeSteps() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <div className="w-11/12 m-auto">
@@ -56,7 +58,7 @@ function ThreeSteps() {
           </div>
         </IconBox>
       </div>
-      <div className="w-max m-auto">
+      <div className="w-max m-auto" onClick={() => navigate("/check-rate")}>
         <PrimaryButton>check your rate</PrimaryButton>
       </div>
       <SmallText align={`text-center`} padding={`py-4`}>
