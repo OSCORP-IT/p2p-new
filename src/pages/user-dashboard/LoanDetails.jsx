@@ -35,7 +35,7 @@ function LoanDetails({ user }) {
     fetchInitialLoanData();
   }, [user.userToken, user.isLoggedIn]);
   return (
-    <div className="w-full sm:w-3/4 tab:w-2/3 flex flex-wrap sm:flex-nowrap items-center gap-2 tab:gap-3">
+    <div className="w-full sm:w-3/4 tab:w-3/4 flex flex-wrap sm:flex-nowrap items-center gap-2 tab:gap-3">
       <div className="w-[48%] sm:w-1/3 shadow-md bg-white p-[10px] overflow-hidden rounded-md relative">
         <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-accent/20 rounded-full"></div>
         <div className="flex items-center justify-between">

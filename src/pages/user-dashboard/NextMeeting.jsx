@@ -30,8 +30,8 @@ function NextMeeting({ user }) {
     fetchInitialLoanData();
   }, [user.userToken, user.isLoggedIn]);
   return (
-    <div className="w-full sm:w-1/4 tab:w-1/3 shadow-md bg-white p-[10px] rounded-md relative overflow-hidden">
-      <div className=" absolute -top-8 -right-6 w-[100px] h-[100px] bg-primary/20 rounded-full"></div>
+    <div className="w-full sm:w-1/4 tab:w-1/4 shadow-md bg-white p-[10px] rounded-md relative overflow-hidden">
+      <div className=" absolute -top-10 -right-8 w-[100px] h-[100px] bg-primary/20 rounded-full"></div>
       <div className="flex items-center justify-between">
         <Small padding={`py-0`} color={`textColor3`}>
           Next Meeting
@@ -46,7 +46,7 @@ function NextMeeting({ user }) {
         "Error!"
       ) : (
         <Heading2 font={`font-bold font-poppins`}>
-          {data ? formatDate(data.next_meeting_date) : "No Meeting"}
+          {data ? formatDate(data.next_meeting_date) : "Jan 24, 2025"}
         </Heading2>
       )}
       {isloading ? (

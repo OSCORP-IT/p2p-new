@@ -13,7 +13,7 @@ function BlogContainer({ heading, category }) {
           {heading ? heading : "Articles and Media Coverage"}
         </Title>
       </div>
-      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-6 sm:gap-4 py-4 px-4 sm: h-auto sm:h-[450px] tab:h-[400px]">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-10 sm:gap-6 tab:gap-10 py-4 px-4 h-auto sm:h-[450px] tab:h-[420px]">
         <BlogBox
           img={Blog1}
           cat={category}

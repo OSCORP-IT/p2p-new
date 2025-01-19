@@ -19,7 +19,7 @@ function WhyFintech() {
             Our online banking platform is user-friendly and easy to navigate.
           </Text>
         </div>
-        <div className="py-6 flex flex-wrap sm:flex-nowrap gap-6 tab:gap-10 items-start justify-center">
+        <div className="py-6 flex flex-wrap sm:flex-nowrap gap-8 tab:gap-14 laptop:gap-20 items-start justify-center">
           <div className="w-full sm:w-[30%] flex flex-col items-center justify-between">
             <div className="bg-secondary rounded-full p-2">
               <div className="bg-primary/50 p-1 rounded-full">

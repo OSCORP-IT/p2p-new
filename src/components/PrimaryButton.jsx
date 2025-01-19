@@ -1,8 +1,17 @@
 import { GoArrowDownRight } from "react-icons/go";
 
-function PrimaryButton({ children, bg, noIcon, width, letterCase, padding }) {
+function PrimaryButton({
+  type,
+  children,
+  bg,
+  noIcon,
+  width,
+  letterCase,
+  padding,
+}) {
   return (
     <button
+      type={type ? type : "button"}
       className={`${
         letterCase ? `${letterCase}` : "capitalize"
       } flex gap-2 items-center ${

@@ -6,7 +6,7 @@ import SmallText from "../../components/SmallText";
 import SubHeading from "../../components/SubHeading";
 function HeroCards() {
   return (
-    <div className="px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto tab:-mt-[160px] laptop:-mt-[100px] pb-4">
+    <div className="px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto tab:-mt-[140px] laptop:-mt-[100px] pb-4">
       <div className=" z-100 w-full tab:w-5/6 laptop:w-9/12 p-3 shadow-allSide bg-white shadow-dropShadow rounded-md flex flex-wrap sm:flex-nowrap items-start justify-start">
         <div className="pb-2 sm:pb-0 w-1/2 sm:w-1/4 flex flex-col items-center justify-center border-r border-gray-300 border-b sm:border-b-0">
           <ChartDoughnut />

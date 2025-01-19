@@ -18,7 +18,7 @@ function Home() {
     <>
       <Hero />
       <SectionLayout>
-        <div className="py-4 flex flex-col sm:flex-row items-center gap-4 tab:gap-8 sm:h-[480px] tab:h-[400px]">
+        <div className="py-4 flex flex-col sm:flex-row items-center gap-4 tab:gap-10 sm:h-[480px] tab:h-[400px]">
           <div className="p-3 tab:p-6 w-full sm:w-1/3 rounded-md border tab:border-0 border-gray-400 tab:shadow-2xl sm:h-full">
             <div className="h-[30%] tab:h-[35%] flex items-end justify-between">
               <Heading2 padding={`py-0`}>Investors</Heading2>
