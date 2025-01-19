@@ -1,6 +1,6 @@
 import Title from "../../components/Title";
 import SectionLayout from "../../ui/SectionLayout";
-import Peer from "../../assets/peer.png";
+import Peer from "../../assets/SeamlessInvest.png";
 import SubTitle from "../../components/SubTitle";
 import SubHeading from "../../components/SubHeading";
 import CheckSquare from "../../icon/CheckSquare";
