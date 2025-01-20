@@ -47,9 +47,8 @@ const menuItems = [
   },
   {
     name: "Get Fund",
-    path: "/get-fund/collateral",
+    path: "/get-fund/conventional",
     subItems: [
-      { name: "Conventional", path: "/get-fund/conventional" },
       { name: "Collateral", path: "/get-fund/collateral" },
       { name: "Islamic", path: "/get-fund/islamic" },
       { name: "Referral", path: "/get-fund/referral" },
@@ -79,7 +78,7 @@ const Header = () => {
   const nav = useNavigate();
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(window.location.pathname);
+  const [currentPage, setCurrentPage] = useState("/");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [subItemShow, setSubItemShow] = useState("");
@@ -127,6 +126,9 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  useEffect(() => {
+    setCurrentPage(window.location.pathname);
+  }, [window.location.pathname]);
   function handleMobileMenuDropDown(index) {
     subItemShow !== ""
       ? subItemShow !== index
@@ -135,11 +137,9 @@ const Header = () => {
       : setSubItemShow(index);
   }
   const handleClickMenu = (location) => {
-    setCurrentPage(location);
     nav(location);
   };
   const handleClickMenuMobile = (location) => {
-    setCurrentPage(location);
     nav(location);
     setIsMobileMenuOpen(false);
   };
@@ -197,7 +197,7 @@ const Header = () => {
                     }
                   >
                     <div
-                      className="hover:bg-secondary/30 rounded-md px-3 py-2"
+                      className="hover:bg-secondary/30 rounded-md px-3 py-2 cursor-pointer"
                       onClick={() => handleClickMenu(menu.path)}
                     >
                       <SmallText
@@ -214,7 +214,7 @@ const Header = () => {
                         {menu.subItems.map((subItem, subIndex) => (
                           <div
                             key={subIndex}
-                            className="hover:bg-secondary/30 rounded-md px-3 py-2"
+                            className="hover:bg-secondary/30 rounded-md px-3 py-2 cursor-pointer"
                             onClick={() => handleClickMenu(subItem.path)}
                           >
                             <SmallText

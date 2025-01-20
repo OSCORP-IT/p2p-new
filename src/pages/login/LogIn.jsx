@@ -25,7 +25,8 @@ function LogIn() {
       navigate("/");
     }
   }, [user.isLoggedIn, navigate]);
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const response = await loginRequest(emailOrPhone, password);
 
@@ -73,61 +74,65 @@ function LogIn() {
                 .
               </span>
             </SubTitle>
-            <div className="relative my-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
-              <div className="absolute left-2 top-[30%] w-max">
-                <BiEnvelope className="text-xl" />
+            <form onSubmit={handleLogin}>
+              <div className="relative my-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
+                <div className="absolute left-2 top-[30%] w-max">
+                  <BiEnvelope className="text-xl" />
+                </div>
+                <input
+                  type="text"
+                  name="emailOrPhone"
+                  id="emailOrPhone"
+                  required
+                  className="py-3 pr-3 pl-8 w-full rounded-md"
+                  placeholder="Email / Phone"
+                  value={emailOrPhone}
+                  onChange={(e) => setEmailOrPhone(e.target.value)}
+                />
               </div>
-              <input
-                type="text"
-                name="emailOrPhone"
-                id="emailOrPhone"
-                className="py-3 pr-3 pl-8 w-full rounded-md"
-                placeholder="Email / Phone"
-                value={emailOrPhone}
-                onChange={(e) => setEmailOrPhone(e.target.value)}
-              />
-            </div>
-            <div className="relative mt-4 mb-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
-              <div className="absolute left-2 top-[30%] w-max">
-                {<RiLockPasswordLine className="text-xl" />}
+              <div className="relative mt-4 mb-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
+                <div className="absolute left-2 top-[30%] w-max">
+                  {<RiLockPasswordLine className="text-xl" />}
+                </div>
+                <input
+                  type={see ? "text" : "password"}
+                  name="Password"
+                  id="password"
+                  required
+                  className="py-3 px-8 w-full rounded-md"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  className="absolute right-2 top-[35%] w-max"
+                  onClick={() => setSee(!see)}
+                >
+                  {!see && <RiEyeLine className="text-xl" />}
+                  {see && <RiEyeCloseLine className="text-xl" />}
+                </div>
               </div>
-              <input
-                type={see ? "text" : "password"}
-                name="Password"
-                id="password"
-                className="py-3 px-8 w-full rounded-md"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
               <div
-                className="absolute right-2 top-[35%] w-max"
-                onClick={() => setSee(!see)}
+                onClick={() => navigate("/auth/forgot-password")}
+                className="cursor-pointer flex gap-1 items-center justify-end w-full sm:w-3/4 tab:w-1/2 m-auto"
               >
-                {!see && <RiEyeLine className="text-xl" />}
-                {see && <RiEyeCloseLine className="text-xl" />}
+                <HiLockClosed className="text-textColor3" />
+                <Text color={`textColor3`}>Forgot Password</Text>
               </div>
-            </div>
-            <div
-              onClick={() => navigate("/auth/forgot-password")}
-              className="cursor-pointer flex gap-1 items-center justify-end w-full sm:w-3/4 tab:w-1/2 m-auto"
-            >
-              <HiLockClosed className="text-textColor3" />
-              <Text color={`textColor3`}>Forgot Password</Text>
-            </div>
-            {floatingNote.state && (
-              <div className="bg-red-200 p-2 mt-2 rounded-md w-full sm:w-1/2 m-auto">
-                <Text>{floatingNote.msg}</Text>
+              {floatingNote.state && (
+                <div className="bg-red-200 p-2 mt-2 rounded-md w-full sm:w-1/2 m-auto">
+                  <Text>{floatingNote.msg}</Text>
+                </div>
+              )}
+              <div className="pt-2 w-max m-auto">
+                <button
+                  type="submit"
+                  className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px]`}
+                >
+                  Login
+                </button>
               </div>
-            )}
-            <div className="pt-2 w-max m-auto">
-              <button
-                onClick={handleLogin}
-                className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px]`}
-              >
-                Login
-              </button>
-            </div>
+            </form>
             <Text
               align={`text-center`}
               color={`textColor3`}

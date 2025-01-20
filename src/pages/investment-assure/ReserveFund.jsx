@@ -1,5 +1,5 @@
 import SectionLayout from "../../ui/SectionLayout";
-import Peer from "../../assets/peer.png";
+import Peer from "../../assets/ReverseFund.png";
 import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
 function ReserveFund() {
@@ -21,7 +21,7 @@ function ReserveFund() {
             </Text>
           </div>
         </div>
-        <div className="bg-white shadow-allSide shadow-gray-200 rounded-md w-full sm:w-1/3 px-6 mb-4 sm:mb-0 sm:px-0">
+        <div className="rounded-md w-full sm:w-1/3 px-6 mb-4 sm:mb-0 sm:px-0">
           <img
             src={Peer}
             alt="peer illustrator"

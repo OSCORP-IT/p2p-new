@@ -1,6 +1,5 @@
 import Blog1 from "../assets/blog1.png";
 import Blog2 from "../assets/blog2.png";
-import Blog3 from "../assets/blog3.png";
 import Title from "../components/Title";
 import BlogBox from "./BlogBox";
 import SectionLayout from "./SectionLayout";
@@ -29,7 +28,7 @@ function BlogContainer({ heading, category }) {
           }
         />
         <BlogBox
-          img={Blog3}
+          img={Blog1}
           cat={category}
           heading={"When to use short time investment for your business?"}
         />

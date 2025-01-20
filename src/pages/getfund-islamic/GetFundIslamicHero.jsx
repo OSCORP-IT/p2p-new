@@ -3,14 +3,13 @@ import HeroBg from "../../assets/InvestIslamicHero.png";
 import Heading2 from "../../components/Heading2";
 import IconButton from "../../components/IconButton";
 import Title from "../../components/Title";
-import SectionLayout from "../../ui/SectionLayout";
 function GetFundIslamicHero() {
   return (
     <div
       className="bg-cover bg-right w-full tab:h-[420px]"
       style={{ backgroundImage: `url(${HeroBg})` }}
     >
-      <SectionLayout bg={"transparent"}>
+      <div className="bg-transparent px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto py-8">
         <div className="w-3/4 sm:w-9/12 tab:w-3/5 py-5">
           <Title color={"text-white"}>
             Introducing FINTECH’s Shariah-complaint Supply Chain Finance
@@ -26,7 +25,7 @@ function GetFundIslamicHero() {
             <TbHeadset className="font-semibold text-lg" />
           </IconButton>
         </div>
-      </SectionLayout>
+      </div>
     </div>
   );
 }

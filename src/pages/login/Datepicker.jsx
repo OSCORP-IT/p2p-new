@@ -16,6 +16,7 @@ const Datepicker = ({
         dateFormat={dateFormat}
         selected={date}
         name={name}
+        required={true}
         onChange={(date) => setDate(date)}
         className={`w-full py-2 px-3 border ${
           rounded ? "rounded-md" : ""
@@ -24,7 +25,7 @@ const Datepicker = ({
           placeholder ? placeholder : "Date of Birth (dd/mm/yyyy)"
         }
       />
-      <div className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none">
+      <div className="cursor-pointer absolute top-1/2 right-3 transform -translate-y-1/2 ">
         <svg
           width="22"
           height="22"

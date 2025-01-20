@@ -22,7 +22,6 @@ function Profile() {
   const [showPrifileChange, setShowProfileChange] = useState(false);
   const [isloading, setIsloading] = useState(false);
   const [isError, setIsError] = useState(false);
-  console.log(userData);
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
@@ -39,7 +38,6 @@ function Profile() {
         } catch (error) {
           setIsError(true);
           setIsloading(false);
-          console.log(error);
         }
       }
     }
@@ -77,37 +75,48 @@ function Profile() {
         )}
         {userData && (
           <>
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-5 mt-5 ">
-              <div className="relative">
-                <img
-                  src={userData.profile_image}
-                  alt="profile photo"
-                  className="w-[100px] h-[100px] rounded-full"
-                />
-                <div
-                  onClick={() => setShowProfileChange(true)}
-                  className="absolute cursor-pointer bottom-0 right-1 bg-white border-[1px] border-textColor3 rounded-full p-0.5"
-                >
-                  <PiPencilSimple className="text-xl" />
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center mt-5">
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-5">
+                <div className="relative">
+                  <img
+                    src={userData.profile_image}
+                    alt="profile photo"
+                    className="w-[100px] h-[100px] rounded-full"
+                  />
+                  <div
+                    onClick={() => setShowProfileChange(true)}
+                    className="absolute cursor-pointer bottom-0 right-1 bg-white border-[1px] border-textColor3 rounded-full p-0.5"
+                  >
+                    <PiPencilSimple className="text-xl" />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex gap-2 items-center">
+                    <SubTitle padding={`py-0`}>
+                      {userData.first_name + " " + userData.last_name}
+                    </SubTitle>
+                    <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                  </div>
+                  <Text color={`textColor3`} padding={`py-0`}>
+                    {userData.email}
+                  </Text>
+                  <Text
+                    padding={`py-0`}
+                    color={`textColor4`}
+                    font={`font-semibold`}
+                  >
+                    {userData.designation}
+                  </Text>
                 </div>
               </div>
-              <div>
-                <div className="flex gap-2 items-center">
-                  <SubTitle padding={`py-0`}>
-                    {userData.first_name + " " + userData.last_name}
-                  </SubTitle>
-                  <MdOutlineVerified className="text-secondary text-xl font-bold" />
-                </div>
-                <Text color={`textColor3`} padding={`py-0`}>
-                  {userData.email}
-                </Text>
-                <Text
-                  padding={`py-0`}
-                  color={`textColor4`}
-                  font={`font-semibold`}
+              <div className="w-max p-2 bg-accent/10 rounded-md mt-2 sm:mt-0">
+                <Text font={`font-semibold font-poppins`}>Credit Score</Text>
+                <Heading2
+                  align={`text-center`}
+                  font={`font-semibold font-poppins`}
                 >
-                  {userData.designation}
-                </Text>
+                  750
+                </Heading2>
               </div>
             </div>
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 mt-5 ">

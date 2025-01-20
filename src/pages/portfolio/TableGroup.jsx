@@ -120,6 +120,7 @@ function TableGroup({ item, index, data, setData }) {
                 <select
                   name={option.field_name}
                   value={row[option.field_name] || ""}
+                  required={option.is_required}
                   onChange={(e) =>
                     handleInputChange(
                       option.field_name,
@@ -143,6 +144,7 @@ function TableGroup({ item, index, data, setData }) {
                   type={option.field_type}
                   name={option.field_name}
                   value={row[option.field_name] || ""}
+                  required={option.is_required}
                   onChange={(e) =>
                     handleInputChange(
                       option.field_name,

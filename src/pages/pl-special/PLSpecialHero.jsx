@@ -8,7 +8,7 @@ function PLSpecialHero() {
   return (
     <div className="w-full relative overflow-hidden">
       <div className="hidden sm:block absolute -top-10 tab:-top-20 left-0 -z-50 blur-[130px] bg-primary/40 rounded-full w-[250px] tab:w-[450px] h-[180px] tab:h-[300px]"></div>
-      <div className="pt-4 px-4 tab:px-0 tab:w-10/12 m-auto flex flex-wrap sm:flex-nowrap items-center justify-between tab:h-[410px]">
+      <div className="pt-4 px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto flex flex-wrap sm:flex-nowrap items-center justify-between tab:h-[410px]">
         <div className="hidden sm:block sm:w-2/3 tab:w-3/5">
           <Text
             align={`text-left uppercase`}

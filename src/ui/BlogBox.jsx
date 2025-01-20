@@ -1,6 +1,6 @@
-import { LuChevronRightSquare } from "react-icons/lu";
 import SubHeading from "../components/SubHeading";
 import Text from "../components/Text";
+import { FaChevronRight } from "react-icons/fa6";
 
 function BlogBox({ img, heading, cat }) {
   return (
@@ -25,7 +25,7 @@ function BlogBox({ img, heading, cat }) {
       </div>
       <div className="flex justify-between items-center w-full px-3 pb-3">
         <Text>September 19, 2024</Text>
-        <LuChevronRightSquare className="text-base cursor-pointer" />
+        <FaChevronRight className="text-base cursor-pointer" />
       </div>
     </div>
   );

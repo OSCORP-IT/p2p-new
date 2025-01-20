@@ -1,5 +1,5 @@
 import SectionLayout from "../../ui/SectionLayout";
-import Peer from "../../assets/peer.png";
+import Peer from "../../assets/IslamicP2P.png";
 import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
 

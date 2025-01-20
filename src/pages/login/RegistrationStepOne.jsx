@@ -51,7 +51,8 @@ function RegistrationStepOne({ setPage, data, setData }) {
     }
     return true;
   }
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     const allFilled = checkFilling();
     if (allFilled) {
       setIsSubmitted(() => true);
@@ -61,92 +62,98 @@ function RegistrationStepOne({ setPage, data, setData }) {
   return (
     <div className="w-full sm:w-3/4 tab:w-2/3 m-auto">
       <Heading2>Create your account</Heading2>
-      <div className="w-full flex flex-col tab:flex-row gap-2 tab:gap-4 items-center py-1 tab:py-2">
-        <Input
-          width={`w-full tab:w-1/2`}
-          name={`firstName`}
-          placeholder={`First Name`}
-          type={`text`}
-          value={data.first_name}
-          onChange={(e) => setData({ ...data, first_name: e.target.value })}
-        />
-        <Input
-          width={`w-full tab:w-1/2`}
-          name={`lastName`}
-          placeholder={`Last Name`}
-          type={`text`}
-          value={data.last_name}
-          onChange={(e) => setData({ ...data, last_name: e.target.value })}
-        />
-      </div>
-      <div className="w-full flex flex-col tab:flex-row gap-2 tab:gap-4 items-center py-1 tab:py-2">
-        <select
-          name="idType"
-          id="idType"
-          value={data.identification_type}
-          onChange={(e) =>
-            setData({ ...data, identification_type: e.target.value })
-          }
-          className="p-2 tab:p-3 w-full tab:w-1/2 border border-gray-400 rounded-md text-textColor3"
-        >
-          <option value="">Select Identification Type</option>
-          <option value="nid">NID</option>
-          <option value="passport">Passport</option>
-        </select>
-        <Input
-          width={`w-full tab:w-1/2`}
-          name={`idNumber`}
-          placeholder={`Identification Number`}
-          type={`text`}
-          value={data.identification_number}
-          onChange={(e) =>
-            setData({ ...data, identification_number: e.target.value })
-          }
-        />
-      </div>
-      <div className="w-full py-2">
-        <DatePicker
-          dateFormat={"dd/MM/yyyy"}
-          name={`date_of_birth`}
-          rounded={true}
-          date={data.date_of_birth}
-          setDate={(date) =>
-            setData((prevState) => ({
-              ...prevState,
-              date_of_birth: date,
-            }))
-          }
-        />
-        <div className="py-2 tab:py-4">
+      <form onSubmit={handleSubmit}>
+        <div className="w-full flex flex-col tab:flex-row gap-2 tab:gap-4 items-center py-1 tab:py-2">
           <Input
-            type={`email`}
-            placeholder={"E-mail"}
-            name={"email"}
-            value={data.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
+            width={`w-full tab:w-1/2`}
+            name={`firstName`}
+            placeholder={`First Name`}
+            type={`text`}
+            value={data.first_name}
+            onChange={(e) => setData({ ...data, first_name: e.target.value })}
+          />
+          <Input
+            width={`w-full tab:w-1/2`}
+            name={`lastName`}
+            placeholder={`Last Name`}
+            type={`text`}
+            value={data.last_name}
+            onChange={(e) => setData({ ...data, last_name: e.target.value })}
+          />
+        </div>
+        <div className="w-full flex flex-col tab:flex-row gap-2 tab:gap-4 items-center py-1 tab:py-2">
+          <select
+            name="idType"
+            id="idType"
+            required
+            value={data.identification_type}
+            onChange={(e) =>
+              setData({ ...data, identification_type: e.target.value })
+            }
+            className="p-2 tab:p-3 w-full tab:w-1/2 border border-gray-400 rounded-md text-textColor3"
+          >
+            <option value="">Select Identification Type</option>
+            <option value="nid">NID</option>
+            <option value="passport">Passport</option>
+          </select>
+          <Input
+            width={`w-full tab:w-1/2`}
+            name={`idNumber`}
+            placeholder={`Identification Number`}
+            type={`text`}
+            value={data.identification_number}
+            onChange={(e) =>
+              setData({ ...data, identification_number: e.target.value })
+            }
+          />
+        </div>
+        <div className="w-full py-2">
+          <DatePicker
+            dateFormat={"dd/MM/yyyy"}
+            name={`date_of_birth`}
+            rounded={true}
+            required={true}
+            date={data.date_of_birth}
+            setDate={(date) =>
+              setData((prevState) => ({
+                ...prevState,
+                date_of_birth: date,
+              }))
+            }
+          />
+          <div className="py-2 tab:py-4">
+            <Input
+              type={`email`}
+              placeholder={"E-mail"}
+              name={"email"}
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            ></Input>
+          </div>
+          <Input
+            type={`text`}
+            placeholder={"Phone Number"}
+            name={"phone"}
+            value={data.mobile_number}
+            onChange={(e) =>
+              setData({ ...data, mobile_number: e.target.value })
+            }
           ></Input>
         </div>
-        <Input
-          type={`text`}
-          placeholder={"Phone Number"}
-          name={"phone"}
-          value={data.mobile_number}
-          onChange={(e) => setData({ ...data, mobile_number: e.target.value })}
-        ></Input>
-      </div>
-      {err !== "" && (
-        <div className="bg-red-200 p-2 mt-2 rounded-md">
-          <Text>{err}</Text>
+        {err !== "" && (
+          <div className="bg-red-200 p-2 mt-2 rounded-md">
+            <Text>{err}</Text>
+          </div>
+        )}
+        <div className="pt-[40px] w-full m-auto">
+          <button
+            type="submit"
+            className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px] w-full`}
+          >
+            Next Step
+          </button>
         </div>
-      )}
-      <div className="pt-[40px] w-full m-auto">
-        <button
-          onClick={handleSubmit}
-          className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px] w-full`}
-        >
-          Next Step
-        </button>
-      </div>
+      </form>
     </div>
   );
 }

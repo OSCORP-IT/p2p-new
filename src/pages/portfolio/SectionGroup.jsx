@@ -188,6 +188,7 @@ function SectionGroup({ inputItem, dataIndex, data, setData }) {
                 option.field_type === "number") && (
                 <input
                   type={option.field_type}
+                  required={option.is_required}
                   name={option.field_name}
                   value={answers[option.field_name] || ""}
                   onChange={(e) =>
@@ -218,6 +219,7 @@ function SectionGroup({ inputItem, dataIndex, data, setData }) {
                     <div key={idx} className="flex options-center gap-2">
                       <input
                         type="radio"
+                        required={option.is_required}
                         id={entity}
                         value={entity}
                         checked={answers[option.field_name] === entity}
@@ -239,6 +241,7 @@ function SectionGroup({ inputItem, dataIndex, data, setData }) {
               {option.field_type === "dropdown" && (
                 <select
                   name={option.field_name}
+                  required={option.is_required}
                   value={answers[option.field_name] || ""}
                   onChange={(e) =>
                     handleInputChange(
@@ -260,6 +263,7 @@ function SectionGroup({ inputItem, dataIndex, data, setData }) {
               {option.field_type === "paragraph" && (
                 <textarea
                   name={option.field_name}
+                  required={option.is_required}
                   rows="4"
                   cols="50"
                   placeholder={option.placeholder}
@@ -280,6 +284,7 @@ function SectionGroup({ inputItem, dataIndex, data, setData }) {
                     <div key={idx} className="flex inputItems-center gap-2">
                       <input
                         type="checkbox"
+                        required={option.is_required}
                         name={option.field_name}
                         id={box}
                         checked={

@@ -89,48 +89,71 @@ function FormContainer({ portfolio_id, expanded }) {
     };
     fetchPageFields();
   }, [user.userToken, portfolio_id, allPages.data, currentIndex]);
-  async function handleNextData() {
-    try {
-      const data = await submitPortfolioResponse(
-        portfolio_id,
-        allPages.data[currentIndex].form_id, // currentFormId,
-        allPages.data[currentIndex].id, // currentFormPageId,
-        allPages.data[currentIndex].form_response_id, // currentResponseId,
-        formResponse,
-        user.userToken
-      );
-      if (data.success) {
-        setCurrentIndex(currentIndex + 1);
-      } else throw new Error();
-    } catch (error) {
-      setFormPage({
-        data: null,
-        loading: false,
-        error: "Error fetching form pages",
-      });
+  async function handleNextData(e) {
+    e.preventDefault();
+    if (currentIndex + 1 === totalPages) {
+      try {
+        const data = await submitPortfolioResponse(
+          portfolio_id,
+          allPages.data[currentIndex].form_id, // currentFormId,
+          allPages.data[currentIndex].id, // currentFormPageId,
+          allPages.data[currentIndex].form_response_id, // currentResponseId,
+          formResponse,
+          user.userToken
+        );
+        if (data.success) {
+          navigate("/user/my-loans");
+        } else throw new Error();
+      } catch (error) {
+        setFormPage({
+          data: null,
+          loading: false,
+          error: "Error fetching form pages",
+        });
+      }
+    } else {
+      try {
+        const data = await submitPortfolioResponse(
+          portfolio_id,
+          allPages.data[currentIndex].form_id, // currentFormId,
+          allPages.data[currentIndex].id, // currentFormPageId,
+          allPages.data[currentIndex].form_response_id, // currentResponseId,
+          formResponse,
+          user.userToken
+        );
+        if (data.success) {
+          setCurrentIndex(currentIndex + 1);
+        } else throw new Error();
+      } catch (error) {
+        setFormPage({
+          data: null,
+          loading: false,
+          error: "Error fetching form pages",
+        });
+      }
     }
   }
-  async function handleSubmit() {
-    try {
-      const data = await submitPortfolioResponse(
-        portfolio_id,
-        allPages.data[currentIndex].form_id, // currentFormId,
-        allPages.data[currentIndex].id, // currentFormPageId,
-        allPages.data[currentIndex].form_response_id, // currentResponseId,
-        formResponse,
-        user.userToken
-      );
-      if (data.success) {
-        navigate("/user/my-loans");
-      } else throw new Error();
-    } catch (error) {
-      setFormPage({
-        data: null,
-        loading: false,
-        error: "Error fetching form pages",
-      });
-    }
-  }
+  // async function handleSubmit() {
+  //   try {
+  //     const data = await submitPortfolioResponse(
+  //       portfolio_id,
+  //       allPages.data[currentIndex].form_id, // currentFormId,
+  //       allPages.data[currentIndex].id, // currentFormPageId,
+  //       allPages.data[currentIndex].form_response_id, // currentResponseId,
+  //       formResponse,
+  //       user.userToken
+  //     );
+  //     if (data.success) {
+  //       navigate("/user/my-loans");
+  //     } else throw new Error();
+  //   } catch (error) {
+  //     setFormPage({
+  //       data: null,
+  //       loading: false,
+  //       error: "Error fetching form pages",
+  //     });
+  //   }
+  // }
   function handlePrevData() {
     setCurrentIndex(currentIndex - 1);
   }
@@ -255,33 +278,35 @@ function FormContainer({ portfolio_id, expanded }) {
           <>
             <div className="w-[15%] sm:hidden"></div>
             <div className="w-[80%] sm:w-[70%] bg-white rounded-md p-[15px]">
-              {formPage.data.response_answer.map((item, index) => (
-                <div key={item.id} className="w-full">
-                  <InputMaker
-                    item={item}
-                    index={index}
-                    data={formResponse}
-                    setData={setFormResponse}
-                  />
+              <form onSubmit={handleNextData}>
+                {formPage.data.response_answer.map((item, index) => (
+                  <div key={item.id} className="w-full">
+                    <InputMaker
+                      item={item}
+                      index={index}
+                      data={formResponse}
+                      setData={setFormResponse}
+                    />
+                  </div>
+                ))}
+                <div className="flex items-center gap-4">
+                  {currentIndex > 0 && (
+                    <div className="w-max m-auto pt-8" onClick={handlePrevData}>
+                      <AccentButton leftIcon={true}>Previous Page</AccentButton>
+                    </div>
+                  )}
+                  {currentIndex + 1 < totalPages && (
+                    <div className="w-max m-auto pt-8">
+                      <AccentButton type={`submit`}>Next Page</AccentButton>
+                    </div>
+                  )}
+                  {currentIndex + 1 === totalPages && (
+                    <div className="w-max m-auto pt-8">
+                      <AccentButton type={`submit`}>Submit</AccentButton>
+                    </div>
+                  )}
                 </div>
-              ))}
-              <div className="flex items-center gap-4">
-                {currentIndex > 0 && (
-                  <div className="w-max m-auto pt-8" onClick={handlePrevData}>
-                    <AccentButton leftIcon={true}>Previous Page</AccentButton>
-                  </div>
-                )}
-                {currentIndex + 1 < totalPages && (
-                  <div className="w-max m-auto pt-8" onClick={handleNextData}>
-                    <AccentButton>Next Page</AccentButton>
-                  </div>
-                )}
-                {currentIndex + 1 === totalPages && (
-                  <div className="w-max m-auto pt-8" onClick={handleSubmit}>
-                    <AccentButton>Submit</AccentButton>
-                  </div>
-                )}
-              </div>
+              </form>
             </div>
           </>
         )}

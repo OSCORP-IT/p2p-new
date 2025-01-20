@@ -54,6 +54,7 @@ function InputMaker({ item, index, data, setData }) {
           value={data.response_answers[index].answer_text || ""}
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder={item.label}
+          required={item.is_required}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
         />
       )}
@@ -62,6 +63,7 @@ function InputMaker({ item, index, data, setData }) {
           showIcon
           dateFormat={"DD/MM/YYYY"}
           name={item.field_name}
+          required={item.is_required}
           selected={data.response_answers[index].answer_text || ""}
           onChange={(date) => handleInputChange(date)}
           className="w-full py-2 px-2 border border-gray-300 rounded-md"
@@ -78,6 +80,7 @@ function InputMaker({ item, index, data, setData }) {
                 checked={data.response_answers[index].answer_text === option}
                 onChange={() => handleInputChange(option)}
                 name={item.field_name}
+                required={item.is_required}
                 className=" cursor-pointer border checked:border-accent"
               />
               <label htmlFor={option}>{option}</label>
@@ -90,6 +93,7 @@ function InputMaker({ item, index, data, setData }) {
           type="number"
           name={item.field_name}
           placeholder={item.placeholder}
+          required={item.is_required}
           value={data.response_answers[index].answer_text || ""}
           onChange={(e) => handleInputChange(e.target.value)}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
@@ -98,6 +102,7 @@ function InputMaker({ item, index, data, setData }) {
       {item.field_type === "dropdown" && (
         <select
           name={item.field_name}
+          required={item.is_required}
           value={data.response_answers[index].answer_text || ""}
           onChange={(e) => handleInputChange(e.target.value)}
           className="py-2 px-2 border border-gray-300 rounded-md w-full"
@@ -115,6 +120,7 @@ function InputMaker({ item, index, data, setData }) {
           name={item.field_name}
           rows="4"
           cols="50"
+          required={item.is_required}
           placeholder={item.placeholder}
           value={data.response_answers[index].answer_text || ""}
           onChange={(e) => handleInputChange(e.target.value)}
@@ -127,6 +133,7 @@ function InputMaker({ item, index, data, setData }) {
             <div key={ind} className="flex items-center gap-2">
               <input
                 type="checkbox"
+                required={item.is_required}
                 name={item.field_name}
                 id={option}
                 checked={data.response_answers[index].answer_text.includes(
@@ -155,6 +162,7 @@ function InputMaker({ item, index, data, setData }) {
         <div className="flex items-center gap-2">
           <input
             type="file"
+            required={item.is_required}
             accept=".jpeg,.jpg,.pdf,.png,.svg"
             // placeholder={item.placeholder}
             onChange={handleUpload}

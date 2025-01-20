@@ -1,12 +1,12 @@
 import SectionLayout from "../../ui/SectionLayout";
-import Peer from "../../assets/peer.png";
+import Peer from "../../assets/Assure.png";
 import SubTitle from "../../components/SubTitle";
 import Text from "../../components/Text";
 function WhatIsAssure() {
   return (
     <SectionLayout>
       <div className="w-full flex flex-wrap sm:flex-nowrap items-center py-5 tab:py-8 px-4 tab:px-0">
-        <div className="bg-white shadow-allSide shadow-gray-200 rounded-md w-full sm:w-1/3 px-6 mb-4 sm:mb-0 sm:px-0">
+        <div className="rounded-md w-full sm:w-1/3 px-6 mb-4 sm:mb-0 sm:px-0">
           <img
             src={Peer}
             alt="peer illustrator"

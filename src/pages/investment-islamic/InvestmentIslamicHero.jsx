@@ -6,7 +6,6 @@ import PrimaryButton from "../../components/PrimaryButton";
 import SmallText from "../../components/SmallText";
 import Title from "../../components/Title";
 import Sheild from "../../icon/Sheild";
-import SectionLayout from "../../ui/SectionLayout";
 import SubTitle from "../../components/SubTitle";
 import { useNavigate } from "react-router-dom";
 function InvestmentIslamicHero() {
@@ -16,7 +15,7 @@ function InvestmentIslamicHero() {
       className="bg-cover bg-right w-full tab:h-[450px]"
       style={{ backgroundImage: `url(${HeroBg})` }}
     >
-      <SectionLayout bg={"transparent"}>
+      <div className=" py-8 bg-transparent px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto">
         <div className="w-3/5">
           <Heading2 color={"text-white"}>FINTECH P2P Islamic</Heading2>
           <SubTitle color={"text-[#4abc40]"}>
@@ -44,7 +43,7 @@ function InvestmentIslamicHero() {
             <TbHeadset className="font-semibold text-lg" />
           </IconButton>
         </div>
-      </SectionLayout>
+      </div>
     </div>
   );
 }

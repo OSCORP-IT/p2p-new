@@ -45,7 +45,7 @@ function HowMuchBorrow({ setPage, data, setData }) {
         />
         <SmallText color={`textColor3`}>৳1,000,000</SmallText>
       </div>
-      <div className="w-full border border-primary mt-4 p-2">
+      <div className="w-full border border-primary mt-4">
         <select
           name="loanPurpose"
           value={data.loan_type_id}
@@ -55,7 +55,7 @@ function HowMuchBorrow({ setPage, data, setData }) {
               loan_type_id: e.target.value,
             }))
           }
-          className="w-full h-full p-1 text-sm sm:text-base"
+          className="w-full h-full p-3 text-sm sm:text-base"
         >
           <option value="">Loan Purpose</option>
           <option value="1">Home Improvement</option>
