@@ -6,7 +6,9 @@ import Buildings from "../../icon/Buildings";
 import SectionLayout from "../../ui/SectionLayout";
 import IconBox from "../investment/IconBox";
 import { TbHeadset } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 function IslamicEligibility() {
+  const navigate = useNavigate();
   return (
     <SectionLayout bg={`bg-[#e7f6e5]`}>
       <div className="w-11/12 tab:w-3/5 laptop:w-1/2 m-auto">
@@ -52,7 +54,11 @@ function IslamicEligibility() {
         </IconBox>
       </div>
       <div className="w-max m-auto">
-        <IconButton text={"contact us"} bg={`[#0da500]`}>
+        <IconButton
+          text={"contact us"}
+          bg={`[#0da500]`}
+          onClick={() => navigate("/contact-us")}
+        >
           <TbHeadset className="font-semibold text-lg" />
         </IconButton>
       </div>

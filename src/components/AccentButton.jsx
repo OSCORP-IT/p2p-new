@@ -1,8 +1,17 @@
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 
-function AccentButton({ children, noIcon, leftIcon, color, width, type }) {
+function AccentButton({
+  children,
+  noIcon,
+  leftIcon,
+  color,
+  width,
+  type,
+  onClick,
+}) {
   return (
     <button
+      onClick={onClick ? onClick : () => {}}
       type={type ? type : "button"}
       className={`capitalize flex gap-2 items-center py-2 px-10 ${
         color ? `text-${color} border-${color}` : "text-accent border-accent"

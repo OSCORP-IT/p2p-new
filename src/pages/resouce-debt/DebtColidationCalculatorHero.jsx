@@ -4,8 +4,10 @@ import Text from "../../components/Text";
 import { useState } from "react";
 import SliderInputs from "./SliderInputs";
 import PrimaryButton from "../../components/PrimaryButton";
+import { useNavigate } from "react-router-dom";
 
 function DebtColidationCalculatorHero() {
+  const navigate = useNavigate();
   const [debtToPay, setDebtToPay] = useState(12000);
   const [payMonthly, setPayMonthly] = useState(250);
   const [averageInterestRate, setAverageInterestRate] = useState(21);
@@ -73,7 +75,10 @@ function DebtColidationCalculatorHero() {
               Submit a quick application for a more personalized & accurate
               offer
             </p>
-            <div className="w-max m-auto">
+            <div
+              className="w-max m-auto"
+              onClick={() => navigate("/check-rate")}
+            >
               <PrimaryButton noIcon={true}>Check your rate</PrimaryButton>
             </div>
           </div>

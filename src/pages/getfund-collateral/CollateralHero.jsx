@@ -4,7 +4,9 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { TbHeadset } from "react-icons/tb";
 import Heading1 from "../../components/Heading1";
 import SubHeading from "../../components/SubHeading";
+import { useNavigate } from "react-router-dom";
 function CollateralHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative overflow-hidden">
       <div className="hidden sm:block absolute -top-10 tab:-top-20 left-0 -z-50 blur-[150px] bg-primary/40 rounded-full w-[250px] tab:w-[450px] h-[180px] tab:h-[300px]"></div>
@@ -33,7 +35,10 @@ function CollateralHero() {
 
           <div className="flex gap-4 pt-8 pb-4 items-center">
             <PrimaryButton>apply now</PrimaryButton>
-            <IconButton text={"contact us"}>
+            <IconButton
+              text={"contact us"}
+              onClick={() => navigate("/contact-us")}
+            >
               <TbHeadset className="font-semibold text-lg" />
             </IconButton>
           </div>

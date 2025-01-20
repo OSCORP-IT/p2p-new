@@ -3,7 +3,9 @@ import HeroImg from "../../assets/SMEReferral.png";
 import IconButton from "../../components/IconButton";
 import { TbHeadset } from "react-icons/tb";
 import Heading2 from "../../components/Heading2";
+import { useNavigate } from "react-router-dom";
 function GetFundReferralHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative">
       <div className="hidden sm:block absolute -top-20 -left-10 -z-50 blur-[100px] bg-accent/30 rounded-full w-[280px] tab:w-[300px] h-[280px] tab:h-[300px]"></div>
@@ -16,7 +18,11 @@ function GetFundReferralHero() {
             Earn cash rewards with each successful referrals
           </Heading2>
           <div className="pt-6 pb-4">
-            <IconButton text={"contact us"} bg={`accent`}>
+            <IconButton
+              text={"contact us"}
+              bg={`accent`}
+              onClick={() => navigate("/contact-us")}
+            >
               <TbHeadset className="font-semibold text-lg" />
             </IconButton>
           </div>

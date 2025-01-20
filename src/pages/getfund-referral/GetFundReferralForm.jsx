@@ -164,7 +164,7 @@ function GetFundReferralForm() {
             </div>
           </div>
           <div className="w-max m-auto mt-4">
-            <PrimaryButton bg={`accent`} noIcon={true}>
+            <PrimaryButton bg={`accent`} noIcon={true} type={`submit`}>
               Submit
             </PrimaryButton>
           </div>

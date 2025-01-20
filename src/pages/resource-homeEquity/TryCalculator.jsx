@@ -3,8 +3,10 @@ import Laptop from "../../assets/Laptop.png";
 import SubTitle from "../../components/SubTitle";
 import SubHeading from "../../components/SubHeading";
 import { FaGreaterThan } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function TryCalculator() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <div className="w-full flex flex-wrap sm:flex-nowrap items-center py-5 tab:py-8 px-4 tab:px-0">
@@ -17,7 +19,10 @@ function TryCalculator() {
               >
                 Estimate your rate & monthly payment
               </SubTitle>
-              <div className="cursor-pointer flex tab:w-4/5 gap-3 items-center">
+              <div
+                className="cursor-pointer flex tab:w-4/5 gap-3 items-center"
+                onClick={() => navigate("/calculator/personal")}
+              >
                 <SubHeading color={`primary`} font={`font-normal`}>
                   Try the calculator
                 </SubHeading>
@@ -31,7 +36,10 @@ function TryCalculator() {
               >
                 See your home equity options side-by-side
               </SubTitle>
-              <div className="cursor-pointer flex tab:w-4/5 gap-3 items-center">
+              <div
+                className="cursor-pointer flex tab:w-4/5 gap-3 items-center"
+                onClick={() => navigate("/calculator/debt")}
+              >
                 <SubHeading color={`primary`} font={`font-normal`}>
                   Compare HELOCs & home equity loans
                 </SubHeading>

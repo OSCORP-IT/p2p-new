@@ -1,5 +1,5 @@
 import SectionLayout from "../../ui/SectionLayout";
-import financialFuture from "../../assets/financialFuture.png";
+import financialFuture from "../../assets/SitAsset.png";
 import Text from "../../components/Text";
 import Title from "../../components/Title";
 

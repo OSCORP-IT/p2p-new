@@ -10,7 +10,7 @@ function BlogBox({ img, heading, cat }) {
         alt="blog image"
         className="w-full sm:h-[55%] object-cover rounded-md"
       />
-      {cat !== "news" && (
+      {cat === "news" && (
         <div className="w-3/5 rounded-md bg-accent text-center py-1.5 -mt-4 text-white text-sm sm:text-15[px] tab:text-base font-semibold capitalize">
           news
         </div>

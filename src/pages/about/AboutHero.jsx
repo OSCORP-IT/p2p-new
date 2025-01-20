@@ -5,7 +5,9 @@ import Sheild from "../../icon/Sheild";
 import SmallText from "../../components/SmallText";
 import IconButton from "../../components/IconButton";
 import { TbHeadset } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 function AboutHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative">
       <div className="absolute -top-20 -left-16 -z-50 blur-[150px] bg-secondary/50 rounded-full w-[220px] tab:w-[380px] h-[220px] tab:h-[380px]"></div>
@@ -21,7 +23,11 @@ function AboutHero() {
           </div>
           <div className="flex gap-4 py-6 items-center">
             <PrimaryButton bg={`accent`}>Apply for loan</PrimaryButton>
-            <IconButton text={"contact us"} bg={`accent`}>
+            <IconButton
+              text={"contact us"}
+              bg={`accent`}
+              onClick={() => navigate("/contact-us")}
+            >
               <TbHeadset className="font-semibold text-lg" />
             </IconButton>
           </div>

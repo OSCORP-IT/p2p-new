@@ -16,7 +16,7 @@ function PLDebtHero() {
           <Heading2 font={`font-normal`} padding={`py-2`}>
             Checking your rate won’t affect your credit score
           </Heading2>
-          <div className="pt-8 pb-4">
+          <div className="pt-8 pb-4" onClick={() => navigate("/check-rate")}>
             <PrimaryButton>check your rate</PrimaryButton>
           </div>
         </div>

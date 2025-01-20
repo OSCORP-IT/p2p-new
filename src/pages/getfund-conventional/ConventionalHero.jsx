@@ -4,7 +4,9 @@ import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
 import { TbHeadset } from "react-icons/tb";
 import Heading2 from "../../components/Heading2";
+import { useNavigate } from "react-router-dom";
 function ConventionalHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative overflow-hidden">
       <div className="hidden sm:block absolute -top-20 -left-16 -z-50 blur-[150px] bg-primary/50 rounded-full w-[180px] tab:w-[300px] h-[180px] tab:h-[300px]"></div>
@@ -22,7 +24,10 @@ function ConventionalHero() {
 
           <div className="flex gap-4 pt-8 pb-4items-center">
             <PrimaryButton>apply now</PrimaryButton>
-            <IconButton text={"contact us"}>
+            <IconButton
+              text={"contact us"}
+              onClick={() => navigate("/contact-us")}
+            >
               <TbHeadset className="font-semibold text-lg" />
             </IconButton>
           </div>

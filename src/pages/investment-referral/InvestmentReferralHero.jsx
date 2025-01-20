@@ -4,7 +4,9 @@ import IconButton from "../../components/IconButton";
 import { TbHeadset } from "react-icons/tb";
 import Heading2 from "../../components/Heading2";
 import Text from "../../components/Text";
+import { useNavigate } from "react-router-dom";
 function InvestmentReferralHero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full relative overflow-hidden">
       <div className="hidden sm:block absolute -top-20 -left-16 -z-50 blur-[150px] bg-accent/50 rounded-full w-[180px] tab:w-[300px] h-[180px] tab:h-[300px]"></div>
@@ -19,7 +21,11 @@ function InvestmentReferralHero() {
           <Text>*T&C applies.</Text>
 
           <div className="flex gap-4 pt-8 pb-4items-center">
-            <IconButton text={"contact us"} bg={`accent`}>
+            <IconButton
+              text={"contact us"}
+              bg={`accent`}
+              onClick={() => navigate("/contact-us")}
+            >
               <TbHeadset className="font-semibold text-lg" />
             </IconButton>
           </div>

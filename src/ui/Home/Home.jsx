@@ -12,8 +12,10 @@ import Business from "../../assets/Business.png";
 import Partners from "../../assets/Partners.png";
 import Text from "../../components/Text";
 import AccentButton from "../../components/AccentButton";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <>
       <Hero />
@@ -33,7 +35,9 @@ function Home() {
               </Text>
             </div>
             <div className="h-[10%] tab:h-[15%] my-2 w-max m-auto">
-              <AccentButton>Invest Now</AccentButton>
+              <AccentButton onClick={() => navigate("/investment")}>
+                Invest Now
+              </AccentButton>
             </div>
           </div>
           <div className="p-3 tab:p-6 w-full sm:w-1/3 rounded-md border tab:border-0 border-gray-400 tab:shadow-2xl sm:h-full">
@@ -49,7 +53,9 @@ function Home() {
               </Text>
             </div>
             <div className=" h-[10%] tab:h-[15%] my-2 w-max m-auto">
-              <AccentButton>Get Fund</AccentButton>
+              <AccentButton onClick={() => navigate("/get-fund/conventional")}>
+                Get Fund
+              </AccentButton>
             </div>
           </div>
           <div className="p-3 tab:p-6 w-full sm:w-1/3 rounded-md border tab:border-0 border-gray-400 tab:shadow-2xl sm:h-full">

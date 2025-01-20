@@ -7,7 +7,9 @@ import GlobeHemiSphere from "../../icon/GlobeHemiSphere";
 import PersonArmSpread from "../../icon/PersonArmSpread";
 import IconButton from "../../components/IconButton";
 import { TbLogout, TbUsersGroup } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 function HowToRefer() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <Heading2 align={`text-center`} font={`font-normal`}>
@@ -32,6 +34,7 @@ function HowToRefer() {
           <IconButton
             text={"login"}
             bg={`gradient-to-l from-[#0d5152] to-[#1db5b8]`}
+            onClick={() => navigate("/auth/login")}
           >
             <TbLogout />
           </IconButton>

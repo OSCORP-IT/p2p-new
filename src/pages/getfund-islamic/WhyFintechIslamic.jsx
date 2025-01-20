@@ -8,7 +8,9 @@ import Swap from "../../icon/Swap";
 import SheildCheck from "../../icon/SheildCheck";
 import IconButton from "../../components/IconButton";
 import { TbHeadset } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 function WhyFintechIslamic() {
+  const navigate = useNavigate();
   return (
     <SectionLayout>
       <Heading1 align={`text-center`} padding={`pb-8`}>
@@ -68,7 +70,11 @@ function WhyFintechIslamic() {
         </IconFlexBox>
       </div>
       <div className="w-max m-auto py-6">
-        <IconButton text={"contact us"} bg={`[#0da500]`}>
+        <IconButton
+          text={"contact us"}
+          bg={`[#0da500]`}
+          onClick={() => navigate("/contact-us")}
+        >
           <TbHeadset className="font-semibold text-lg" />
         </IconButton>
       </div>
