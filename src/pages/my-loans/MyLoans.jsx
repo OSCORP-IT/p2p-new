@@ -9,9 +9,11 @@ import IncompleteApplication from "./IncompleteApplication";
 import ClosedLoans from "./ClosedLoans";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getAllLoanCount } from "../../services/loansPortfolio";
 
 function MyLoans() {
   const [activeTab, setActiveTab] = useState("1");
+  const [allLoanCount, setAllLoanCount] = useState(null);
 
   const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -20,6 +22,17 @@ function MyLoans() {
       navigate("/auth/login");
     }
   }, [user.isLoggedIn, navigate]);
+  useEffect(() => {
+    async function fetchAllLoans() {
+      try {
+        const response = await getAllLoanCount(user.userToken);
+        setAllLoanCount(response.result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchAllLoans();
+  }, [user.userToken]);
 
   return (
     <DashboardLayout active={"loan"}>
@@ -31,10 +44,23 @@ function MyLoans() {
           id="loans"
           className="mb-2 sm:hidden p-2 border border-textColor3 rounded-md font-semibold text-textColor3 text-base"
         >
-          <option value="1">Active Loans</option>
-          <option value="2">Pending Applications</option>
-          <option value="3">Incomplete Applications</option>
-          <option value="4">Closed Loans</option>
+          <option value="1">
+            Active Loans(
+            {allLoanCount ? allLoanCount.active_applied_loan_portfolios : 0})
+          </option>
+          <option value="2">
+            Pending Applications(
+            {allLoanCount ? allLoanCount.pending_applied_loan_portfolios : 0})
+          </option>
+          <option value="3">
+            Incomplete Applications(
+            {allLoanCount ? allLoanCount.incomplete_applied_loan_portfolios : 0}
+            )
+          </option>
+          <option value="4">
+            Closed Loans(
+            {allLoanCount ? allLoanCount.closed_applied_loan_portfolios : 0})
+          </option>
         </select>
         <div className="hidden sm:flex my-6 p-[3px] bg-gray-200 rounded-md  justify-normal items-center">
           <Tab
@@ -42,28 +68,33 @@ function MyLoans() {
             index={"1"}
             onClick={() => setActiveTab("1")}
           >
-            Active Loans
+            Active Loans (
+            {allLoanCount ? allLoanCount.active_applied_loan_portfolios : 0})
           </Tab>
           <Tab
             activeTab={activeTab}
             index={"2"}
             onClick={() => setActiveTab("2")}
           >
-            Pending Applications
+            Pending Applications (
+            {allLoanCount ? allLoanCount.pending_applied_loan_portfolios : 0})
           </Tab>
           <Tab
             activeTab={activeTab}
             index={"3"}
             onClick={() => setActiveTab("3")}
           >
-            Incomplete Applications
+            Incomplete Applications (
+            {allLoanCount ? allLoanCount.incomplete_applied_loan_portfolios : 0}
+            )
           </Tab>
           <Tab
             activeTab={activeTab}
             index={"4"}
             onClick={() => setActiveTab("4")}
           >
-            Closed Loans
+            Closed Loans (
+            {allLoanCount ? allLoanCount.closed_applied_loan_portfolios : 0})
           </Tab>
         </div>
         {activeTab == 1 && <ActiveLoans user={user} />}

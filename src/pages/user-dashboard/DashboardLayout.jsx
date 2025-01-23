@@ -8,16 +8,14 @@ import Setting from "../../icon/Setting";
 import Profile from "../../icon/Profile";
 import LogOut from "../../icon/LogOut";
 import Text from "../../components/Text";
-import SubTitle from "../../components/SubTitle";
-import PrimaryButton from "../../components/PrimaryButton";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import SidebarToggle from "../../icon/SidebarToggle";
 import Disbursement from "../../icon/Disbursement";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../features/authentication/authSlice";
 import { FaAngleDoubleDown } from "react-icons/fa";
 import Notification from "./Notification";
+import DashboardHeader from "./DashboardHeader";
+import DashboardHeaderSmallerDevice from "./DashboardHeaderSmallerDevice";
 
 function DashboardLayout({ active, children }) {
   const navigate = useNavigate();
@@ -32,25 +30,12 @@ function DashboardLayout({ active, children }) {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-[50px] flex items-center justify-between pl-2 bg-white tab:hidden shadow-md z-50">
-        <div onClick={handleToggle}>
-          <SidebarToggle />
-        </div>
-        <div>
-          <img onClick={() => navigate("/")} src={Logo} alt="logo" />
-        </div>
-        <div className="flex items-center gap-4">
-          {/* <div className="p-2 bg-gray-200 rounded-full">
-            <RiMessengerLine className="text-xl" />
-          </div> */}
-          <div
-            className="p-2 bg-gray-200 rounded-full"
-            onClick={() => setNotificationIsOpen(true)}
-          >
-            <IoMdNotificationsOutline className="text-xl" />
-          </div>
-        </div>
-      </div>
+      <DashboardHeaderSmallerDevice
+        handleToggle={handleToggle}
+        setNotificationIsOpen={setNotificationIsOpen}
+        user={user}
+        notificationIsOpen={notificationIsOpen}
+      />
       <div className="h-[50px] tab:hidden"></div>
       <div className="flex items-start bg-gray-200">
         {/* Sidebar */}
@@ -253,23 +238,11 @@ function DashboardLayout({ active, children }) {
 
         {/* Main Content */}
         <div className="w-full tab:w-4/5 tab:pt-4 px-2 tab:px-4 overflow-y-scroll h-screen relative">
-          <div className="hidden tab:flex items-center justify-between pl-2 bg-white tab:bg-transparent">
-            <SubTitle font={`bold`}>Dashboard</SubTitle>
-            <div className="flex items-center gap-4">
-              <PrimaryButton bg={`gradient-to-r from-[#ff6b00] to-[#803600]`}>
-                apply for new loan
-              </PrimaryButton>
-              {/* <div className="p-2 bg-white rounded-full">
-                <RiMessengerLine className="text-xl" />
-              </div> */}
-              <div
-                className="p-2 bg-white rounded-full"
-                onClick={() => setNotificationIsOpen(true)}
-              >
-                <IoMdNotificationsOutline className="text-xl" />
-              </div>
-            </div>
-          </div>
+          <DashboardHeader
+            setNotificationIsOpen={setNotificationIsOpen}
+            user={user}
+            notificationIsOpen={notificationIsOpen}
+          />
           {/* Top Bar */}
           <div className="sm:pl-2 pt-6 h-full">{children}</div>
         </div>

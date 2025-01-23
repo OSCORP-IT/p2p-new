@@ -25,6 +25,7 @@ const menuItems = [
       { name: "Debt", path: "/pl/debt" },
       { name: "Home Improvement", path: "/pl/home-improvement" },
       { name: "Special Occasion", path: "/pl/special-occasion" },
+      { name: "Auto Loan", path: "/pl/auto-loan" },
     ],
   },
   {
@@ -81,13 +82,33 @@ const Header = () => {
   const [currentPage, setCurrentPage] = useState("/");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMobileProfileOpen, setIsMobileProfileOpen] = useState(false);
   const [subItemShow, setSubItemShow] = useState("");
   const [stickyMenu, setStickyMenu] = useState(false);
-  const middleRef = useRef(null);
+  const profileRef = useRef(null);
+  const mobileProfileRef = useRef(null);
   const menuRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (middleRef.current && !middleRef.current.contains(event.target)) {
+      if (
+        mobileProfileRef.current &&
+        !mobileProfileRef.current.contains(event.target)
+      ) {
+        setIsMobileProfileOpen(false); // Call the function passed via props
+      }
+    };
+
+    // Attach event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup event listener on unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsMobileProfileOpen]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
         setIsProfileOpen(false); // Call the function passed via props
       }
     };
@@ -143,6 +164,12 @@ const Header = () => {
     nav(location);
     setIsMobileMenuOpen(false);
   };
+  const handleProfileOpen = () => {
+    setIsProfileOpen((prev) => !prev);
+  };
+  const handleMobileProfileOpen = () => {
+    setIsMobileProfileOpen((prev) => !prev);
+  };
 
   return (
     <header>
@@ -165,7 +192,7 @@ const Header = () => {
                     Call Us:
                   </Small>
                   <Small align={`text-center`} padding={`py-0`} color={`white`}>
-                    +880 1XXX XXXXXX
+                    +880 1710 000000
                   </Small>
                 </div>
                 <div className="text-center pl-8 flex items-center gap-2 cursor-pointer">
@@ -184,7 +211,7 @@ const Header = () => {
           >
             <div className="flex justify-between items-center px-4 tab:px-0 tab:w-11/12 laptop:w-5/6 m-auto">
               {/* Desktop Menu */}
-              <div className="hidden md:flex items-center space-x-4">
+              <div className="hidden tab:flex items-center space-x-4">
                 {menuItems.map((menu, index) => (
                   <div
                     key={index}
@@ -249,62 +276,60 @@ const Header = () => {
                 {user.isLoggedIn && (
                   <div className="relative">
                     <div
-                      onClick={() => setIsProfileOpen(true)}
+                      onClick={handleProfileOpen}
+                      ref={profileRef}
                       className="flex items-center gap-2 cursor-pointer p-1"
                     >
                       <img
-                        src="https://www.admin-p2p.alzakati.com/assets/images/avator.png"
+                        src={user.profileImage}
                         alt="profile image"
                         className="w-10 h-10 rounded-full object-center"
                       />
                       <Text color={`white`}>{user.userName}</Text>
+                      {isProfileOpen && (
+                        <div className="p-2 absolute z-10 top-12 right-0 bg-primary rounded-md w-max">
+                          <div
+                            onClick={() => nav(`/user/dashboard`)}
+                            className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
+                          >
+                            <LuLayoutDashboard className="text-white text-xl" />
+                            <Text
+                              color={`white`}
+                              padding={`py-0`}
+                              font={`font-semibold`}
+                            >
+                              Dashboard
+                            </Text>
+                          </div>
+                          <div
+                            onClick={() => nav(`/user/profile`)}
+                            className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
+                          >
+                            <CgProfile className="text-white text-xl" />
+                            <Text
+                              color={`white`}
+                              padding={`py-0`}
+                              font={`font-semibold`}
+                            >
+                              Profile
+                            </Text>
+                          </div>
+                          <div
+                            onClick={() => dispatch(logOut())}
+                            className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer "
+                          >
+                            <BiLogOut className="text-white text-xl" />
+                            <Text
+                              color={`white`}
+                              padding={`py-0`}
+                              font={`font-semibold`}
+                            >
+                              Log Out
+                            </Text>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    {isProfileOpen && (
-                      <div
-                        ref={middleRef}
-                        className="p-2 absolute z-10 top-12 bg-primary rounded-md w-full"
-                      >
-                        <div
-                          onClick={() => nav(`/user/dashboard`)}
-                          className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
-                        >
-                          <LuLayoutDashboard className="text-white text-xl" />
-                          <Text
-                            color={`white`}
-                            padding={`py-0`}
-                            font={`font-semibold`}
-                          >
-                            Dashboard
-                          </Text>
-                        </div>
-                        <div
-                          onClick={() => nav(`/user/profile`)}
-                          className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
-                        >
-                          <CgProfile className="text-white text-xl" />
-                          <Text
-                            color={`white`}
-                            padding={`py-0`}
-                            font={`font-semibold`}
-                          >
-                            Profile
-                          </Text>
-                        </div>
-                        <div
-                          onClick={() => dispatch(logOut())}
-                          className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer "
-                        >
-                          <BiLogOut className="text-white text-xl" />
-                          <Text
-                            color={`white`}
-                            padding={`py-0`}
-                            font={`font-semibold`}
-                          >
-                            Log Out
-                          </Text>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 )}
               </>
@@ -356,64 +381,62 @@ const Header = () => {
           {user.isLoggedIn && (
             <div className="relative">
               <div
-                onClick={() => setIsProfileOpen(true)}
+                onClick={handleMobileProfileOpen}
+                ref={mobileProfileRef}
                 className="flex items-center gap-2 cursor-pointer  rounded-md p-1 hover hover:bg-secondary/20"
               >
                 <img
-                  src="https://www.admin-p2p.alzakati.com/assets/images/avator.png"
+                  src={user.profileImage}
                   alt="profile image"
                   className="w-10 h-10 rounded-full object-center"
                 />
-                <Text color={`white`} font={`font-semibold`}>
+                <Text color={`white`} font={`font-semibold hidden sm:block`}>
                   {user.userName}
                 </Text>
+                {isMobileProfileOpen && (
+                  <div className="p-2 absolute z-10 top-12 right-0 bg-primary rounded-md w-max">
+                    <div
+                      onClick={() => nav(`/user/dashboard`)}
+                      className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
+                    >
+                      <LuLayoutDashboard className="text-white text-xl" />
+                      <Text
+                        color={`white`}
+                        padding={`py-0`}
+                        font={`font-semibold`}
+                      >
+                        Dashboard
+                      </Text>
+                    </div>
+                    <div
+                      onClick={() => nav(`/user/profile`)}
+                      className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
+                    >
+                      <CgProfile className="text-white text-xl" />
+                      <Text
+                        color={`white`}
+                        padding={`py-0`}
+                        font={`font-semibold`}
+                      >
+                        Profile
+                      </Text>
+                    </div>
+                    <div
+                      onClick={() => dispatch(logOut())}
+                      className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer "
+                    >
+                      <BiLogOut className="text-white text-xl" />
+                      <Text
+                        color={`white`}
+                        padding={`py-0`}
+                        font={`font-semibold`}
+                      >
+                        Log Out
+                      </Text>
+                    </div>
+                  </div>
+                )}
               </div>
-              {isProfileOpen && (
-                <div
-                  // ref={middleRef}
-                  className="p-2 absolute z-10 top-12 bg-primary rounded-md w-full"
-                >
-                  <div
-                    onClick={() => nav(`/user/dashboard`)}
-                    className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
-                  >
-                    <LuLayoutDashboard className="text-white text-xl" />
-                    <Text
-                      color={`white`}
-                      padding={`py-0`}
-                      font={`font-semibold`}
-                    >
-                      Dashboard
-                    </Text>
-                  </div>
-                  <div
-                    onClick={() => nav(`/user/profile`)}
-                    className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
-                  >
-                    <CgProfile className="text-white text-xl" />
-                    <Text
-                      color={`white`}
-                      padding={`py-0`}
-                      font={`font-semibold`}
-                    >
-                      Profile
-                    </Text>
-                  </div>
-                  <div
-                    onClick={() => dispatch(logOut())}
-                    className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer "
-                  >
-                    <BiLogOut className="text-white text-xl" />
-                    <Text
-                      color={`white`}
-                      padding={`py-0`}
-                      font={`font-semibold`}
-                    >
-                      Log Out
-                    </Text>
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function RegistrationStepThree({ setPage, data, setData }) {
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const [showPasswordMaker, setShowPasswordMaker] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ function RegistrationStepThree({ setPage, data, setData }) {
     } else {
       if (Object.values(validate).every((value) => value === true)) {
         try {
+          setIsLoading(true);
           const response = await registrationRequest(data);
 
           if (response && response.success) {
@@ -74,18 +76,21 @@ function RegistrationStepThree({ setPage, data, setData }) {
                 profileImage: response.result.client.profile_image,
               })
             );
+            setIsLoading(false);
             navigate("/");
           } else {
             setFloatingNote({
               state: true,
-              msg: response.message || "Problem checking OTP",
+              msg: response.message || "Something Wrong",
             });
+            setIsLoading(false);
           }
         } catch (err) {
           setFloatingNote({
             state: true,
             msg: err.message,
           });
+          setIsLoading(false);
         }
         return;
       }
@@ -205,9 +210,10 @@ function RegistrationStepThree({ setPage, data, setData }) {
           </button>
           <button
             type="submit"
+            disabled={isLoading}
             className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white text-base sm:text-lg tab:text-xl font-bold tracking-[4px]  py-2.5 rounded-[10px] w-1/2`}
           >
-            Submit
+            {isLoading ? "Validating.." : "Register"}
           </button>
         </div>
       </form>

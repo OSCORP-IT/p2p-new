@@ -128,7 +128,7 @@ function TableGroup({ item, index, data, setData }) {
                       rowIndex
                     )
                   }
-                  className={`w-full rounded-md px-4 py-1 border border-gray-300`}
+                  className={`w-full rounded-md sm:px-4 py-1 border border-gray-300`}
                 >
                   <option value="">--Select--</option>
                   {option.options.map((field, optionIdx) => (
@@ -162,16 +162,16 @@ function TableGroup({ item, index, data, setData }) {
       ))}
 
       {/* Add Row Button */}
-      <div className="flex gap-2 py-2 w-full">
+      <div className="flex flex-col sm:flex-row gap-2 py-2 w-full">
         <h2
-          className="text-base font-medium py-1 px-4 rounded-md cursor-pointer bg-accent w-1/2 text-white text-center"
+          className="text-base font-medium py-1 px-4 rounded-md cursor-pointer bg-accent w-full sm:w-1/2 text-white text-center"
           onClick={addNewRow}
         >
           Add {item.label} +
         </h2>
         {currentRows.length > 1 && (
           <h2
-            className="text-base font-medium py-1 px-4 rounded-md cursor-pointer w-1/2 bg-red-600 text-white text-center"
+            className="text-base font-medium py-1 px-4 rounded-md cursor-pointer w-full sm:w-1/2 bg-red-600 text-white text-center"
             onClick={deleteLastRow}
           >
             Delete Last Row

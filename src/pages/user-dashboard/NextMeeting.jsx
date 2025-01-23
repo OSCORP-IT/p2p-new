@@ -46,7 +46,7 @@ function NextMeeting({ user }) {
         "Error!"
       ) : (
         <Heading2 font={`font-bold font-poppins`}>
-          {data ? formatDate(data.next_meeting_date) : "Jan 24, 2025"}
+          {data ? formatDate(data.next_meeting_date) : "No Meeting!"}
         </Heading2>
       )}
       {isloading ? (

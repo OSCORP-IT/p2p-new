@@ -18,6 +18,7 @@ function LogIn() {
   const user = useSelector((state) => state.auth);
   const [password, setPassword] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [see, setSee] = useState(false);
   useEffect(() => {
@@ -28,9 +29,11 @@ function LogIn() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const response = await loginRequest(emailOrPhone, password);
 
       if (response && response.success) {
+        setIsLoading(false);
         dispatch(
           logIn({
             name: response.result.client.first_name,
@@ -44,12 +47,14 @@ function LogIn() {
           state: true,
           msg: response.message || "Login failed.",
         });
+        setIsLoading(false);
       }
     } catch (err) {
       setFloatingNote({
         state: true,
         msg: "Incorrect Password.",
       });
+      setIsLoading(false);
       console.error("Error:", err);
     }
   };
@@ -127,9 +132,10 @@ function LogIn() {
               <div className="pt-2 w-max m-auto">
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px]`}
                 >
-                  Login
+                  {isLoading ? "Logging in.." : "Login"}
                 </button>
               </div>
             </form>

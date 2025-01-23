@@ -47,6 +47,7 @@ import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 import InvestmentProfile from "./pages/invest-profile/InvestmentProfile";
 import GetFundReferralForm from "./pages/getfund-referral/GetFundReferralForm";
 import FAQPage from "./pages/faq/FAQPage";
+import PLAutoLoan from "./pages/pl-auto/PLAutoLoan";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +125,10 @@ const router = createBrowserRouter([
       {
         path: "/pl/special-occasion",
         element: <PLSpecialOccasion />,
+      },
+      {
+        path: "/pl/auto-loan",
+        element: <PLAutoLoan />,
       },
       {
         path: "/pl/dental",

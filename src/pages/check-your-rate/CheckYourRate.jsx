@@ -50,7 +50,7 @@ function CheckYourRate() {
           onClick={() => navigate("/")}
         />
       </div>
-      <div className="sm:mt-[30px] tab:mt-[60px] bg-white p-3 sm:p-[25px] tab:py-[30px] tab:px-[40px] w-full sm:w-[80%] tab:w-[45%] rounded-md m-auto">
+      <div className="sm:mt-[30px] tab:mt-[60px] bg-white p-3 sm:p-[25px] tab:py-[30px] tab:px-[40px] w-full sm:w-[80%] tab:w-[45%] rounded-md m-auto h-screen sm:h-auto">
         {page === 1 && (
           <HowMuchBorrow
             data={portfolioData}

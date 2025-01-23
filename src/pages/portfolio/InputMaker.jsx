@@ -128,7 +128,7 @@ function InputMaker({ item, index, data, setData }) {
         ></textarea>
       )}
       {item.field_type === "checkbox" && (
-        <div className="flex w-full items-center justify-between px-6">
+        <div className="flex flex-wrap sm:flex-nowrap w-full items-center justify-normal gap-2 sm:gap-0 sm:justify-between px-6">
           {item.options.map((option, ind) => (
             <div key={ind} className="flex items-center gap-2">
               <input

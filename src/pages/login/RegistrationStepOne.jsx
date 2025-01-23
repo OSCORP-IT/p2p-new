@@ -7,6 +7,7 @@ import Text from "../../components/Text";
 
 function RegistrationStepOne({ setPage, data, setData }) {
   const [isValid, setIsvalid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [err, setErr] = useState("");
 
@@ -53,11 +54,16 @@ function RegistrationStepOne({ setPage, data, setData }) {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
     const allFilled = checkFilling();
     if (allFilled) {
       setIsSubmitted(() => true);
       setIsvalid(() => validateBangladeshiPhoneNumber(data.mobile_number));
-    } else setErr("Fill all the fields.");
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+      setErr("Please Fill All The Fields");
+    }
   }
   return (
     <div className="w-full sm:w-3/4 tab:w-2/3 m-auto">
@@ -148,9 +154,10 @@ function RegistrationStepOne({ setPage, data, setData }) {
         <div className="pt-[40px] w-full m-auto">
           <button
             type="submit"
+            disabled={isLoading}
             className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white tab:text-xl font-bold tracking-[4px]  py-2.5 px-[80px] rounded-[10px] w-full`}
           >
-            Next Step
+            {isLoading ? "Validating.." : "Next Step"}
           </button>
         </div>
       </form>

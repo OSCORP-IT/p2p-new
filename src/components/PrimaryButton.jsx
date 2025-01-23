@@ -8,9 +8,11 @@ function PrimaryButton({
   width,
   letterCase,
   padding,
+  disabled,
 }) {
   return (
     <button
+      disabled={disabled}
       type={type ? type : "button"}
       className={`${
         letterCase ? `${letterCase}` : "capitalize"

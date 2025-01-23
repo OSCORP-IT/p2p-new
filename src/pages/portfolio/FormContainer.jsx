@@ -16,6 +16,7 @@ import InputMaker from "./InputMaker";
 import { useSelector } from "react-redux";
 import { buildFromResponse } from "./BuildFromResponse";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const initialState = {
   data: null,
@@ -160,7 +161,7 @@ function FormContainer({ portfolio_id, expanded }) {
   return (
     <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
       {allPages.loading && (
-        <div className="flex items-star gap-8">
+        <div className="flex items-start gap-8">
           <div className="w-1/5">
             <Skeleton count={4} />
           </div>
@@ -176,10 +177,10 @@ function FormContainer({ portfolio_id, expanded }) {
         </div>
       )}
 
-      <div className="relative flex items-start gap-5 sm:px-5">
+      <div className="relative flex items-start gap-3 sm:gap-5 sm:px-5">
         {allPages.data && (
           <>
-            <div className="block sm:w-[30%] bg-white rounded-md sm:p-[15px]">
+            <div className="hidden sm:block sm:w-[30%] bg-white rounded-md sm:p-[15px]">
               {allPages.data.map((item, index) => (
                 <div key={item.id}>
                   <div className="flex items-center gap-2">
@@ -220,7 +221,7 @@ function FormContainer({ portfolio_id, expanded }) {
               ))}
             </div>
             <div
-              className={`sm:hidden absolute top-0 left-0 min-h-screen ${
+              className={`sm:hidden absolute top-0 left-0 h-full ${
                 expanded ? "w-5/6 pl-2" : "w-1/6"
               } transition-all duration-500 ease-in-out bg-white rounded-lg`}
             >
@@ -270,14 +271,18 @@ function FormContainer({ portfolio_id, expanded }) {
           </>
         )}
         {!allPages.loading && formPage.loading && (
-          <div className="w-4/5">
-            <Skeleton count={10} />
+          <div className="flex items-start gap-8 w-full pt-8">
+            <div className="w-1/6"></div>
+            <div className="w-5/6 flex items-center justify-center gap-2">
+              <AiOutlineLoading className="animate-spin" />
+              <Text>Loading Forms</Text>
+            </div>
           </div>
         )}
         {formPage.data && (
           <>
-            <div className="w-[15%] sm:hidden"></div>
-            <div className="w-[80%] sm:w-[70%] bg-white rounded-md p-[15px]">
+            <div className="w-1/6 sm:hidden"></div>
+            <div className="w-5/6 sm:w-[70%] bg-white rounded-md p-2 sm:p-[15px]">
               <form onSubmit={handleNextData}>
                 {formPage.data.response_answer.map((item, index) => (
                   <div key={item.id} className="w-full">
@@ -289,20 +294,41 @@ function FormContainer({ portfolio_id, expanded }) {
                     />
                   </div>
                 ))}
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 w-full">
                   {currentIndex > 0 && (
-                    <div className="w-max m-auto pt-8" onClick={handlePrevData}>
-                      <AccentButton leftIcon={true}>Previous Page</AccentButton>
+                    <div
+                      className="w-full sm:w-max m-auto pt-8"
+                      onClick={handlePrevData}
+                    >
+                      <AccentButton
+                        disabled={formPage.loading}
+                        width={`w-full`}
+                        leftIcon={true}
+                      >
+                        Previous Page
+                      </AccentButton>
                     </div>
                   )}
                   {currentIndex + 1 < totalPages && (
-                    <div className="w-max m-auto pt-8">
-                      <AccentButton type={`submit`}>Next Page</AccentButton>
+                    <div className="w-full sm:w-max m-auto sm:pt-8">
+                      <AccentButton
+                        disabled={formPage.loading}
+                        width={`w-full`}
+                        type={`submit`}
+                      >
+                        Next Page
+                      </AccentButton>
                     </div>
                   )}
                   {currentIndex + 1 === totalPages && (
-                    <div className="w-max m-auto pt-8">
-                      <AccentButton type={`submit`}>Submit</AccentButton>
+                    <div className="w-full sm:w-max m-auto sm:pt-8">
+                      <AccentButton
+                        disabled={formPage.loading}
+                        width={`w-full`}
+                        type={`submit`}
+                      >
+                        Submit
+                      </AccentButton>
                     </div>
                   )}
                 </div>

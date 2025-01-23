@@ -175,6 +175,28 @@ function Footer() {
               </div>
             </div>
           </div>
+          <div className="w-[45%] sm:hidden px-4">
+            <SmallText
+              color={"secondary"}
+              font={`font-medium uppercase tracking-wide`}
+            >
+              about fintech
+            </SmallText>
+            <div className="pt-1">
+              <div onClick={() => navigate("/blog")}>
+                <SmallText color={`white cursor-pointer`}>Blog</SmallText>
+              </div>
+              <div onClick={() => navigate("/faq")}>
+                <SmallText color={`white cursor-pointer`}>FAQ</SmallText>
+              </div>
+              <div onClick={() => navigate("/about-us")}>
+                <SmallText color={`white cursor-pointer`}>About Us</SmallText>
+              </div>
+              <div onClick={() => navigate("/contact-us")}>
+                <SmallText color={`white cursor-pointer`}>Contact Us</SmallText>
+              </div>
+            </div>
+          </div>
           <div className="w-[45%] sm:w-max pr-4">
             <SmallText
               color={"secondary"}
@@ -290,7 +312,7 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="w-[45%] sm:w-max pr-4">
+          <div className="w-[45%] hidden sm:block sm:w-max pr-4">
             <SmallText
               color={"secondary"}
               font={`font-medium uppercase tracking-wide`}
@@ -312,28 +334,6 @@ function Footer() {
               </div>
             </div>
           </div>
-          {/* <div className="w-[35%] hidden tab:block">
-            <Heading2
-              color={`text-white`}
-              font={`font-semibold font-poppins leading-tight`}
-            >
-              Subscribe Newsletter
-            </Heading2>
-            <SmallText color={`white`}>
-              Want to know what we’re up to? Sign up for the newsletter and join
-              out tribe
-            </SmallText>
-            <div className="flex items-center gap-2 pt-1">
-              <input
-                type="text"
-                className="p-2 rounded-md w-2/3"
-                placeholder="Email Address"
-              />
-              <button className="bg-gradient-to-l from-[#ffa412] to-[#7cc600] capitalize rounded-md px-6 py-3 text-xs font-semibold text-textColor1">
-                subscribe
-              </button>
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="mt-4 border-t border-t-secondary">

@@ -2,7 +2,7 @@ import Heading1 from "../../components/Heading1";
 import Text from "../../components/Text";
 import SectionLayout from "../../ui/SectionLayout";
 import ArrowBendCard from "./ArrowBendCard";
-function HowFintechSpecial() {
+function HowAutoLoanSpecial() {
   return (
     <SectionLayout>
       <div className="bg-accent/10 p-4 sm:p-6 tab:p-10 rounded-md mt-4">
@@ -34,4 +34,4 @@ function HowFintechSpecial() {
   );
 }
 
-export default HowFintechSpecial;
+export default HowAutoLoanSpecial;

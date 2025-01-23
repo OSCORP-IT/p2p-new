@@ -8,12 +8,14 @@ import { otpVerify } from "../../services/Authentication";
 function RegistrationStepTwo({ setPage, data }) {
   const [seconds, setSeconds] = useState(60);
   const [otp, setOtp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
 
   const handleOtpVerify = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const response = await otpVerify(data.mobile_number, otp);
 
       if (response && response.success) {
@@ -26,17 +28,20 @@ function RegistrationStepTwo({ setPage, data }) {
           setFloatingNote({ state: false, msg: "" });
         }, 3000);
         setPage(3);
+        setIsLoading(false);
       } else {
         setFloatingNote({
           state: true,
           msg: response.message || "Problem checking OTP",
         });
+        setIsLoading(false);
       }
     } catch (err) {
       setFloatingNote({
         state: true,
         msg: "Incorrect OTP",
       });
+      setIsLoading(false);
       console.error("Error:", err);
     }
   };
@@ -121,9 +126,10 @@ function RegistrationStepTwo({ setPage, data }) {
           </button>
           <button
             type="submit"
+            disabled={isLoading}
             className={`bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] uppercase text-white text-base sm:text-lg tab:text-xl font-bold tracking-[4px]  py-2.5 rounded-[10px] w-1/2`}
           >
-            Next Step
+            {isLoading ? "Validating.." : "Next Step"}
           </button>
         </div>
       </form>

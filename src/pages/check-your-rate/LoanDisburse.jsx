@@ -7,18 +7,22 @@ import Text from "../../components/Text";
 import { useNavigate } from "react-router-dom";
 import { checkRateSubmit } from "../../services/checkYourRate";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 function LoanDisburse({ data, setPage }) {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
   async function handleSubmit() {
     try {
+      setIsLoading(true);
       const response = await checkRateSubmit(data, user.userToken);
       if (response && response.success) {
+        setIsLoading(false);
         navigate(`/form/${response.result.loan_portfolio.id}`);
       }
     } catch (err) {
-      console.log(err);
+      setIsLoading(false);
       return;
     }
   }
@@ -55,7 +59,7 @@ function LoanDisburse({ data, setPage }) {
           <FaLessThan className="text-primary" />
         </div>
         <div className="w-full" onClick={handleSubmit}>
-          <PrimaryButton width={`w-full`} noIcon={true}>
+          <PrimaryButton width={`w-full`} noIcon={true} disabled={isLoading}>
             Apply Now
           </PrimaryButton>
         </div>
