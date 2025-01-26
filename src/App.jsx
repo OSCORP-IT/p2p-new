@@ -48,6 +48,8 @@ import InvestmentProfile from "./pages/invest-profile/InvestmentProfile";
 import GetFundReferralForm from "./pages/getfund-referral/GetFundReferralForm";
 import FAQPage from "./pages/faq/FAQPage";
 import PLAutoLoan from "./pages/pl-auto/PLAutoLoan";
+import PLEngagement from "./pages/pl-engagement/PLEngagement";
+import PLFuneral from "./pages/pl-funeral/PLFuneral";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +131,14 @@ const router = createBrowserRouter([
       {
         path: "/pl/auto-loan",
         element: <PLAutoLoan />,
+      },
+      {
+        path: "/pl/engagement-ring",
+        element: <PLEngagement />,
+      },
+      {
+        path: "/pl/funeral-service",
+        element: <PLFuneral />,
       },
       {
         path: "/pl/dental",

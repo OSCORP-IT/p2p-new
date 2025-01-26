@@ -95,7 +95,9 @@ function Profile() {
                     <SubTitle padding={`py-0`}>
                       {userData.first_name + " " + userData.last_name}
                     </SubTitle>
-                    <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                    {userData.verified_at !== "" && (
+                      <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                    )}
                   </div>
                   <Text color={`textColor3`} padding={`py-0`}>
                     {userData.email}
@@ -122,17 +124,18 @@ function Profile() {
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 mt-5 ">
               <div className="w-full sm:w-1/2">
                 <Text font={`font-semibold`}>Full Name</Text>
-                <input
-                  type="text"
-                  value={userData.first_name + " " + userData.last_name}
-                  className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
-                />
+                <h2 className="p-2 border text-textColor4 border-textColor3 rounded-md w-full">
+                  {userData.first_name + " " + userData.last_name}
+                </h2>
               </div>
               <div className="w-full sm:w-1/2">
                 <Text font={`font-semibold`}>Email</Text>
                 <input
                   type="email"
                   value={userData.email}
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
@@ -143,6 +146,9 @@ function Profile() {
                 <input
                   type="text"
                   value={userData.mobile_number}
+                  onChange={(e) =>
+                    setUserData({ ...userData, mobile_number: e.target.value })
+                  }
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
@@ -152,6 +158,9 @@ function Profile() {
                   rounded={true}
                   dateFormat={`dd/MM/YYYY`}
                   date={userData.date_of_birth}
+                  setDate={(date) =>
+                    setUserData({ ...userData, date_of_birth: date })
+                  }
                   textColor={`text-textColor4`}
                 />
               </div>
@@ -161,6 +170,9 @@ function Profile() {
                 <Text font={`font-semibold`}>Profession</Text>
                 <select
                   value={userData.profession}
+                  onChange={(e) =>
+                    setUserData({ ...userData, profession: e.target.value })
+                  }
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 >
                   <option value="">Select Profession</option>
@@ -174,6 +186,9 @@ function Profile() {
                 <input
                   type="text"
                   value={userData.designation}
+                  onChange={(e) =>
+                    setUserData({ ...userData, designation: e.target.value })
+                  }
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
@@ -183,6 +198,12 @@ function Profile() {
               <input
                 type="text"
                 value={userData.permanent_address}
+                onChange={(e) =>
+                  setUserData({
+                    ...userData,
+                    permanent_address: e.target.value,
+                  })
+                }
                 className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
               />
             </div>

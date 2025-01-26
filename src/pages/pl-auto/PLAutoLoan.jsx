@@ -1,5 +1,5 @@
 import AutoEventCards from "./AutoEventCards";
-import HowAutoLoanSpecial from "./HowAutoLoanSpecial";
+import HowFintechSpecial from "../pl-special/HowFintechSpecial";
 import PLAutoHero from "./PLAutoHero";
 import WhyPLAutoSpecial from "./WhyPLAutoSpecial";
 
@@ -9,7 +9,7 @@ function PLAutoLoan() {
       <PLAutoHero />
       <WhyPLAutoSpecial />
       <AutoEventCards />
-      <HowAutoLoanSpecial />
+      <HowFintechSpecial />
     </>
   );
 }

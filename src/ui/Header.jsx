@@ -26,6 +26,8 @@ const menuItems = [
       { name: "Home Improvement", path: "/pl/home-improvement" },
       { name: "Special Occasion", path: "/pl/special-occasion" },
       { name: "Auto Loan", path: "/pl/auto-loan" },
+      { name: "Engagement Ring", path: "/pl/engagement-ring" },
+      { name: "Funeral Service", path: "/pl/funeral-service" },
     ],
   },
   {
