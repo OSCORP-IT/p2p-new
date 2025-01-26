@@ -1,29 +1,62 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import Applayout from "./ui/Applayout";
-import Home from "./ui/Home/Home";
-import Investment from "./pages/investment/Investment";
-import InvestmentIslamic from "./pages/investment-islamic/InvestmentIslamic";
-import InvestmentAssure from "./pages/investment-assure/InvestmentAssure";
-import InvestmentPlus from "./pages/investment-plus/InvestmentPlus";
-import InvestmentReferral from "./pages/investment-referral/InvestmentReferral";
-import GetFundConventional from "./pages/getfund-conventional/GetFundConventional";
-import GetfFundCollateral from "./pages/getfund-collateral/GetfFundCollateral";
-import GetFundIslamic from "./pages/getfund-islamic/GetFundIslamic";
-import GetFundReferral from "./pages/getfund-referral/GetFundReferral";
-import PLOverview from "./pages/pl-overview/PLOverview";
-import PLDebt from "./pages/pl-debt/PLDebt";
-import PLHomeImprovement from "./pages/pl-homeImprovement/PLHomeImprovement";
-import PLMedicalLoan from "./pages/pl-medical/PLMedicalLoan";
-import PLSpecialOccasion from "./pages/pl-special/PLSpecialOccasion";
-import PLDentalLoan from "./pages/pl-dental/PLDentalLoan";
-import PLBariatric from "./pages/pl-weightloss/PLBariatric";
-import PersonalLoanCalculator from "./pages/resource_personal/PersonalLoanCalculator";
-import DebtColidationCalculator from "./pages/resouce-debt/DebtColidationCalculator";
-import HomeEquityCalculator from "./pages/resource-homeEquity/HomeEquityCalculator";
-import FertilityTreatment from "./pages/pl-fertility/FertilityTreatment";
-import PlasticSurgery from "./pages/pl-plasricSurgery/PlasticSurgery";
-import MentalHealth from "./pages/pl-mentalHealth/MentalHealth";
-import CheckYourRate from "./pages/check-your-rate/CheckYourRate";
+const Home = lazy(() => import("./ui/Home/Home"));
+const Investment = lazy(() => import("./pages/investment/Investment"));
+const InvestmentIslamic = lazy(() =>
+  import("./pages/investment-islamic/InvestmentIslamic")
+);
+const InvestmentAssure = lazy(() =>
+  import("./pages/investment-assure/InvestmentAssure")
+);
+const InvestmentPlus = lazy(() =>
+  import("./pages/investment-plus/InvestmentPlus")
+);
+const InvestmentReferral = lazy(() =>
+  import("./pages/investment-referral/InvestmentReferral")
+);
+const GetFundConventional = lazy(() =>
+  import("./pages/getfund-conventional/GetFundConventional")
+);
+const GetfFundCollateral = lazy(() =>
+  import("./pages/getfund-collateral/GetfFundCollateral")
+);
+const GetFundIslamic = lazy(() =>
+  import("./pages/getfund-islamic/GetFundIslamic")
+);
+const GetFundReferral = lazy(() =>
+  import("./pages/getfund-referral/GetFundReferral")
+);
+const PLOverview = lazy(() => import("./pages/pl-overview/PLOverview"));
+const PLDebt = lazy(() => import("./pages/pl-debt/PLDebt"));
+const PLHomeImprovement = lazy(() =>
+  import("./pages/pl-homeImprovement/PLHomeImprovement")
+);
+const PLMedicalLoan = lazy(() => import("./pages/pl-medical/PLMedicalLoan"));
+const PLSpecialOccasion = lazy(() =>
+  import("./pages/pl-special/PLSpecialOccasion")
+);
+const PLDentalLoan = lazy(() => import("./pages/pl-dental/PLDentalLoan"));
+const PLBariatric = lazy(() => import("./pages/pl-weightloss/PLBariatric"));
+const PersonalLoanCalculator = lazy(() =>
+  import("./pages/resource_personal/PersonalLoanCalculator")
+);
+const DebtColidationCalculator = lazy(() =>
+  import("./pages/resouce-debt/DebtColidationCalculator")
+);
+const HomeEquityCalculator = lazy(() =>
+  import("./pages/resource-homeEquity/HomeEquityCalculator")
+);
+const FertilityTreatment = lazy(() =>
+  import("./pages/pl-fertility/FertilityTreatment")
+);
+const PlasticSurgery = lazy(() =>
+  import("./pages/pl-plasricSurgery/PlasticSurgery")
+);
+const MentalHealth = lazy(() => import("./pages/pl-mentalHealth/MentalHealth"));
+const CheckYourRate = lazy(() =>
+  import("./pages/check-your-rate/CheckYourRate")
+);
 import LogIn from "./pages/login/LogIn";
 import Registration from "./pages/login/Registration";
 import useAutoLogout from "./useAutoLogOut";
@@ -46,10 +79,11 @@ import InvestmentSettings from "./pages/investment-settings/InvestmentSettings";
 import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 import InvestmentProfile from "./pages/invest-profile/InvestmentProfile";
 import GetFundReferralForm from "./pages/getfund-referral/GetFundReferralForm";
-import FAQPage from "./pages/faq/FAQPage";
-import PLAutoLoan from "./pages/pl-auto/PLAutoLoan";
-import PLEngagement from "./pages/pl-engagement/PLEngagement";
-import PLFuneral from "./pages/pl-funeral/PLFuneral";
+import Logo from "./assets/BlackLogo.png";
+const FAQPage = lazy(() => import("./pages/faq/FAQPage"));
+const PLAutoLoan = lazy(() => import("./pages/pl-auto/PLAutoLoan"));
+const PLEngagement = lazy(() => import("./pages/pl-engagement/PLEngagement"));
+const PLFuneral = lazy(() => import("./pages/pl-funeral/PLFuneral"));
 
 const router = createBrowserRouter([
   {
@@ -269,9 +303,24 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
 ]);
+function AnimatedFallback() {
+  return (
+    <div>
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-pulse text-lg">
+          <img src={Logo} alt="White Logo" />
+        </div>
+      </div>
+    </div>
+  );
+}
 function App() {
   useAutoLogout();
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<AnimatedFallback />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }
 
 export default App;
