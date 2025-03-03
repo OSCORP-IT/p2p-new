@@ -79,7 +79,9 @@ function PersonalLoanCalculatorHero() {
                   setData={setData}
                 />
               )}
-              {page === 6 && <CalculationResult data={data} />}
+              {page === 6 && (
+                <CalculationResult data={data} setData={setData} />
+              )}
             </div>
           </div>
         </div>
