@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
+import SubHeading from "../../components/SubHeading";
 import Text from "../../components/Text";
 import Small from "../../components/Small";
+import PrimaryButton from "../../components/PrimaryButton";
 import { personalCalculator } from "../../services/Calculator";
 import { AiOutlineLoading } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function CalculationResult({ data, setData }) {
+  const navigate = useNavigate();
   const [estimatedLoan, setEstimatedLoan] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -32,23 +36,20 @@ function CalculationResult({ data, setData }) {
         Here&apos;s what your loan could look like
       </Heading2>
       <div className="flex justify-normal items-center flex-col sm:flex-row">
-        <div className="w-1/2 p-4 border-r-4 border-r-primary">
+        <div className="w-full px-4 sm:px-0 sm:w-1/2 p-2 sm:border-r-2 sm:border-r-primary">
           <Text font={`font-semibold`} align={`text-center`} color={`accent`}>
             Monthly Payment
           </Text>
-          <Heading2
-            color={`text-primary`}
-            align={`text-center`}
-            font={`font-bold`}
-          >
+          <SubHeading color={`primary`} align={`text-center`} font={`bold`}>
             {isLoading && (
               <AiOutlineLoading className="animate-spin w-max m-auto" />
             )}
             {isError && "Failed to load"}
-            {!isLoading &&
+            {!isError &&
+              !isLoading &&
               estimatedLoan &&
               `$ ${estimatedLoan.result.monthly_payment}`}
-          </Heading2>
+          </SubHeading>
           <Text
             font={`font-semibold`}
             align={`text-center`}
@@ -57,26 +58,21 @@ function CalculationResult({ data, setData }) {
           >
             Annual Rate (%)
           </Text>
-          <Heading2
-            color={`text-primary`}
-            align={`text-center`}
-            font={`font-bold`}
-          >
+          <SubHeading color={`primary`} align={`text-center`} font={`bold`}>
             {isLoading && (
               <AiOutlineLoading className="animate-spin w-max m-auto" />
             )}
-            {isError && "Failed to load"}
-            {!isLoading && estimatedLoan && estimatedLoan.result.apr}
-          </Heading2>
+            {!isLoading && isError && "Failed to load"}
+            {!isError &&
+              !isLoading &&
+              estimatedLoan &&
+              estimatedLoan.result.apr}
+          </SubHeading>
         </div>
-        <div className="w-1/2 p-4">
-          <Heading2
-            color={`text-primary`}
-            align={`text-center`}
-            font={`font-bold`}
-          >
+        <div className="w-full px-4 sm:px-0 sm:w-1/2 p-4">
+          <SubHeading color={`primary`} align={`text-center`} font={`bold`}>
             ${data.borrow_amount}
-          </Heading2>
+          </SubHeading>
           <input
             type="range"
             className="w-full h-1"
@@ -102,10 +98,18 @@ function CalculationResult({ data, setData }) {
               <Text
                 align={`text-center`}
                 font={`font-semibold`}
+                padding={`py-0`}
                 color={data.year === "3" ? "white" : "primary"}
               >
                 3 Years
               </Text>
+              <p
+                className={`text-[8px] text-center ${
+                  data.year === "3" ? "text-white" : "text-primary"
+                } font-medium`}
+              >
+                Lowest Rate
+              </p>
             </div>
             <div
               onClick={() => setData({ ...data, year: "5" })}
@@ -116,16 +120,28 @@ function CalculationResult({ data, setData }) {
               <Text
                 align={`text-center`}
                 font={`font-semibold`}
+                padding={`py-0`}
                 color={data.year === "5" ? "white" : "primary"}
               >
                 5 Years
               </Text>
+              <p
+                className={`text-[8px] text-center ${
+                  data.year === "5" ? "text-white" : "text-primary"
+                } font-medium`}
+              >
+                Less Payment
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-      <div></div>
+      <div
+        onClick={() => navigate("/check-rate")}
+        className="w-max m-auto mt-4"
+      >
+        <PrimaryButton>check your rate</PrimaryButton>
+      </div>
     </div>
   );
 }

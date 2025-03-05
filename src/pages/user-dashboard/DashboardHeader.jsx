@@ -13,10 +13,12 @@ function DashboardHeader({ setNotificationIsOpen, user, notificationIsOpen }) {
       if (!notificationIsOpen) {
         try {
           const data = await unreadNotificationaStatus(user.userToken);
-          setHasUnreadNotification({
-            flag: data.result.is_new_notification,
-            count: data.result.total_unread_notifications,
-          });
+          if (data.success) {
+            setHasUnreadNotification({
+              flag: data.result.is_new_notification,
+              count: data.result.total_unread_notifications,
+            });
+          }
         } catch (error) {
           console.error(error);
         }
