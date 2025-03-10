@@ -291,7 +291,11 @@ const Header = () => {
                       {isProfileOpen && (
                         <div className="p-2 absolute z-10 top-12 right-0 bg-primary rounded-md w-max">
                           <div
-                            onClick={() => nav(`/user/dashboard`)}
+                            onClick={() =>
+                              user.userType === "client"
+                                ? nav(`/user/dashboard`)
+                                : nav(`/investment/dashboard`)
+                            }
                             className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  "
                           >
                             <LuLayoutDashboard className="text-white text-xl" />
@@ -304,7 +308,11 @@ const Header = () => {
                             </Text>
                           </div>
                           <div
-                            onClick={() => nav(`/user/profile`)}
+                            onClick={() =>
+                              user.userType === "client"
+                                ? nav(`/user/profile`)
+                                : nav(`/investment/profile`)
+                            }
                             className="flex gap-2 items-center p-1 hover:bg-secondary transition-all duration-200 rounded-md cursor-pointer  my-2"
                           >
                             <CgProfile className="text-white text-xl" />

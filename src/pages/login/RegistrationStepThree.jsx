@@ -8,7 +8,7 @@ import { logIn } from "../../features/authentication/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function RegistrationStepThree({ setPage, data, setData }) {
+function RegistrationStepThree({ setPage, data, setData, userType }) {
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordMaker, setShowPasswordMaker] = useState(false);

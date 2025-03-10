@@ -35,6 +35,7 @@ const loadStateFromCookies = () => {
     accountAs: "loan",
     userToken: "",
     userName: "",
+    userType: "",
     inTime: "",
     profileImage: "",
   };
@@ -50,6 +51,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.userToken = action.payload.token;
       state.userName = action.payload.name;
+      state.userType = action.payload.userType;
       state.profileImage = action.payload.profileImage;
       state.inTime = new Date().getTime();
 
@@ -82,6 +84,7 @@ const authSlice = createSlice({
       state.userToken = "";
       state.accountAs = "";
       state.userName = "";
+      state.userType = "";
       state.inTime = "";
 
       // Remove cookies

@@ -37,7 +37,7 @@ function ForgotPassword() {
   async function handleMailSubmit(e) {
     e.preventDefault();
     setRetry(true);
-    if (accountType === "loan") {
+    if (accountType === "client") {
       try {
         const data = await clientTypeSendToken(email);
         if (data.success) {
@@ -55,7 +55,7 @@ function ForgotPassword() {
   }
   async function handlePasswordReset(e) {
     e.preventDefault();
-    if (accountType === "loan") {
+    if (accountType === "client") {
       try {
         const data = await clientTypeResetPassword(
           token,
@@ -129,9 +129,9 @@ function ForgotPassword() {
                     onChange={(e) => setAccountType(e.target.value)}
                     className="py-3 pr-3 pl-8 w-full rounded-md text-textColor3"
                   >
-                    <option value="">Select Acount Type</option>
-                    <option value="loan">Loan</option>
-                    <option value="invest">Investment</option>
+                    <option value="">Select Account Type</option>
+                    <option value="client">Client</option>
+                    <option value="investor">Investor</option>
                   </select>
                 </div>
                 <div className="pt-2 w-max m-auto">

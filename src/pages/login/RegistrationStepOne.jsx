@@ -5,7 +5,13 @@ import DatePicker from "./Datepicker";
 import { userPhoneNumberCheck } from "../../services/Authentication";
 import Text from "../../components/Text";
 
-function RegistrationStepOne({ setPage, data, setData }) {
+function RegistrationStepOne({
+  setPage,
+  data,
+  setData,
+  userType,
+  setUserType,
+}) {
   const [isValid, setIsvalid] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -127,24 +133,41 @@ function RegistrationStepOne({ setPage, data, setData }) {
               }))
             }
           />
-          <div className="py-2 tab:py-4">
-            <Input
-              type={`email`}
-              placeholder={"E-mail"}
-              name={"email"}
-              value={data.email}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
-            ></Input>
+          <div className="w-full flex flex-col tab:flex-row gap-2 tab:gap-4 items-center">
+            <div className="w-1/2 py-2 tab:py-4">
+              <Input
+                type={`email`}
+                placeholder={"E-mail"}
+                name={"email"}
+                value={data.email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
+              ></Input>
+            </div>
+            <div className="w-1/2 py-2 tab:py-4">
+              <Input
+                type={`text`}
+                placeholder={"Phone Number"}
+                name={"phone"}
+                value={data.mobile_number}
+                onChange={(e) =>
+                  setData({ ...data, mobile_number: e.target.value })
+                }
+              ></Input>
+            </div>
           </div>
-          <Input
-            type={`text`}
-            placeholder={"Phone Number"}
-            name={"phone"}
-            value={data.mobile_number}
-            onChange={(e) =>
-              setData({ ...data, mobile_number: e.target.value })
-            }
-          ></Input>
+          <div className="w-full">
+            <select
+              name="userType"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+              className="p-2 tab:p-3 w-full border border-gray-400 rounded-md appearance-none"
+            >
+              <option value="">Select User Type</option>
+              <option value="client">Client</option>
+              <option value="investor">Investor</option>
+            </select>
+          </div>
         </div>
         {err !== "" && (
           <div className="bg-red-200 p-2 mt-2 rounded-md">

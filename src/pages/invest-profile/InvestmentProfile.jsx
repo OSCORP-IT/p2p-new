@@ -6,7 +6,7 @@ import Datepicker from "../login/Datepicker";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProfileData } from "../../services/profile";
+import { getProfileDataInvestor } from "../../services/profile";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { BiError } from "react-icons/bi";
@@ -36,8 +36,8 @@ function InvestmentProfile() {
       if (user.isLoggedIn) {
         try {
           setIsloading(true);
-          const data = await getProfileData(user.userToken);
-          setUserData(data.result.client);
+          const data = await getProfileDataInvestor(user.userToken);
+          setUserData(data.result.investor);
           setIsloading(false);
         } catch (error) {
           setIsError(true);
@@ -99,7 +99,9 @@ function InvestmentProfile() {
                   <SubTitle padding={`py-0`}>
                     {userData.first_name + " " + userData.last_name}
                   </SubTitle>
-                  <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                  {userData.verified_at !== null && (
+                    <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                  )}
                 </div>
                 <Text color={`textColor3`} padding={`py-0`}>
                   {userData.email}
@@ -136,7 +138,7 @@ function InvestmentProfile() {
                 <Text font={`font-semibold`}>Phone Number</Text>
                 <input
                   type="text"
-                  value={userData.mobile_number}
+                  value={userData.phone_number}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
