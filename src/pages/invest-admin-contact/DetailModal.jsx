@@ -10,7 +10,7 @@ import Text from "../../components/Text";
 import SmallText from "../../components/SmallText";
 import {
   getDetailMeetingSchedule,
-  getDetailSupportTicket,
+  getDetailSupportTicketInvestor,
   postTicketComment,
 } from "../../services/meeting";
 import { formatDateTimeTo12Hours } from "../../services/dateFunctions";
@@ -42,7 +42,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
       try {
         setIsloading(true);
         if (item.type === "Message") {
-          const data = await getDetailSupportTicket(userToken, item.id);
+          const data = await getDetailSupportTicketInvestor(userToken, item.id);
           setTicketData(data.result);
           setIsloading(false);
         } else {
@@ -59,7 +59,6 @@ function DetailModal({ setShowDetails, item, userToken }) {
   }, [item.id, item.type, userToken]);
 
   const handleSubmit = async () => {
-    // console.log(password);
     setCommentIsLoading(true);
     try {
       const result = await postTicketComment(user.userToken, item.id, {

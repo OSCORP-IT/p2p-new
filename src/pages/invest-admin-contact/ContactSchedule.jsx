@@ -3,7 +3,10 @@ import Heading2 from "../../components/Heading2";
 import PrimaryButton from "../../components/PrimaryButton";
 import Text from "../../components/Text";
 import Datepicker from "../login/Datepicker";
-import { createSupportTicket, scheduleMeeting } from "../../services/meeting";
+import {
+  createSupportTicketInvestor,
+  scheduleMeeting,
+} from "../../services/meeting";
 import { useSelector } from "react-redux";
 const initialMeetingData = {
   type: "",
@@ -16,7 +19,7 @@ const initialTicketData = {
   mesage: "",
 };
 
-function ContactSchedule() {
+function ContactSchedule({ setFilteredData, filteredData }) {
   const [response, setResponse] = useState(initialMeetingData);
   const [ticketData, setTicketData] = useState(initialTicketData);
   const [message, setMessage] = useState(null);
@@ -38,8 +41,19 @@ function ContactSchedule() {
   }
   async function handleTicket() {
     try {
-      const result = await createSupportTicket(user.userToken, ticketData);
+      const result = await createSupportTicketInvestor(
+        user.userToken,
+        ticketData
+      );
       result.success && showMessage("success", "Support Ticket Created");
+      setFilteredData([
+        ...filteredData,
+        {
+          ...result.result.ticket,
+          type: "Message",
+          notes: result.result.ticket.message,
+        },
+      ]);
     } catch (err) {
       showMessage("failed", "Sorry! Somthing went Wrong! Try Again");
     }

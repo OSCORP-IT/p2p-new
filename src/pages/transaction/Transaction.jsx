@@ -10,6 +10,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import SubHeading from "../../components/SubHeading";
 import { formatDateToYYYYMMDD } from "../../services/dateFunctions";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function Transaction() {
   const user = useSelector((state) => state.auth);
@@ -20,8 +21,13 @@ function Transaction() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "investor") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "investor") {
+    <LoadingScreen />;
+  }
   useEffect(() => {
     async function fetchTransactions() {
       if (user.isLoggedIn) {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import { updateProfileImage } from "../../services/FileUpload";
-import { postUpdateProfile } from "../../services/profile";
+import { postUpdateProfileInvestor } from "../../services/profile";
 import Text from "../../components/Text";
 import { useDispatch } from "react-redux";
 import { profileImageChange } from "../../features/authentication/authSlice";
@@ -39,7 +39,10 @@ function ProfileChangeModal({
       if (fileUrl) {
         try {
           setIsLoading(true);
-          const data = await postUpdateProfile(user.userToken, userData);
+          const data = await postUpdateProfileInvestor(
+            user.userToken,
+            userData
+          );
           if (data.success) {
             setIsSuccess(true);
             dispatch(profileImageChange(fileUrl));

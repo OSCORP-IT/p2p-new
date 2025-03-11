@@ -7,6 +7,7 @@ import ContactOptions from "./ContactOptions";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getRecentCommunication } from "../../services/meeting";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function AdminContact() {
   const user = useSelector((state) => state.auth);
@@ -14,8 +15,13 @@ function AdminContact() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "investor") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "investor") {
+    <LoadingScreen />;
+  }
   const [showDetails, setShowDetails] = useState(false);
   const [currentItem, setCurrentItem] = useState("");
   const [data, setData] = useState(null);

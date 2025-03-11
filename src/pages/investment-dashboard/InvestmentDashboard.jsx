@@ -1,18 +1,11 @@
 import InvestmentDashboardLayout from "./InvestmentDashboardLayout";
-// import Text from "../../components/Text";
-// import IconButton from "../../components/IconButton";
-// import PaperPlaneTilt from "../../icon/PaperPlaneTilt";
-// import { PiUsersThree } from "react-icons/pi";
-// import { BiPlusCircle } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import InvestmentFields from "./InvestmentFields";
 import RecentInvestments from "./RecentInvestments";
-// import LoanDistribution from "./LoanDistribution";
-// import UpcomingPayments from "./UpcomingPayments";
-// import LoanDisbursementSchedule from "./LoanDisbursementSchedule";
 import InitialOverviews from "./InitialOverviews";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function InvestmentDashboard() {
   const user = useSelector((state) => state.auth);
@@ -20,8 +13,13 @@ function InvestmentDashboard() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "client") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "client") {
+    <LoadingScreen />;
+  }
 
   return (
     <>
@@ -29,12 +27,12 @@ function InvestmentDashboard() {
         active={"dashboard"}
         pageTitle={`Investment Dashboard`}
       >
-        <InitialOverviews />
+        <InitialOverviews user={user} />
         <div className="mt-3 w-full flex flex-wrap sm:flex-nowrap items-start gap-2 tab:gap-3">
-          <InvestmentFields />
+          <InvestmentFields user={user} />
         </div>
         <div className="my-3 w-full flex items-start flex-wrap sm:flex-nowrap gap-2 tab:gap-3">
-          <RecentInvestments />
+          <RecentInvestments user={user} />
         </div>
       </InvestmentDashboardLayout>
     </>

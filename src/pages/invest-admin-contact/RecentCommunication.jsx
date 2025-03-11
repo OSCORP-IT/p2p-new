@@ -1,4 +1,5 @@
 // import { BiError } from "react-icons/bi";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Heading2 from "../../components/Heading2";
 // import SmallText from "../../components/SmallText";
 import SubHeading from "../../components/SubHeading";
@@ -6,6 +7,8 @@ import Text from "../../components/Text";
 import Search from "../../icon/Search";
 // import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { BiError } from "react-icons/bi";
+import SmallText from "../../components/SmallText";
 
 function RecentCommunication({
   filteredData,
@@ -45,6 +48,70 @@ function RecentCommunication({
       </div>
 
       <div className="mt-3">
+        <div className="w-full flex gap-1.5 px-2 items-center border-b border-b-textColor3 py-1">
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-left w-[8%]`}
+          >
+            ID
+          </Text>
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-left w-[10%]`}
+          >
+            Type
+          </Text>
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-left w-[15%]`}
+          >
+            Subject
+          </Text>
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-left w-[30%]`}
+          >
+            Description
+          </Text>
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-left w-[10%]`}
+          >
+            Date
+          </Text>
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-center w-[17%]`}
+          >
+            Status
+          </Text>
+          <Text
+            font={`font-semibold`}
+            color={`textColor3`}
+            align={`text-center w-[10%]`}
+          >
+            Action
+          </Text>
+        </div>
+        {isloading && (
+          <SkeletonTheme baseColor="#ff6b001a" highlightColor="#fff">
+            <div className="w-full my-4">
+              <Skeleton count={3} />
+            </div>
+          </SkeletonTheme>
+        )}
+        {isError && (
+          <div className="flex gap-2 animate-pulse items-center m-auto w-max h-max">
+            <BiError className="text-red-900 text-3xl" />
+            <SubHeading>Error Loading Data</SubHeading>
+          </div>
+        )}
         {filteredData &&
           (filteredData.length === 0 ? (
             <div className="mt-4">
@@ -55,27 +122,50 @@ function RecentCommunication({
           ) : (
             filteredData.map((item, index) => (
               <div
-                onClick={() => handleDetail(item)}
                 key={index}
-                className="cursor-pointer rounded-md  hover:bg-accent/10 p-2 border-b border-textColor3 flex items-center justify-between"
+                className="w-[200%] sm:w-full flex gap-1.5 px-2 items-center border-b border-b-textColor3 py-1"
               >
-                <div>
-                  <h2 className="text-base sm:text-lg font-semibold">
-                    {item.type}: {item.subject}
-                  </h2>
-                  <Text color={`textColor3`} padding={`py-0`}>
-                    {item.date}
-                  </Text>
-                </div>
-                <div>
-                  <h2
-                    className={`text-base sm:text-lg font-semibold ${
-                      item.status === "Pending" ? "bg-accent" : "bg-islamic"
-                    } text-white rounded-md px-3 py-0.5`}
+                <Text color={`textColor4`} align={`text-left w-[8%]`}>
+                  {item.id}
+                </Text>
+                <Text color={`textColor4`} align={`text-left w-[10%]`}>
+                  {item.type}
+                </Text>
+                <Text color={`textColor4`} align={`text-left w-[15%]`}>
+                  {item.subject}
+                </Text>
+                <Text color={`textColor4`} align={`text-left w-[30%]`}>
+                  {item.notes}
+                </Text>
+                <Text color={`textColor4`} align={`text-left w-[10%]`}>
+                  {item.date}
+                </Text>
+                <SmallText
+                  color={item.status === "Pending" ? "accent" : `islamic`}
+                  align={`text-center w-[17%]`}
+                >
+                  <span
+                    className={`p-2 rounded-md ${
+                      item.status === "Pending"
+                        ? "bg-accent/10"
+                        : `bg-islamic/10`
+                    }`}
                   >
                     {item.status}
-                  </h2>
-                </div>
+                  </span>
+                </SmallText>
+                <SmallText
+                  font={`font-semibold`}
+                  color={`textColor3`}
+                  align={`text-center w-[10%]`}
+                >
+                  <span
+                    onClick={() => handleDetail(item)}
+                    className="text-textColor4 border-textColor4 rounded-md cursor-pointer font-semibold border py-1 px-4"
+                  >
+                    Details
+                  </span>
+                </SmallText>
               </div>
             ))
           ))}

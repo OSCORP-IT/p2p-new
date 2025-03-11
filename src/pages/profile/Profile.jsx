@@ -14,6 +14,7 @@ import { BiError } from "react-icons/bi";
 import Title from "../../components/Title";
 import { MdOutlineVerified } from "react-icons/md";
 import ProfileChangeModal from "./ProfileChangeModal";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function Profile() {
   const user = useSelector((state) => state.auth);
@@ -25,8 +26,13 @@ function Profile() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "investor") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "investor") {
+    <LoadingScreen />;
+  }
   useEffect(() => {
     async function fetchUserData() {
       if (user.isLoggedIn) {

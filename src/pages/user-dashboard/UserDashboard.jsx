@@ -15,6 +15,7 @@ import LoanRepaymentProgress from "./LoanRepaymentProgress";
 import UpcomingPayments from "./UpcomingPayments";
 import RecentTransactions from "./RecentTransactions";
 import LoanDisbursementSchedule from "./LoanDisbursementSchedule";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function UserDashboard() {
   const user = useSelector((state) => state.auth);
@@ -22,8 +23,13 @@ function UserDashboard() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "investor") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "investor") {
+    <LoadingScreen />;
+  }
 
   return (
     <>

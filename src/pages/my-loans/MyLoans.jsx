@@ -10,6 +10,7 @@ import ClosedLoans from "./ClosedLoans";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllLoanCount } from "../../services/loansPortfolio";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function MyLoans() {
   const [activeTab, setActiveTab] = useState("1");
@@ -20,8 +21,13 @@ function MyLoans() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "investor") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "investor") {
+    <LoadingScreen />;
+  }
   useEffect(() => {
     async function fetchAllLoans() {
       try {

@@ -1,5 +1,4 @@
 import InvestmentDashboardLayout from "../investment-dashboard/InvestmentDashboardLayout";
-import Heading2 from "../../components/Heading2";
 import { useEffect, useState } from "react";
 import ToggleButton from "./ToggleButton";
 import SubHeading from "../../components/SubHeading";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { updatePassword } from "../../services/passwordChange";
 import Text from "../../components/Text";
 import SmallText from "../../components/SmallText";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function InvestmentSettings() {
   const user = useSelector((state) => state.auth);
@@ -34,8 +34,13 @@ function InvestmentSettings() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "client") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "client") {
+    <LoadingScreen />;
+  }
   useEffect(() => {
     setValidate({
       lengthValid: newPassword.length >= 8 && newPassword.length <= 16,

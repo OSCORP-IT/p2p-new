@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { updatePassword } from "../../services/passwordChange";
 import Text from "../../components/Text";
 import SmallText from "../../components/SmallText";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function Settings() {
   const user = useSelector((state) => state.auth);
@@ -34,8 +35,13 @@ function Settings() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "investor") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "investor") {
+    <LoadingScreen />;
+  }
   useEffect(() => {
     setValidate({
       lengthValid: newPassword.length >= 8 && newPassword.length <= 16,

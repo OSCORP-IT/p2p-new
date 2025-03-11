@@ -6,7 +6,8 @@ import RecentCommunication from "./RecentCommunication";
 import ContactOptions from "./ContactOptions";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getRecentCommunication } from "../../services/meeting";
+import { getRecentCommunicationInvestment } from "../../services/meeting";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function InvestmentAdminContact() {
   const user = useSelector((state) => state.auth);
@@ -14,8 +15,13 @@ function InvestmentAdminContact() {
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "client") {
+      navigate("/");
     }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "client") {
+    <LoadingScreen />;
+  }
   const [showDetails, setShowDetails] = useState(false);
   const [currentItem, setCurrentItem] = useState("");
   const [data, setData] = useState(null);
@@ -24,11 +30,11 @@ function InvestmentAdminContact() {
   const [isloading, setIsloading] = useState(false);
   const [isError, setIsError] = useState(false);
   useEffect(() => {
-    async function fetchIincompleteLoans() {
+    async function fetchRecentCommunication() {
       if (user.isLoggedIn) {
         try {
           setIsloading(true);
-          const data = await getRecentCommunication(user.userToken);
+          const data = await getRecentCommunicationInvestment(user.userToken);
           setData(data.result.recent_communications);
           setFilteredData(data.result.recent_communications);
           setIsloading(false);
@@ -38,7 +44,7 @@ function InvestmentAdminContact() {
         }
       }
     }
-    fetchIincompleteLoans();
+    fetchRecentCommunication();
   }, [user.isLoggedIn, user.userToken]);
 
   useEffect(() => {
@@ -64,7 +70,10 @@ function InvestmentAdminContact() {
           userToken={user.userToken}
         />
       )}
-      <ContactSchedule />
+      <ContactSchedule
+        setFilteredData={setFilteredData}
+        filteredData={filteredData}
+      />
       <RecentCommunication
         setCurrentItem={setCurrentItem}
         setSearchString={setSearchString}

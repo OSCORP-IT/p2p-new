@@ -4,7 +4,33 @@ import SmallText from "../../components/SmallText";
 import SubHeading from "../../components/SubHeading";
 import Bank from "../../assets/Bank2.svg";
 import SealPercent from "../../assets/SealPercent.svg";
-function InitialOverviews() {
+import { useEffect, useState } from "react";
+import { getInitialInvestmentData } from "../../services/investmentDashboard";
+import Skeleton from "react-loading-skeleton";
+function InitialOverviews({ user }) {
+  const [data, setData] = useState({
+    total_investment: "",
+    expected_return_rate: "",
+    meeting_schedule: "",
+  });
+  const [isloading, setIsloading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  useEffect(() => {
+    async function fetchInitialLoanData() {
+      if (user.isLoggedIn) {
+        try {
+          setIsloading(true);
+          const data = await getInitialInvestmentData(user.userToken);
+          setData(data.result);
+          setIsloading(false);
+        } catch (error) {
+          setIsError(true);
+          setIsloading(false);
+        }
+      }
+    }
+    fetchInitialLoanData();
+  }, [user.userToken, user.isLoggedIn]);
   return (
     <div className="flex flex-wrap sm:flex-nowrap w-full items-center gap-2 tab:gap-3">
       <div className="w-full sm:w-[65%] tab:w-2/3 flex flex-wrap sm:flex-nowrap items-center gap-2 tab:gap-3">
@@ -18,7 +44,15 @@ function InitialOverviews() {
               <SmallText padding={`py-1`} color={`[#0da500]`}>
                 Current Value of your investment
               </SmallText>
-              <Heading2 font={`font-bold font-poppins`}>৳ 500,000,000</Heading2>
+              {isloading ? (
+                <Skeleton count={1} />
+              ) : isError ? (
+                "Error!"
+              ) : (
+                <Heading2 font={`font-bold font-poppins`}>
+                  ৳ {data.total_investment}
+                </Heading2>
+              )}
             </div>
             <div className="p-1 bg-accent rounded-[5px]">
               <img src={Bank} alt="bank" />
@@ -35,7 +69,15 @@ function InitialOverviews() {
               <SmallText padding={`py-1`} color={`[#0da500]`}>
                 Project annual average return
               </SmallText>
-              <Heading2 font={`font-bold font-poppins`}>8.7%</Heading2>
+              {isloading ? (
+                <Skeleton count={1} />
+              ) : isError ? (
+                "Error!"
+              ) : (
+                <Heading2 font={`font-bold font-poppins`}>
+                  ৳ {data.expected_return_rate}
+                </Heading2>
+              )}
             </div>
             <div className="p-1 bg-purple-600 rounded-[5px]">
               <img src={SealPercent} alt="bank" />
@@ -53,9 +95,15 @@ function InitialOverviews() {
             <SmallText padding={`py-1`} color={`[#0da500]`}>
               Next meeting date with authorities
             </SmallText>
-            <Heading2 font={`font-bold font-poppins`}>
-              September 10, 2025
-            </Heading2>
+            {isloading ? (
+              <Skeleton count={1} />
+            ) : isError ? (
+              "Error!"
+            ) : (
+              <Heading2 font={`font-bold font-poppins`}>
+                {data.meeting_schedule.date}
+              </Heading2>
+            )}
           </div>
           <div className="p-1 bg-islamic rounded-[5px]">
             <img src={CalendarDots} alt="bank" />

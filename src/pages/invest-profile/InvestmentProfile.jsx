@@ -14,6 +14,7 @@ import Title from "../../components/Title";
 import { MdOutlineVerified } from "react-icons/md";
 import ProfileChangeModal from "./ProfileChangeModal";
 import InvestmentDashboardLayout from "../investment-dashboard/InvestmentDashboardLayout";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 function InvestmentProfile() {
   const user = useSelector((state) => state.auth);
@@ -22,15 +23,16 @@ function InvestmentProfile() {
   const [showPrifileChange, setShowProfileChange] = useState(false);
   const [isloading, setIsloading] = useState(false);
   const [isError, setIsError] = useState(false);
-  console.log(userData);
   useEffect(() => {
     if (!user.isLoggedIn) {
       navigate("/auth/login");
+    } else if (user.userType === "client") {
+      navigate("/");
     }
-    // if (!user.isLoggedIn) {
-    //   navigate("/auth/login");
-    // }
-  }, [user.isLoggedIn, navigate]);
+  }, [user.isLoggedIn, user.userType, navigate]);
+  if (!user.isLoggedIn || user.userType === "client") {
+    <LoadingScreen />;
+  }
   useEffect(() => {
     async function fetchUserData() {
       if (user.isLoggedIn) {
@@ -78,7 +80,7 @@ function InvestmentProfile() {
             <Title>Error Loading Profile</Title>
           </div>
         )}
-        {userData && (
+        {!isError && !isloading && userData && (
           <>
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-5 mt-5 ">
               <div className="relative">
