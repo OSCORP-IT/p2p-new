@@ -101,8 +101,30 @@ function InvestmentProfile() {
                   <SubTitle padding={`py-0`}>
                     {userData.first_name + " " + userData.last_name}
                   </SubTitle>
-                  {userData.verified_at !== null && (
-                    <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                  {userData.is_email_verified && (
+                    <div className="flex items-center gap-1 bg-islamic/20 p-1 rounded-md">
+                      <MdOutlineVerified className="text-secondary text-[10px] font-bold" />
+                      <p className="text-secondary text-[8px] font-bold">
+                        Email-verified
+                      </p>
+                    </div>
+                  )}
+
+                  {userData.is_identification_number_verified && (
+                    <div className="flex items-center gap-1 bg-blue-500/20 p-1 rounded-md">
+                      <MdOutlineVerified className="text-secondary text-[10px] font-bold" />
+                      <p className="text-secondary text-[8px] font-bold">
+                        NID-verified
+                      </p>
+                    </div>
+                  )}
+                  {userData.is_phone_number_verified && (
+                    <div className="flex items-center gap-1 bg-accent/20 p-1 rounded-md">
+                      <MdOutlineVerified className="text-secondary text-[10px] font-bold" />
+                      <p className="text-secondary text-[8px] font-bold">
+                        Phone-verified
+                      </p>
+                    </div>
                   )}
                 </div>
                 <Text color={`textColor3`} padding={`py-0`}>
@@ -122,6 +144,7 @@ function InvestmentProfile() {
                 <Text font={`font-semibold`}>Full Name</Text>
                 <input
                   type="text"
+                  disabled={userData.is_identification_number_verified}
                   value={userData.first_name + " " + userData.last_name}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
@@ -130,6 +153,7 @@ function InvestmentProfile() {
                 <Text font={`font-semibold`}>Email</Text>
                 <input
                   type="email"
+                  disabled={userData.is_email_verified}
                   value={userData.email}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
@@ -141,6 +165,7 @@ function InvestmentProfile() {
                 <input
                   type="text"
                   value={userData.phone_number}
+                  disabled={userData.is_phone_number_verified}
                   className="p-2 border text-textColor4 border-textColor3 rounded-md w-full"
                 />
               </div>
@@ -148,6 +173,7 @@ function InvestmentProfile() {
                 <Text font={`font-semibold`}>Date of Birth</Text>
                 <Datepicker
                   rounded={true}
+                  disabled={userData.is_identification_number_verified}
                   dateFormat={`dd/MM/YYYY`}
                   date={userData.date_of_birth}
                   textColor={`text-textColor4`}

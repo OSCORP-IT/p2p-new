@@ -9,11 +9,14 @@ import SubHeading from "../../components/SubHeading";
 import Text from "../../components/Text";
 import SmallText from "../../components/SmallText";
 import {
-  getDetailMeetingSchedule,
+  getDetailMeetingScheduleInvestor,
   getDetailSupportTicketInvestor,
-  postTicketComment,
+  postTicketCommentInvestor,
 } from "../../services/meeting";
-import { formatDateTimeTo12Hours } from "../../services/dateFunctions";
+import {
+  formatDateTimeTo12Hours,
+  formatTimeTo12Hour,
+} from "../../services/dateFunctions";
 import { AiOutlineLoading } from "react-icons/ai";
 import Heading2 from "../../components/Heading2";
 import {
@@ -44,9 +47,13 @@ function DetailModal({ setShowDetails, item, userToken }) {
         if (item.type === "Message") {
           const data = await getDetailSupportTicketInvestor(userToken, item.id);
           setTicketData(data.result);
+          console.log(data.result);
           setIsloading(false);
         } else {
-          const data = await getDetailMeetingSchedule(userToken, item.id);
+          const data = await getDetailMeetingScheduleInvestor(
+            userToken,
+            item.id
+          );
           setMeetingData(data.result);
           setIsloading(false);
         }
@@ -61,9 +68,10 @@ function DetailModal({ setShowDetails, item, userToken }) {
   const handleSubmit = async () => {
     setCommentIsLoading(true);
     try {
-      const result = await postTicketComment(user.userToken, item.id, {
+      const result = await postTicketCommentInvestor(user.userToken, item.id, {
         text: comment,
       });
+      console.log(result);
       setTicketData((prevData) => ({
         ...prevData,
         ticket_comments: [...prevData.ticket_comments, result.comment],
@@ -189,7 +197,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                       </div>
                     </div>
                   )}
-                  {item.comment_creator_type === "client" && (
+                  {item.comment_creator_type === "investor" && (
                     <div className="mt-4 w-full flex items-start gap-2">
                       <div className="w-[95%] bg-accent/20 p-2 rounded-md">
                         <SubHeading padding={`py-0`}>
@@ -235,7 +243,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   <Heading2>
                     Meeting ID:{" "}
                     <span className="font-medium text-primary">
-                      {meetingData.meeting.id}
+                      {meetingData.schedule_call.id}
                     </span>
                   </Heading2>
                 </div>
@@ -244,7 +252,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   <Heading2>
                     Type:{" "}
                     <span className="font-medium text-primary">
-                      {meetingData.meeting.type}
+                      {meetingData.schedule_call.type}
                     </span>
                   </Heading2>
                 </div>
@@ -253,7 +261,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   <Heading2>
                     Preferred Date:{" "}
                     <span className="font-medium text-primary">
-                      {meetingData.meeting.preferred_date}
+                      {meetingData.schedule_call.preferred_date}
                     </span>
                   </Heading2>
                 </div>
@@ -262,7 +270,9 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   <Heading2>
                     Preferred Time:{" "}
                     <span className="font-medium text-primary">
-                      {meetingData.meeting.preferred_time}
+                      {formatTimeTo12Hour(
+                        meetingData.schedule_call.preferred_time
+                      )}
                     </span>
                   </Heading2>
                 </div>
@@ -272,14 +282,14 @@ function DetailModal({ setShowDetails, item, userToken }) {
                     Status:{" "}
                     <span
                       className={`font-medium ${
-                        meetingData.meeting.status === "Pending"
+                        meetingData.schedule_call.status === "Pending"
                           ? "text-accent"
-                          : meetingData.meeting.status === "Cancelled"
+                          : meetingData.schedule_call.status === "Cancelled"
                           ? "text-red-500"
                           : "text-islamic"
                       }`}
                     >
-                      {meetingData.meeting.status}
+                      {meetingData.schedule_call.status}
                     </span>
                   </Heading2>
                 </div>
@@ -288,7 +298,7 @@ function DetailModal({ setShowDetails, item, userToken }) {
                   <Heading2>
                     Note:{" "}
                     <span className="font-medium text-primary">
-                      {meetingData.meeting.notes}
+                      {meetingData.schedule_call.notes}
                     </span>
                   </Heading2>
                 </div>

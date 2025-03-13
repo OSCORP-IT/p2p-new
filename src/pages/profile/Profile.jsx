@@ -101,8 +101,30 @@ function Profile() {
                     <SubTitle padding={`py-0`}>
                       {userData.first_name + " " + userData.last_name}
                     </SubTitle>
-                    {userData.verified_at !== "" && (
-                      <MdOutlineVerified className="text-secondary text-xl font-bold" />
+                    {userData.is_email_verified && (
+                      <div className="flex items-center gap-1 bg-islamic/20 p-1 rounded-md">
+                        <MdOutlineVerified className="text-secondary text-[10px] font-bold" />
+                        <p className="text-secondary text-[8px] font-bold">
+                          Email-verified
+                        </p>
+                      </div>
+                    )}
+
+                    {userData.is_identification_number_verified && (
+                      <div className="flex items-center gap-1 bg-blue-500/20 p-1 rounded-md">
+                        <MdOutlineVerified className="text-secondary text-[10px] font-bold" />
+                        <p className="text-secondary text-[8px] font-bold">
+                          NID-verified
+                        </p>
+                      </div>
+                    )}
+                    {userData.is_phone_number_verified && (
+                      <div className="flex items-center gap-1 bg-accent/20 p-1 rounded-md">
+                        <MdOutlineVerified className="text-secondary text-[10px] font-bold" />
+                        <p className="text-secondary text-[8px] font-bold">
+                          Phone-verified
+                        </p>
+                      </div>
                     )}
                   </div>
                   <Text color={`textColor3`} padding={`py-0`}>

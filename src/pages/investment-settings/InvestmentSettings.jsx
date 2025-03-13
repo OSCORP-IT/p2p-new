@@ -5,10 +5,11 @@ import SubHeading from "../../components/SubHeading";
 import PrimaryButton from "../../components/PrimaryButton";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updatePassword } from "../../services/passwordChange";
+import { updatePasswordInvestment } from "../../services/passwordChange";
 import Text from "../../components/Text";
 import SmallText from "../../components/SmallText";
 import LoadingScreen from "../../ui/LoadingScreen";
+import { accountSettingShowInvestor } from "../../services/investorAccountSetting";
 
 function InvestmentSettings() {
   const user = useSelector((state) => state.auth);
@@ -22,6 +23,7 @@ function InvestmentSettings() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [message, setMessage] = useState(null);
+  const [process, setProcess] = useState({ isError: false, isLoading: false });
   const [instruction, setInstruction] = useState(false);
   const [validate, setValidate] = useState({
     lengthValid: false,
@@ -51,6 +53,26 @@ function InvestmentSettings() {
       hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword),
     });
   }, [newPassword]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await accountSettingShowInvestor(user.userToken);
+        console.log(data);
+        setIs2FAEnabled(
+          data.result.account_settings.is_two_factor_authentication
+        );
+        setIsEmailNotificationEnabled(
+          data.result.account_settings.is_email_nis_email_notification
+        );
+        setIsSMSNotificationEnabled(
+          data.result.account_settings.is_sms_notification
+        );
+      } catch (err) {
+        showMessage("failed", `${err.message}`);
+      }
+    }
+    fetchData();
+  }, [user.userToken]);
   const showMessage = (type, text) => {
     setMessage({ type: type, text: text });
     setTimeout(() => {
@@ -58,23 +80,26 @@ function InvestmentSettings() {
     }, 3000); // Message will disappear after 3 seconds
   };
   async function handlePasswordChange() {
+    setProcess({ isError: false, isLoading: true });
     if (Object.values(validate).every((value) => value === true)) {
       try {
-        const result = await updatePassword(user.userToken, {
-          old_password: oldPassword,
-          password: newPassword,
-          password_confirmation: confirmNewPassword,
+        const result = await updatePasswordInvestment(user.userToken, {
+          current_password: oldPassword,
+          new_password: newPassword,
+          new_password_confirmation: confirmNewPassword,
         });
-        console.log(result);
+        setProcess({ isError: false, isLoading: false });
         showMessage("success", result.message);
         setOldPassword("");
         setNewPassword("");
         setConfirmNewPassword("");
       } catch (err) {
+        setProcess({ isError: true, isLoading: false });
         showMessage("failed", err.message);
       }
     } else {
       showMessage("failed", "Invalid Password!!");
+      setProcess({ isError: true, isLoading: false });
     }
   }
 
@@ -169,7 +194,7 @@ function InvestmentSettings() {
           )}
           <div className="pt-2" onClick={handlePasswordChange}>
             <PrimaryButton noIcon={true} bg={`accent`} padding={`py-3 px-10`}>
-              update password
+              {process.isLoading ? "updating" : "update password"}
             </PrimaryButton>
           </div>
         </div>

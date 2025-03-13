@@ -24,7 +24,7 @@ const initialUserState = {
 function Registration() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("client");
   const [userData, setUserData] = useState(initialUserState);
   return (
     <div className="w-full bg-gray-200 sm:min-h-screen tab:h-screen flex sm:items-center">

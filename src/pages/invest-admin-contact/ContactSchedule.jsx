@@ -5,14 +5,14 @@ import Text from "../../components/Text";
 import Datepicker from "../login/Datepicker";
 import {
   createSupportTicketInvestor,
-  scheduleMeeting,
+  scheduleMeetingInvestor,
 } from "../../services/meeting";
 import { useSelector } from "react-redux";
 const initialMeetingData = {
-  type: "",
+  call_type: "",
   preferred_date: "",
   preferred_time: "",
-  notes: "A generic note",
+  notes: "A meeting schedule is requested",
 };
 const initialTicketData = {
   subject: "",
@@ -32,9 +32,10 @@ function ContactSchedule({ setFilteredData, filteredData }) {
   };
   async function handleMeeting() {
     try {
-      const result = await scheduleMeeting(user.userToken, response);
+      const result = await scheduleMeetingInvestor(user.userToken, response);
       result.success &&
         showMessage("success", "Meeting Scedule Application Submitted");
+      setFilteredData([...filteredData, { ...result.result.schedule_call }]);
     } catch (err) {
       showMessage("failed", "Sorry! Somthing went Wrong! Try Again");
     }
@@ -50,8 +51,6 @@ function ContactSchedule({ setFilteredData, filteredData }) {
         ...filteredData,
         {
           ...result.result.ticket,
-          type: "Message",
-          notes: result.result.ticket.message,
         },
       ]);
     } catch (err) {
@@ -127,15 +126,15 @@ function ContactSchedule({ setFilteredData, filteredData }) {
             <Text font={`font-semibold`}>Meeting Type</Text>
             <select
               onChange={(e) =>
-                setResponse({ ...response, type: e.target.value })
+                setResponse({ ...response, call_type: e.target.value })
               }
               id="subject"
               className="w-full rounded-md border p-2 border-textColor3 text-textColor3"
             >
               <option value="">Select a meeting type</option>
-              <option value="online">Online Meeting</option>
-              <option value="phone-call">A Phone Call</option>
-              <option value="in-house">In House Meet</option>
+              <option value="Online">Online Meeting</option>
+              <option value="Phone-call">A Phone Call</option>
+              <option value="In-house">In House Meet</option>
             </select>
           </div>
           <div className="mt-2 tab:mt-3">

@@ -75,6 +75,28 @@ function RegistrationStepOne({
     <div className="w-full sm:w-3/4 tab:w-2/3 m-auto">
       <Heading2>Create your account</Heading2>
       <form onSubmit={handleSubmit}>
+        <div className="w-full flex flex-col tab:flex-row items-center tab:my-2">
+          <div
+            onClick={() => setUserType("client")}
+            className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-l-md text-center ${
+              userType === "client"
+                ? "bg-primary text-white"
+                : "bg-white text-primary"
+            }`}
+          >
+            As Client
+          </div>
+          <div
+            onClick={() => setUserType("investor")}
+            className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-r-md text-center ${
+              userType === "investor"
+                ? "bg-primary text-white"
+                : "bg-white text-primary"
+            }`}
+          >
+            As investor
+          </div>
+        </div>
         <div className="w-full flex flex-col tab:flex-row gap-2 tab:gap-4 items-center py-1 tab:py-2">
           <Input
             width={`w-full tab:w-1/2`}
@@ -154,19 +176,6 @@ function RegistrationStepOne({
                 }
               ></Input>
             </div>
-          </div>
-          <div className="w-full">
-            <select
-              name="userType"
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-              required
-              className="p-2 tab:p-3 w-full border border-gray-400 rounded-md appearance-none"
-            >
-              <option value="">Select User Type</option>
-              <option value="client">Client</option>
-              <option value="investor">Investor</option>
-            </select>
           </div>
         </div>
         {err !== "" && (

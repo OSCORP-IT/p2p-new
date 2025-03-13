@@ -2,12 +2,7 @@ import SideBg from "../../assets/logInBg.jpeg";
 import Logo from "../../assets/BlackLogo.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  RiArrowDownCircleLine,
-  RiEyeCloseLine,
-  RiEyeLine,
-  RiLockPasswordLine,
-} from "react-icons/ri";
+import { RiEyeCloseLine, RiEyeLine, RiLockPasswordLine } from "react-icons/ri";
 import { BiEnvelope } from "react-icons/bi";
 import SubTitle from "../../components/SubTitle";
 import { HiLockClosed } from "react-icons/hi2";
@@ -26,7 +21,7 @@ function LogIn() {
   const user = useSelector((state) => state.auth);
   const [password, setPassword] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("client");
   const [isLoading, setIsLoading] = useState(false);
   const [floatingNote, setFloatingNote] = useState({ state: false, msg: "" });
   const [see, setSee] = useState(false);
@@ -127,7 +122,29 @@ function LogIn() {
                 userType === "investor" ? handleLoginInvestor : handleLogin
               }
             >
-              <div className="relative my-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
+              <div className="relative my-2 m-auto rounded-md border w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center">
+                <div
+                  onClick={() => setUserType("client")}
+                  className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-l-md text-center ${
+                    userType === "client"
+                      ? "bg-primary text-white"
+                      : "bg-white text-primary"
+                  }`}
+                >
+                  As Client
+                </div>
+                <div
+                  onClick={() => setUserType("investor")}
+                  className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-r-md text-center ${
+                    userType === "investor"
+                      ? "bg-primary text-white"
+                      : "bg-white text-primary"
+                  }`}
+                >
+                  As investor
+                </div>
+              </div>
+              <div className="relative mt-4 mb-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
                 <div className="absolute left-2 top-[30%] w-max">
                   <BiEnvelope className="text-xl" />
                 </div>
@@ -164,23 +181,7 @@ function LogIn() {
                   {see && <RiEyeCloseLine className="text-xl" />}
                 </div>
               </div>
-              <div className="relative mt-4 mb-2 m-auto rounded-md border border-dashed w-full sm:w-3/4 tab:w-1/2 border-gray-400 flex items-center gap-2">
-                <div className="absolute left-2 top-[30%] w-max">
-                  {<RiArrowDownCircleLine className="text-xl" />}
-                </div>
-                <select
-                  name="type"
-                  id="type"
-                  required
-                  className="py-3 px-8 w-full rounded-md appearance-none"
-                  value={userType}
-                  onChange={(e) => setUserType(e.target.value)}
-                >
-                  <option value="">Select Account Type</option>
-                  <option value="investor">Investor</option>
-                  <option value="client">Client</option>
-                </select>
-              </div>
+
               <div
                 onClick={() => navigate("/auth/forgot-password")}
                 className="cursor-pointer flex gap-1 items-center justify-end w-full sm:w-3/4 tab:w-1/2 m-auto"

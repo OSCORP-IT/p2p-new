@@ -9,10 +9,12 @@ const Datepicker = ({
   rounded,
   placeholder,
   textColor,
+  disabled,
 }) => {
   return (
     <div className="relative">
       <DatePicker
+        disabled={disabled}
         dateFormat={dateFormat}
         selected={date}
         name={name}
