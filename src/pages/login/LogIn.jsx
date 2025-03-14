@@ -127,7 +127,7 @@ function LogIn() {
                   onClick={() => setUserType("client")}
                   className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-l-md text-center ${
                     userType === "client"
-                      ? "bg-primary text-white"
+                      ? "bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] text-white"
                       : "bg-white text-primary"
                   }`}
                 >
@@ -137,7 +137,7 @@ function LogIn() {
                   onClick={() => setUserType("investor")}
                   className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-r-md text-center ${
                     userType === "investor"
-                      ? "bg-primary text-white"
+                      ? "bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] text-white"
                       : "bg-white text-primary"
                   }`}
                 >

@@ -3,7 +3,10 @@ import Text from "../../components/Text";
 import Cross from "../../icon/Cross";
 import CheckGreen from "../../icon/CheckGreen";
 import { useEffect, useState } from "react";
-import { registrationRequest } from "../../services/Authentication";
+import {
+  registrationRequest,
+  registrationRequestInvestor,
+} from "../../services/Authentication";
 import { logIn } from "../../features/authentication/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -56,43 +59,87 @@ function RegistrationStepThree({ setPage, data, setData, userType }) {
       return;
     } else {
       if (Object.values(validate).every((value) => value === true)) {
-        try {
-          setIsLoading(true);
-          const response = await registrationRequest(data);
+        if (userType === "client") {
+          try {
+            setIsLoading(true);
+            const response = await registrationRequest(data);
 
-          if (response && response.success) {
-            // Dispatch the logIn action with the user data
+            if (response && response.success) {
+              // Dispatch the logIn action with the user data
+              setFloatingNote({
+                state: true,
+                msg: response.message,
+              });
+              setTimeout(() => {
+                setFloatingNote({ state: false, msg: "" });
+              }, 3000);
+              dispatch(
+                logIn({
+                  token: response.result.token,
+                  userType: userType,
+                  name: response.result.client.first_name,
+                  profileImage: response.result.client.profile_image,
+                })
+              );
+              setIsLoading(false);
+              navigate("/");
+            } else {
+              setFloatingNote({
+                state: true,
+                msg: response.message || "Something Wrong",
+              });
+              setIsLoading(false);
+            }
+          } catch (err) {
             setFloatingNote({
               state: true,
-              msg: response.message,
-            });
-            setTimeout(() => {
-              setFloatingNote({ state: false, msg: "" });
-            }, 3000);
-            dispatch(
-              logIn({
-                token: response.result.token,
-                name: response.result.client.first_name,
-                profileImage: response.result.client.profile_image,
-              })
-            );
-            setIsLoading(false);
-            navigate("/");
-          } else {
-            setFloatingNote({
-              state: true,
-              msg: response.message || "Something Wrong",
+              msg: err.message,
             });
             setIsLoading(false);
           }
-        } catch (err) {
-          setFloatingNote({
-            state: true,
-            msg: err.message,
-          });
-          setIsLoading(false);
+          return;
         }
-        return;
+        if (userType === "investor") {
+          console.log("holy shet");
+          try {
+            setIsLoading(true);
+            console.log("iam here");
+            const response = await registrationRequestInvestor(data);
+
+            if (response && response.success) {
+              // Dispatch the logIn action with the user data
+              setFloatingNote({
+                state: true,
+                msg: response.message,
+              });
+              setTimeout(() => {
+                setFloatingNote({ state: false, msg: "" });
+              }, 3000);
+              dispatch(
+                logIn({
+                  token: response.result.token,
+                  userType: userType,
+                  name: response.result.investor.first_name,
+                  profileImage: response.result.investor.profile_image,
+                })
+              );
+              setIsLoading(false);
+              navigate("/");
+            } else {
+              setFloatingNote({
+                state: true,
+                msg: response.message || "Something Wrong",
+              });
+              setIsLoading(false);
+            }
+          } catch (err) {
+            setFloatingNote({
+              state: true,
+              msg: err.message,
+            });
+            setIsLoading(false);
+          }
+        }
       }
     }
   }

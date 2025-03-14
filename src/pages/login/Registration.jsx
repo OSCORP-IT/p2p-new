@@ -45,7 +45,11 @@ function Registration() {
           />
         )}
         {page === 2 && (
-          <RegistrationStepTwo setPage={setPage} data={userData} />
+          <RegistrationStepTwo
+            setPage={setPage}
+            data={userData}
+            userType={userType}
+          />
         )}
         {page === 3 && (
           <RegistrationStepThree

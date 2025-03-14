@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import Input from "./Input";
 import DatePicker from "./Datepicker";
-import { userPhoneNumberCheck } from "../../services/Authentication";
+import {
+  userPhoneNumberCheck,
+  userPhoneNumberCheckInvestor,
+} from "../../services/Authentication";
 import Text from "../../components/Text";
 
 function RegistrationStepOne({
@@ -42,8 +45,28 @@ function RegistrationStepOne({
         }
       }
     };
-    checkPhoneNumber();
-  }, [isSubmitted, isValid]);
+    const checkPhoneNumberInvestor = async () => {
+      console.log("iam here");
+      if (isSubmitted && isValid) {
+        try {
+          const response = await userPhoneNumberCheckInvestor(
+            data.mobile_number
+          );
+          if (response.number_already_exists) {
+            setIsSubmitted(() => false);
+            setIsvalid(() => false);
+            setErr("Already Registered");
+          } else setPage(2); // Return boolean directly
+        } catch (error) {
+          setIsSubmitted(() => false);
+          setIsvalid(() => false);
+          setErr(error.message);
+          return;
+        }
+      }
+    };
+    userType === "client" ? checkPhoneNumber() : checkPhoneNumberInvestor();
+  }, [isSubmitted, data.mobile_number, setPage, userType, isValid]);
   function checkFilling() {
     if (
       data.first_name === "" ||
@@ -80,7 +103,7 @@ function RegistrationStepOne({
             onClick={() => setUserType("client")}
             className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-l-md text-center ${
               userType === "client"
-                ? "bg-primary text-white"
+                ? "bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] text-white"
                 : "bg-white text-primary"
             }`}
           >
@@ -90,7 +113,7 @@ function RegistrationStepOne({
             onClick={() => setUserType("investor")}
             className={`w-1/2 cursor-pointer text-xl p-2 font-semibold capitalize rounded-r-md text-center ${
               userType === "investor"
-                ? "bg-primary text-white"
+                ? "bg-gradient-to-r from-[#0D5152] to-[#1DB6B8] text-white"
                 : "bg-white text-primary"
             }`}
           >
@@ -127,7 +150,7 @@ function RegistrationStepOne({
             className="p-2 tab:p-3 w-full tab:w-1/2 border border-gray-400 rounded-md text-textColor3"
           >
             <option value="">Select Identification Type</option>
-            <option value="nid">NID</option>
+            <option value="NID">NID</option>
             <option value="passport">Passport</option>
           </select>
           <Input

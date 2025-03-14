@@ -4,8 +4,8 @@ import SmallText from "../../components/SmallText";
 import { useEffect, useState } from "react";
 import Heading2 from "../../components/Heading2";
 import Input from "./Input";
-import { otpVerify } from "../../services/Authentication";
-function RegistrationStepTwo({ setPage, data }) {
+import { otpVerify, otpVerifyInvestor } from "../../services/Authentication";
+function RegistrationStepTwo({ setPage, data, userType }) {
   const [seconds, setSeconds] = useState(60);
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +17,39 @@ function RegistrationStepTwo({ setPage, data }) {
     try {
       setIsLoading(true);
       const response = await otpVerify(data.mobile_number, otp);
+
+      if (response && response.success) {
+        // Dispatch the logIn action with the user data
+        setFloatingNote({
+          state: true,
+          msg: response.message,
+        });
+        setTimeout(() => {
+          setFloatingNote({ state: false, msg: "" });
+        }, 3000);
+        setPage(3);
+        setIsLoading(false);
+      } else {
+        setFloatingNote({
+          state: true,
+          msg: response.message || "Problem checking OTP",
+        });
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setFloatingNote({
+        state: true,
+        msg: "Incorrect OTP",
+      });
+      setIsLoading(false);
+      console.error("Error:", err);
+    }
+  };
+  const handleOtpVerifyInvestor = async (e) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const response = await otpVerifyInvestor(data.mobile_number, otp);
 
       if (response && response.success) {
         // Dispatch the logIn action with the user data
@@ -72,7 +105,11 @@ function RegistrationStepTwo({ setPage, data }) {
         We have sent a 6 digit code to <strong>{data.mobile_number}</strong>.
         Please insert the code below.
       </Text>
-      <form onSubmit={handleOtpVerify}>
+      <form
+        onSubmit={
+          userType === "client" ? handleOtpVerify : handleOtpVerifyInvestor
+        }
+      >
         <div className="w-full py-2">
           <Input
             placeholder={`Verification Code`}
